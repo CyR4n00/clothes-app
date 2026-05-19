@@ -26,7 +26,7 @@ export default function FinalConfirmationScreen() {
             <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
           ) : (
             <View style={styles.placeholderImage}>
-              <Text>No Img</Text>
+              <Text style={{fontSize: 10, color: '#666'}}>画像なし</Text>
             </View>
           )}
           <Text style={styles.itemName}>{item.name}</Text>

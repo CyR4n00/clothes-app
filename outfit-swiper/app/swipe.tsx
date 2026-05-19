@@ -146,7 +146,7 @@ export default function SwipeScreen() {
         <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
       ) : (
         <View style={styles.placeholderImage}>
-          <Text style={styles.placeholderText}>No Image</Text>
+          <Text style={styles.placeholderText}>画像なし</Text>
         </View>
       )}
       <View style={styles.cardDetails}>

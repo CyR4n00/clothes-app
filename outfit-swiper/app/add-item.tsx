@@ -78,7 +78,7 @@ export default function AddItemScreen() {
           <Image source={{ uri: imageUri }} style={styles.imagePreview} />
         ) : (
           <View style={styles.imagePlaceholder}>
-            <Text style={styles.imagePlaceholderText}>No Image</Text>
+            <Text style={styles.imagePlaceholderText}>画像がありません</Text>
           </View>
         )}
         <View style={styles.imageButtons}>
