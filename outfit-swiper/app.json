@@ -8,7 +8,13 @@
     "scheme": "outfitswiper",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.outfitswiper.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "服の写真を撮影するためにカメラへのアクセスが必要です。",
+        "NSPhotoLibraryUsageDescription": "クローゼットに登録する服の画像を選ぶために、写真ライブラリへのアクセスが必要です。"
+      }
     },
     "android": {
       "adaptiveIcon": {

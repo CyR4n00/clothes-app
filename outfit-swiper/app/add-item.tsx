@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, ActionSheetIOS, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { useOutfitStore } from '../src/store';
@@ -31,6 +31,31 @@ export default function AddItemScreen() {
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
       setImageUri(result.assets[0].uri);
+    }
+  };
+
+  const handleImageOption = () => {
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: ['キャンセル', '写真を撮る', 'ライブラリから選ぶ'],
+          cancelButtonIndex: 0,
+        },
+        (buttonIndex) => {
+          if (buttonIndex === 1) {
+            takePhoto();
+          } else if (buttonIndex === 2) {
+            pickImage();
+          }
+        }
+      );
+    } else {
+      // Android fallback
+      Alert.alert('画像を選択', '', [
+        { text: '写真を撮る', onPress: takePhoto },
+        { text: 'ライブラリから選ぶ', onPress: pickImage },
+        { text: 'キャンセル', style: 'cancel' }
+      ]);
     }
   };
 
@@ -81,14 +106,9 @@ export default function AddItemScreen() {
             <Text style={styles.imagePlaceholderText}>画像がありません</Text>
           </View>
         )}
-        <View style={styles.imageButtons}>
-          <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-            <Text style={styles.imageButtonText}>ギャラリーから</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.imageButton} onPress={takePhoto}>
-            <Text style={styles.imageButtonText}>カメラで撮影</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.imageButton} onPress={handleImageOption}>
+          <Text style={styles.imageButtonText}>画像を選択する</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.formSection}>

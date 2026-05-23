@@ -65,6 +65,11 @@ export default function ClosetScreen() {
           <Ionicons name="settings" size={28} color="#666" />
           <Text style={styles.iconButtonText}>設定</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/paywall')}>
+          <Ionicons name="diamond" size={28} color="#FFD700" />
+          <Text style={styles.iconButtonText}>AI提案</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
