@@ -1,61 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView } from 'react-native';
-import Purchases, { PurchasesPackage } from 'react-native-purchases';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PaywallScreen() {
   const router = useRouter();
-  const [packages, setPackages] = useState<PurchasesPackage[]>([]);
   const [isPurchasing, setIsPurchasing] = useState(false);
 
-  useEffect(() => {
-    const fetchOfferings = async () => {
-      try {
-        const offerings = await Purchases.getOfferings();
-        if (offerings.current !== null && offerings.current.availablePackages.length !== 0) {
-          setPackages(offerings.current.availablePackages);
-        }
-      } catch (e: any) {
-        console.warn('RevenueCat設定エラー:', e.message);
-      }
-    };
+  // モックのプランデータ（WebやExpo Goで表示確認するため）
+  const mockPackages = [
+    { identifier: 'monthly', title: '月額プラン', priceString: '¥500' },
+    { identifier: 'yearly', title: '年間プラン', priceString: '¥5,000' }
+  ];
 
-    fetchOfferings();
-  }, []);
-
-  const handlePurchase = async (pkg: PurchasesPackage) => {
+  const handlePurchase = async () => {
     setIsPurchasing(true);
-    try {
-      const { customerInfo } = await Purchases.purchasePackage(pkg);
-      if (typeof customerInfo.entitlements.active['Premium'] !== "undefined") {
-        Alert.alert('購入完了', 'プレミアムプランの登録が完了しました！');
-        router.back();
-      }
-    } catch (e: any) {
-      if (!e.userCancelled) {
-        Alert.alert('エラー', e.message);
-      }
-    } finally {
+    setTimeout(() => {
       setIsPurchasing(false);
-    }
+      if (Platform.OS === 'web') {
+        window.alert('購入完了: プレミアムプランの登録が完了しました！（モック）');
+      } else {
+        Alert.alert('購入完了', 'プレミアムプランの登録が完了しました！（モック）');
+      }
+      router.back();
+    }, 1000);
   };
 
   const handleRestore = async () => {
     setIsPurchasing(true);
-    try {
-      const customerInfo = await Purchases.restorePurchases();
-      if (typeof customerInfo.entitlements.active['Premium'] !== "undefined") {
-        Alert.alert('復元完了', 'プレミアムプランを復元しました。');
-        router.back();
-      } else {
-        Alert.alert('復元失敗', '有効なサブスクリプションが見つかりませんでした。');
-      }
-    } catch (e: any) {
-      Alert.alert('エラー', e.message);
-    } finally {
+    setTimeout(() => {
       setIsPurchasing(false);
-    }
+      if (Platform.OS === 'web') {
+        window.alert('復元完了: プレミアムプランを復元しました。（モック）');
+      } else {
+        Alert.alert('復元完了', 'プレミアムプランを復元しました。（モック）');
+      }
+      router.back();
+    }, 1000);
   };
 
   return (
@@ -71,21 +52,17 @@ export default function PaywallScreen() {
       </View>
 
       <View style={styles.packagesContainer}>
-        {packages.length > 0 ? (
-          packages.map((pkg) => (
-            <TouchableOpacity
-              key={pkg.identifier}
-              style={styles.packageCard}
-              onPress={() => handlePurchase(pkg)}
-              disabled={isPurchasing}
-            >
-              <Text style={styles.packageName}>{pkg.product.title}</Text>
-              <Text style={styles.packagePrice}>{pkg.product.priceString}</Text>
-            </TouchableOpacity>
-          ))
-        ) : (
-          <Text style={styles.loadingText}>プランを読み込み中、または設定が完了していません。</Text>
-        )}
+        {mockPackages.map((pkg) => (
+          <TouchableOpacity
+            key={pkg.identifier}
+            style={styles.packageCard}
+            onPress={() => handlePurchase()}
+            disabled={isPurchasing}
+          >
+            <Text style={styles.packageName}>{pkg.title}</Text>
+            <Text style={styles.packagePrice}>{pkg.priceString}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {isPurchasing && <ActivityIndicator size="large" color="#FF2D55" style={{ marginTop: 20 }} />}

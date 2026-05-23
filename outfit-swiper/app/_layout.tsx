@@ -1,13 +1,7 @@
-import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { setupRevenueCat } from '../src/lib/revenuecat';
 
 export default function Layout() {
-  useEffect(() => {
-    setupRevenueCat();
-  }, []);
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack>

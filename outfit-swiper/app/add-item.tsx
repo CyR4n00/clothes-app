@@ -35,7 +35,14 @@ export default function AddItemScreen() {
   };
 
   const handleImageOption = () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'web') {
+      const choice = window.confirm("OKでライブラリから選択、キャンセルで写真を撮影します");
+      if (choice) {
+        pickImage();
+      } else {
+        takePhoto();
+      }
+    } else if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
         {
           options: ['キャンセル', '写真を撮る', 'ライブラリから選ぶ'],
