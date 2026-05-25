@@ -18,6 +18,12 @@ export default function FinalConfirmationScreen() {
     const item = currentOutfit[category];
     if (!item) return null;
 
+    let emoji = '👕';
+    if (category === 'シューズ') emoji = '👟';
+    if (category === 'パンツ') emoji = '👖';
+    if (category === 'アウター') emoji = '🧥';
+    if (category === 'アクセサリー') emoji = '🧢';
+
     return (
       <View key={category} style={styles.outfitRow}>
         <Text style={styles.categoryLabel}>{category}</Text>
@@ -26,7 +32,7 @@ export default function FinalConfirmationScreen() {
             <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
           ) : (
             <View style={styles.placeholderImage}>
-              <Text style={{fontSize: 10, color: '#666'}}>画像なし</Text>
+              <Text style={{fontSize: 24}}>{emoji}</Text>
             </View>
           )}
           <Text style={styles.itemName}>{item.name}</Text>

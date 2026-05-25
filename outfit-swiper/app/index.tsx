@@ -20,9 +20,11 @@ export default function ClosetScreen() {
   }, []);
 
   const renderItem = ({ item }: { item: ClothingItem }) => {
-    let IconComponent = <Ionicons name="shirt-outline" size={40} color="#A78BFA" />;
-    if (item.category === 'シューズ') IconComponent = <Ionicons name="footsteps-outline" size={40} color="#A78BFA" />;
-    if (item.category === 'パンツ') IconComponent = <Ionicons name="accessibility-outline" size={40} color="#A78BFA" />;
+    let emoji = '👕';
+    if (item.category === 'シューズ') emoji = '👟';
+    if (item.category === 'パンツ') emoji = '👖';
+    if (item.category === 'アウター') emoji = '🧥';
+    if (item.category === 'アクセサリー') emoji = '🧢';
 
     return (
       <View style={styles.itemCard}>
@@ -30,7 +32,7 @@ export default function ClosetScreen() {
           <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            {IconComponent}
+            <Text style={{fontSize: 40}}>{emoji}</Text>
           </View>
         )}
         <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
@@ -46,14 +48,14 @@ export default function ClosetScreen() {
     >
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>Hello,</Text>
-          <Text style={styles.headerTitle}>Select Your{'\n'}Outfit!</Text>
+          <Text style={styles.greeting}>こんにちは、</Text>
+          <Text style={styles.headerTitle}>今日の服を{'\n'}決めましょう！</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Your Closet</Text>
+          <Text style={styles.sectionTitle}>あなたのクローゼット</Text>
           <TouchableOpacity onPress={() => router.push('/add-item')} style={styles.addButton}>
-            <Ionicons name="add" size={20} color="#A78BFA" />
+            <Text style={{color: '#A78BFA', fontSize: 24, lineHeight: 26, fontWeight: 'bold'}}>+</Text>
           </TouchableOpacity>
         </View>
 
@@ -66,16 +68,16 @@ export default function ClosetScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
-              <Ionicons name="cube-outline" size={60} color="#C4B5FD" />
-              <Text style={styles.emptyText}>No items yet</Text>
-              <Text style={styles.emptySubText}>Add clothes to get started</Text>
+              <Text style={styles.emptyIcon}>📦</Text>
+              <Text style={styles.emptyText}>服がありません</Text>
+              <Text style={styles.emptySubText}>上の「+」ボタンから追加してください</Text>
             </View>
           }
         />
 
         <View style={styles.floatingNav}>
           <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
-            <Ionicons name="sparkles-outline" size={24} color="#8B5CF6" />
+            <Text style={{fontSize: 24}}>✨</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
@@ -83,12 +85,12 @@ export default function ClosetScreen() {
               colors={['#A78BFA', '#8B5CF6']}
               style={styles.mainNavGradient}
             >
-              <Ionicons name="play" size={28} color="#FFF" style={{ marginLeft: 4 }} />
+              <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
             </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.navItem} onPress={() => router.push('/macro-settings')}>
-            <Ionicons name="options-outline" size={24} color="#8B5CF6" />
+            <Text style={{fontSize: 24}}>⚙️</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
   itemCategory: { fontSize: 12, color: '#8B5CF6', fontWeight: '500' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
   emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#8B5CF6', fontWeight: 'bold' },
+  emptyIcon: { fontSize: 60 },
   emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#A78BFA' },
   floatingNav: {
     position: 'absolute',

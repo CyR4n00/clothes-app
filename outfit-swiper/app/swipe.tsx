@@ -140,27 +140,35 @@ export default function SwipeScreen() {
     };
   };
 
-  const renderCard = (item: ClothingItem) => (
-    <View style={styles.card}>
-      {item.imageUrl ? (
-        <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
-      ) : (
-        <View style={styles.placeholderImage}>
-          <Text style={styles.placeholderText}>画像なし</Text>
+  const renderCard = (item: ClothingItem) => {
+    let emoji = '👕';
+    if (item.category === 'シューズ') emoji = '👟';
+    if (item.category === 'パンツ') emoji = '👖';
+    if (item.category === 'アウター') emoji = '🧥';
+    if (item.category === 'アクセサリー') emoji = '🧢';
+
+    return (
+      <View style={styles.card}>
+        {item.imageUrl ? (
+          <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
+        ) : (
+          <View style={styles.placeholderImage}>
+            <Text style={{fontSize: 80}}>{emoji}</Text>
+          </View>
+        )}
+        <View style={styles.cardDetails}>
+          <Text style={styles.cardName}>{item.name}</Text>
+          <Text style={styles.cardCategory}>{item.category}</Text>
         </View>
-      )}
-      <View style={styles.cardDetails}>
-        <Text style={styles.cardName}>{item.name}</Text>
-        <Text style={styles.cardCategory}>{item.category}</Text>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>現在選択中: {currentCategory}</Text>
-        <Text style={styles.subHeaderText}>右: 決定 | 左: キャンセル | 上: キープ</Text>
+        <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
+        <Text style={styles.subHeaderText}>右: 決定 | 左: パス | 上: 後回し</Text>
       </View>
 
       <View style={styles.deckContainer}>
