@@ -33,6 +33,7 @@ export default function SwipeScreen() {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
+    onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gesture) => {
       position.setValue({ x: gesture.dx, y: gesture.dy });
     },
@@ -136,7 +137,8 @@ export default function SwipeScreen() {
     });
     return {
       ...position.getLayout(),
-      transform: [{ rotate }]
+      transform: [{ rotate }],
+      cursor: 'grab' as any
     };
   };
 

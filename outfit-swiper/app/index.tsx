@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { Category, ClothingItem } from '../src/types';
@@ -9,7 +8,6 @@ import { Category, ClothingItem } from '../src/types';
 const { width } = Dimensions.get('window');
 
 export default function ClosetScreen() {
-  const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
   const addMockClothes = useOutfitStore((state) => state.addMockClothes);
 
@@ -54,9 +52,11 @@ export default function ClosetScreen() {
 
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>あなたのクローゼット</Text>
-          <TouchableOpacity onPress={() => router.push('/add-item')} style={styles.addButton}>
-            <Text style={{color: '#A78BFA', fontSize: 24, lineHeight: 26, fontWeight: 'bold'}}>+</Text>
-          </TouchableOpacity>
+          <Link href="/add-item" asChild>
+            <TouchableOpacity style={styles.addButton}>
+              <Text style={{color: '#A78BFA', fontSize: 24, lineHeight: 26, fontWeight: 'bold'}}>+</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
 
         <FlatList
@@ -76,22 +76,28 @@ export default function ClosetScreen() {
         />
 
         <View style={styles.floatingNav}>
-          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
-            <Text style={{fontSize: 24}}>✨</Text>
-          </TouchableOpacity>
+          <Link href="/paywall" asChild>
+            <TouchableOpacity style={styles.navItem}>
+              <Text style={{fontSize: 24}}>✨</Text>
+            </TouchableOpacity>
+          </Link>
 
-          <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
-            <LinearGradient
-              colors={['#A78BFA', '#8B5CF6']}
-              style={styles.mainNavGradient}
-            >
-              <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+          <Link href="/swipe" asChild>
+            <TouchableOpacity style={styles.mainNavButton}>
+              <LinearGradient
+                colors={['#A78BFA', '#8B5CF6']}
+                style={styles.mainNavGradient}
+              >
+                <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </Link>
 
-          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/macro-settings')}>
-            <Text style={{fontSize: 24}}>⚙️</Text>
-          </TouchableOpacity>
+          <Link href="/macro-settings" asChild>
+            <TouchableOpacity style={styles.navItem}>
+              <Text style={{fontSize: 24}}>⚙️</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
   headerTitle: { fontSize: 36, fontWeight: 'bold', color: '#4C1D95', lineHeight: 42 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   sectionTitle: { fontSize: 18, fontWeight: '700', color: '#6D28D9' },
-  addButton: { width: 36, height: 36, borderRadius: 12, backgroundColor: '#EDE9FE', justifyContent: 'center', alignItems: 'center' },
+  addButton: { width: 36, height: 36, borderRadius: 12, backgroundColor: '#EDE9FE', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
     width: (width - 48) / 2,
@@ -153,6 +159,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 20,
     elevation: 10,
+    zIndex: 1000,
   },
   navItem: { padding: 12 },
   mainNavButton: {
