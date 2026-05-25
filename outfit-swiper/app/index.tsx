@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { Category, ClothingItem } from '../src/types';
+
+const { width } = Dimensions.get('window');
 
 export default function ClosetScreen() {
   const router = useRouter();
@@ -16,136 +19,154 @@ export default function ClosetScreen() {
     }
   }, []);
 
-  const renderItem = ({ item }: { item: ClothingItem }) => (
-    <View style={styles.itemCard}>
-      {item.imageUrl ? (
-        <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
-      ) : (
-        <View style={styles.placeholderImage}>
-          <Ionicons name="shirt-outline" size={40} color="#888" />
-          <Text style={styles.placeholderText}>画像なし</Text>
-        </View>
-      )}
-      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-      <View style={styles.categoryBadge}>
+  const renderItem = ({ item }: { item: ClothingItem }) => {
+    let IconComponent = <Ionicons name="shirt-outline" size={40} color="#A78BFA" />;
+    if (item.category === 'シューズ') IconComponent = <Ionicons name="footsteps-outline" size={40} color="#A78BFA" />;
+    if (item.category === 'パンツ') IconComponent = <Ionicons name="accessibility-outline" size={40} color="#A78BFA" />;
+
+    return (
+      <View style={styles.itemCard}>
+        {item.imageUrl ? (
+          <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+        ) : (
+          <View style={styles.placeholderImage}>
+            {IconComponent}
+          </View>
+        )}
+        <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
         <Text style={styles.itemCategory}>{item.category}</Text>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={clothes}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        numColumns={2}
-        contentContainerStyle={styles.listContainer}
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Ionicons name="sad-outline" size={60} color="#ccc" />
-            <Text style={styles.emptyText}>まだクローゼットに服がありません。</Text>
-            <Text style={styles.emptySubText}>下の「＋ 追加」ボタンから登録してください！</Text>
-          </View>
-        }
-      />
+    <LinearGradient
+      colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']}
+      style={styles.container}
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.header}>
+          <Text style={styles.greeting}>Hello,</Text>
+          <Text style={styles.headerTitle}>Select Your{'\n'}Outfit!</Text>
+        </View>
 
-      <View style={styles.bottomButtons}>
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/add-item')}>
-          <Ionicons name="add-circle" size={28} color="#FF2D55" />
-          <Text style={styles.iconButtonText}>追加</Text>
-        </TouchableOpacity>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Your Closet</Text>
+          <TouchableOpacity onPress={() => router.push('/add-item')} style={styles.addButton}>
+            <Ionicons name="add" size={20} color="#A78BFA" />
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.primaryButton} onPress={() => router.push('/swipe')}>
-          <Ionicons name="sparkles" size={24} color="#fff" style={{marginRight: 8}} />
-          <Text style={styles.primaryButtonText}>今日着る服を選ぶ！</Text>
-        </TouchableOpacity>
+        <FlatList
+          data={clothes}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          numColumns={2}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Ionicons name="cube-outline" size={60} color="#C4B5FD" />
+              <Text style={styles.emptyText}>No items yet</Text>
+              <Text style={styles.emptySubText}>Add clothes to get started</Text>
+            </View>
+          }
+        />
 
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
-          <Ionicons name="settings" size={28} color="#666" />
-          <Text style={styles.iconButtonText}>設定</Text>
-        </TouchableOpacity>
+        <View style={styles.floatingNav}>
+          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
+            <Ionicons name="sparkles-outline" size={24} color="#8B5CF6" />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/paywall')}>
-          <Ionicons name="diamond" size={28} color="#FFD700" />
-          <Text style={styles.iconButtonText}>AI提案</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
+            <LinearGradient
+              colors={['#A78BFA', '#8B5CF6']}
+              style={styles.mainNavGradient}
+            >
+              <Ionicons name="play" size={28} color="#FFF" style={{ marginLeft: 4 }} />
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/macro-settings')}>
+            <Ionicons name="options-outline" size={24} color="#8B5CF6" />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F9FA' },
-  listContainer: { padding: 10, paddingBottom: 100 },
+  container: { flex: 1 },
+  safeArea: { flex: 1 },
+  header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
+  greeting: { fontSize: 18, color: '#8B5CF6', fontWeight: '600', marginBottom: 4 },
+  headerTitle: { fontSize: 36, fontWeight: 'bold', color: '#4C1D95', lineHeight: 42 },
+  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#6D28D9' },
+  addButton: { width: 36, height: 36, borderRadius: 12, backgroundColor: '#EDE9FE', justifyContent: 'center', alignItems: 'center' },
+  listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
-    flex: 1,
-    margin: 6,
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 12,
+    width: (width - 48) / 2,
+    margin: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 24,
+    padding: 16,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  itemImage: { width: '100%', aspectRatio: 1, borderRadius: 12, marginBottom: 10 },
-  placeholderImage: {
-    width: '100%',
-    aspectRatio: 1,
-    borderRadius: 12,
-    backgroundColor: '#F1F3F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  placeholderText: { color: '#888', fontSize: 12, marginTop: 4 },
-  itemName: { fontSize: 14, fontWeight: 'bold', color: '#343A40', marginBottom: 4, textAlign: 'center' },
-  categoryBadge: {
-    backgroundColor: '#E9ECEF',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  itemCategory: { fontSize: 10, color: '#495057', fontWeight: '600' },
-  emptyContainer: { alignItems: 'center', marginTop: 100, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 15, fontSize: 16, color: '#495057', fontWeight: 'bold' },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#868E96' },
-  bottomButtons: {
-    position: 'absolute',
-    bottom: 20,
-    left: 15,
-    right: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 5,
   },
-  iconButton: {
-    alignItems: 'center',
+  itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
+  placeholderImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#F5F3FF',
     justifyContent: 'center',
-    width: 60,
+    alignItems: 'center',
+    marginBottom: 12,
   },
-  iconButtonText: { fontSize: 10, color: '#495057', marginTop: 2, fontWeight: '600' },
-  primaryButton: {
+  itemName: { fontSize: 16, fontWeight: '700', color: '#4C1D95', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#8B5CF6', fontWeight: '500' },
+  emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#8B5CF6', fontWeight: 'bold' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#A78BFA' },
+  floatingNav: {
+    position: 'absolute',
+    bottom: 30,
+    alignSelf: 'center',
     flexDirection: 'row',
-    backgroundColor: '#FF2D55',
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 25,
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    marginHorizontal: 15,
+    justifyContent: 'space-around',
+    width: 240,
+    height: 70,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 35,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 10,
   },
-  primaryButtonText: { fontWeight: 'bold', color: '#fff', fontSize: 16 },
+  navItem: { padding: 12 },
+  mainNavButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginTop: -30,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  mainNavGradient: {
+    flex: 1,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
