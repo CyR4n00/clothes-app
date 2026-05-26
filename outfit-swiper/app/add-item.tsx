@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, ActionSheetIOS, Platform } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, ActionSheetIOS, Platform, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { Category } from '../src/types';
 
@@ -86,7 +87,11 @@ export default function AddItemScreen() {
 
   const handleSave = () => {
     if (!name) {
-      Alert.alert('エラー', '服の名前を入力してください。');
+      if (Platform.OS === 'web') {
+        window.alert('エラー: 服の名前を入力してください。');
+      } else {
+        Alert.alert('エラー', '服の名前を入力してください。');
+      }
       return;
     }
 
@@ -98,73 +103,101 @@ export default function AddItemScreen() {
       style: 'casual',
     });
 
-    Alert.alert('成功', '服を追加しました！', [
-      { text: 'OK', onPress: () => router.back() }
-    ]);
+    if (Platform.OS === 'web') {
+      console.log('成功: 服を追加しました！');
+      router.back();
+    } else {
+      Alert.alert('成功', '服を追加しました！', [
+        { text: 'OK', onPress: () => router.back() }
+      ]);
+    }
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.imageSection}>
-        {imageUri ? (
-          <Image source={{ uri: imageUri }} style={styles.imagePreview} />
-        ) : (
-          <View style={styles.imagePlaceholder}>
-            <Text style={styles.imagePlaceholderText}>画像がありません</Text>
+    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.glassCard}>
+            <View style={styles.imageSection}>
+              {imageUri ? (
+                <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+              ) : (
+                <View style={styles.imagePlaceholder}>
+                  <Text style={styles.imagePlaceholderText}>画像がありません</Text>
+                </View>
+              )}
+              <TouchableOpacity style={styles.imageButton} onPress={handleImageOption}>
+                <Text style={styles.imageButtonText}>画像を選択する</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.formSection}>
+              <Text style={styles.label}>名前</Text>
+              <TextInput
+                style={styles.input}
+                value={name}
+                onChangeText={setName}
+                placeholder="例: 白いTシャツ"
+                placeholderTextColor="#A78BFA"
+              />
+
+              <Text style={styles.label}>カテゴリー</Text>
+              <View style={styles.categoryContainer}>
+                {CATEGORIES.map((cat) => (
+                  <TouchableOpacity
+                    key={cat}
+                    style={[styles.categoryButton, category === cat && styles.categoryButtonActive]}
+                    onPress={() => setCategory(cat)}
+                  >
+                    <Text style={[styles.categoryText, category === cat && styles.categoryTextActive]}>{cat}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+                <Text style={styles.saveButtonText}>登録する</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.cancelButton} onPress={() => router.back()}>
+                <Text style={styles.cancelButtonText}>戻る</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        )}
-        <TouchableOpacity style={styles.imageButton} onPress={handleImageOption}>
-          <Text style={styles.imageButtonText}>画像を選択する</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.formSection}>
-        <Text style={styles.label}>名前</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-          placeholder="例: 白いTシャツ"
-        />
-
-        <Text style={styles.label}>カテゴリー</Text>
-        <View style={styles.categoryContainer}>
-          {CATEGORIES.map((cat) => (
-            <TouchableOpacity
-              key={cat}
-              style={[styles.categoryButton, category === cat && styles.categoryButtonActive]}
-              onPress={() => setCategory(cat)}
-            >
-              <Text style={[styles.categoryText, category === cat && styles.categoryTextActive]}>{cat}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>登録する</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  imageSection: { alignItems: 'center', padding: 20, backgroundColor: '#f9f9f9' },
-  imagePreview: { width: 200, height: 200, borderRadius: 10 },
-  imagePlaceholder: { width: 200, height: 200, borderRadius: 10, backgroundColor: '#e0e0e0', justifyContent: 'center', alignItems: 'center' },
-  imagePlaceholderText: { color: '#888' },
-  imageButtons: { flexDirection: 'row', marginTop: 15, gap: 10 },
-  imageButton: { backgroundColor: '#007AFF', padding: 10, borderRadius: 5 },
+  container: { flex: 1 },
+  glassCard: {
+    margin: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 24,
+    padding: 20,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  imageSection: { alignItems: 'center', marginBottom: 20 },
+  imagePreview: { width: 200, height: 200, borderRadius: 20 },
+  imagePlaceholder: { width: 200, height: 200, borderRadius: 20, backgroundColor: '#F5F3FF', justifyContent: 'center', alignItems: 'center' },
+  imagePlaceholderText: { color: '#A78BFA' },
+  imageButton: { backgroundColor: '#8B5CF6', paddingVertical: 12, paddingHorizontal: 20, borderRadius: 20, marginTop: 15 },
   imageButtonText: { color: '#fff', fontWeight: 'bold' },
-  formSection: { padding: 20 },
-  label: { fontSize: 16, fontWeight: 'bold', marginBottom: 5, marginTop: 15 },
-  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, fontSize: 16 },
+  formSection: { },
+  label: { fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginTop: 15, color: '#4C1D95' },
+  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#EDE9FE', borderRadius: 12, padding: 15, fontSize: 16, color: '#4C1D95' },
   categoryContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 5 },
-  categoryButton: { borderWidth: 1, borderColor: '#ccc', borderRadius: 20, paddingVertical: 8, paddingHorizontal: 15 },
-  categoryButtonActive: { backgroundColor: '#007AFF', borderColor: '#007AFF' },
-  categoryText: { color: '#333' },
+  categoryButton: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#EDE9FE', borderRadius: 20, paddingVertical: 10, paddingHorizontal: 15 },
+  categoryButtonActive: { backgroundColor: '#8B5CF6', borderColor: '#8B5CF6' },
+  categoryText: { color: '#6D28D9' },
   categoryTextActive: { color: '#fff', fontWeight: 'bold' },
-  saveButton: { backgroundColor: '#34C759', padding: 15, borderRadius: 10, alignItems: 'center', marginTop: 30 },
+  saveButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 30 },
   saveButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  cancelButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 10 },
+  cancelButtonText: { color: '#8B5CF6', fontSize: 16, fontWeight: 'bold' },
 });

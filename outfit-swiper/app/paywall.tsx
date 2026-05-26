@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PaywallScreen() {
@@ -40,47 +41,63 @@ export default function PaywallScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
-        <Ionicons name="close" size={28} color="#333" />
-      </TouchableOpacity>
+    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+          <Ionicons name="close" size={28} color="#4C1D95" />
+        </TouchableOpacity>
 
-      <View style={styles.header}>
-        <Ionicons name="diamond" size={60} color="#FFD700" />
-        <Text style={styles.title}>プレミアムプラン</Text>
-        <Text style={styles.subtitle}>AIがあなたにぴったりの服を提案！</Text>
-      </View>
+        <View style={styles.glassCard}>
+          <View style={styles.header}>
+            <Ionicons name="diamond" size={60} color="#8B5CF6" />
+            <Text style={styles.title}>プレミアムプラン</Text>
+            <Text style={styles.subtitle}>AIがあなたにぴったりの服を提案！</Text>
+          </View>
 
-      <View style={styles.packagesContainer}>
-        {mockPackages.map((pkg) => (
-          <TouchableOpacity
-            key={pkg.identifier}
-            style={styles.packageCard}
-            onPress={() => handlePurchase()}
-            disabled={isPurchasing}
-          >
-            <Text style={styles.packageName}>{pkg.title}</Text>
-            <Text style={styles.packagePrice}>{pkg.priceString}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+          <View style={styles.packagesContainer}>
+            {mockPackages.map((pkg) => (
+              <TouchableOpacity
+                key={pkg.identifier}
+                style={styles.packageCard}
+                onPress={() => handlePurchase()}
+                disabled={isPurchasing}
+              >
+                <Text style={styles.packageName}>{pkg.title}</Text>
+                <Text style={styles.packagePrice}>{pkg.priceString}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
 
-      {isPurchasing && <ActivityIndicator size="large" color="#FF2D55" style={{ marginTop: 20 }} />}
+          {isPurchasing && <ActivityIndicator size="large" color="#8B5CF6" style={{ marginTop: 20 }} />}
+        </View>
 
-      <TouchableOpacity onPress={handleRestore} style={styles.restoreButton}>
-        <Text style={styles.restoreText}>購入を復元する</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+        <TouchableOpacity onPress={handleRestore} style={styles.restoreButton}>
+          <Text style={styles.restoreText}>購入を復元する</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F9FA' },
-  closeButton: { position: 'absolute', top: 50, right: 20, zIndex: 10 },
-  header: { alignItems: 'center', marginTop: 80, paddingHorizontal: 20 },
-  title: { fontSize: 28, fontWeight: 'bold', marginTop: 20, color: '#343A40' },
-  subtitle: { fontSize: 16, color: '#6C757D', marginTop: 10, textAlign: 'center' },
-  packagesContainer: { marginTop: 40, paddingHorizontal: 20 },
+  container: { flex: 1 },
+  closeButton: { position: 'absolute', top: 50, right: 20, zIndex: 10, padding: 10 },
+  glassCard: {
+    marginHorizontal: 20,
+    marginTop: 100,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 24,
+    padding: 20,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  header: { alignItems: 'center', paddingHorizontal: 20 },
+  title: { fontSize: 28, fontWeight: 'bold', marginTop: 20, color: '#4C1D95' },
+  subtitle: { fontSize: 16, color: '#6D28D9', marginTop: 10, textAlign: 'center', fontWeight: 'bold' },
+  packagesContainer: { marginTop: 40 },
   packageCard: {
     backgroundColor: '#fff',
     padding: 20,
@@ -89,17 +106,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
     borderWidth: 2,
-    borderColor: '#FF2D55'
+    borderColor: '#8B5CF6'
   },
-  packageName: { fontSize: 18, fontWeight: '600', color: '#343A40' },
-  packagePrice: { fontSize: 18, fontWeight: 'bold', color: '#FF2D55' },
-  loadingText: { textAlign: 'center', color: '#868E96' },
+  packageName: { fontSize: 18, fontWeight: 'bold', color: '#4C1D95' },
+  packagePrice: { fontSize: 18, fontWeight: 'bold', color: '#8B5CF6' },
   restoreButton: { marginTop: 'auto', marginBottom: 40, alignItems: 'center' },
-  restoreText: { color: '#868E96', fontSize: 14, textDecorationLine: 'underline' }
+  restoreText: { color: '#8B5CF6', fontSize: 16, fontWeight: 'bold' }
 });

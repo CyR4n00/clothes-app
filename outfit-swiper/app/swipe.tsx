@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { ClothingItem, Category } from '../src/types';
 
@@ -167,44 +168,48 @@ export default function SwipeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
-        <Text style={styles.subHeaderText}>右: 決定 | 左: パス | 上: 後回し</Text>
-      </View>
+    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
+          <Text style={styles.subHeaderText}>右: 決定 | 左: パス | 上: 後回し</Text>
+        </View>
 
-      <View style={styles.deckContainer}>
-        {renderCards()}
-      </View>
-    </View>
+        <View style={styles.deckContainer}>
+          {renderCards()}
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { padding: 20, alignItems: 'center', backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#eee' },
-  headerText: { fontSize: 20, fontWeight: 'bold', color: '#007AFF' },
-  subHeaderText: { fontSize: 14, color: '#666', marginTop: 5 },
+  container: { flex: 1 },
+  header: { padding: 20, alignItems: 'center', marginBottom: 10 },
+  headerText: { fontSize: 28, fontWeight: 'bold', color: '#4C1D95' },
+  subHeaderText: { fontSize: 14, color: '#8B5CF6', marginTop: 5, fontWeight: 'bold' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
-    height: 400,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    shadowColor: '#000',
+    height: 450,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 24,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
+    shadowRadius: 15,
+    elevation: 8,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#EDE9FE',
   },
   cardImage: { flex: 1, width: '100%', height: null, resizeMode: 'cover' },
-  placeholderImage: { flex: 1, backgroundColor: '#e0e0e0', justifyContent: 'center', alignItems: 'center' },
-  placeholderText: { color: '#888', fontSize: 18 },
-  cardDetails: { padding: 20, backgroundColor: 'white' },
-  cardName: { fontSize: 24, fontWeight: 'bold' },
-  cardCategory: { fontSize: 16, color: '#666', marginTop: 5 },
+  placeholderImage: { flex: 1, backgroundColor: '#F5F3FF', justifyContent: 'center', alignItems: 'center' },
+  cardDetails: { padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.9)' },
+  cardName: { fontSize: 24, fontWeight: 'bold', color: '#4C1D95' },
+  cardCategory: { fontSize: 16, color: '#8B5CF6', marginTop: 5, fontWeight: 'bold' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  noMoreText: { fontSize: 18, color: '#666', marginBottom: 20, textAlign: 'center' },
-  skipButton: { backgroundColor: '#007AFF', padding: 15, borderRadius: 10 },
-  skipButtonText: { color: 'white', fontWeight: 'bold' }
+  noMoreText: { fontSize: 18, color: '#6D28D9', marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
+  skipButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15 },
+  skipButtonText: { color: 'white', fontWeight: 'bold', fontSize: 16 }
 });

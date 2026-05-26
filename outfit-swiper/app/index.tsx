@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
-import { Link } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { Category, ClothingItem } from '../src/types';
@@ -8,6 +8,7 @@ import { Category, ClothingItem } from '../src/types';
 const { width } = Dimensions.get('window');
 
 export default function ClosetScreen() {
+  const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
   const addMockClothes = useOutfitStore((state) => state.addMockClothes);
 
@@ -76,28 +77,22 @@ export default function ClosetScreen() {
         />
 
         <View style={styles.floatingNav}>
-          <Link href="/paywall" asChild>
-            <TouchableOpacity style={styles.navItem}>
-              <Text style={{fontSize: 24}}>✨</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
+            <Text style={{fontSize: 24}}>✨</Text>
+          </TouchableOpacity>
 
-          <Link href="/swipe" asChild>
-            <TouchableOpacity style={styles.mainNavButton}>
-              <LinearGradient
-                colors={['#A78BFA', '#8B5CF6']}
-                style={styles.mainNavGradient}
-              >
-                <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
+            <LinearGradient
+              colors={['#A78BFA', '#8B5CF6']}
+              style={styles.mainNavGradient}
+            >
+              <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
+            </LinearGradient>
+          </TouchableOpacity>
 
-          <Link href="/macro-settings" asChild>
-            <TouchableOpacity style={styles.navItem}>
-              <Text style={{fontSize: 24}}>⚙️</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/macro-settings')}>
+            <Text style={{fontSize: 24}}>⚙️</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </LinearGradient>
