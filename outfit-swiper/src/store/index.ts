@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 import { ClothingItem, Category, Outfit } from '../types';
 
 interface OutfitState {
@@ -59,6 +60,21 @@ export const useOutfitStore = create<OutfitState>()(
     {
       name: 'outfit-storage', // AsyncStorageに保存されるキー名
       storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => {
+        // If on web, we might not want to persist base64 images to localStorage to avoid QuotaExceededError
+        if (Platform.OS === 'web') {
+          return {
+            ...state,
+            clothes: state.clothes.map(item => ({
+              ...item,
+              // Keep image if it's a short URL or mock, strip if it's a huge data URI on web
+              imageUrl: item.imageUrl && item.imageUrl.startsWith('data:image') && item.imageUrl.length > 500000
+                        ? undefined : item.imageUrl
+            }))
+          };
+        }
+        return state;
+      },
     }
   )
 );
