@@ -41,7 +41,7 @@ export default function PaywallScreen() {
   };
 
   return (
-    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
           <Ionicons name="close" size={28} color="#4C1D95" />
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   header: { alignItems: 'center', paddingHorizontal: 20 },
-  title: { fontSize: 28, fontWeight: 'bold', marginTop: 20, color: '#4C1D95' },
-  subtitle: { fontSize: 16, color: '#6D28D9', marginTop: 10, textAlign: 'center', fontWeight: 'bold' },
+  title: { fontSize: 28, fontWeight: 'bold', marginTop: 20, color: '#1A1A1A' },
+  subtitle: { fontSize: 16, color: '#666666', marginTop: 10, textAlign: 'center', fontWeight: 'bold' },
   packagesContainer: { marginTop: 40 },
   packageCard: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.8)',
     padding: 20,
     borderRadius: 16,
     flexDirection: 'row',
@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#8B5CF6'
   },
-  packageName: { fontSize: 18, fontWeight: 'bold', color: '#4C1D95' },
-  packagePrice: { fontSize: 18, fontWeight: 'bold', color: '#8B5CF6' },
+  packageName: { fontSize: 18, fontWeight: 'bold', color: '#1A1A1A' },
+  packagePrice: { fontSize: 18, fontWeight: 'bold', color: '#1A1A1A' },
   restoreButton: { marginTop: 'auto', marginBottom: 40, alignItems: 'center' },
-  restoreText: { color: '#8B5CF6', fontSize: 16, fontWeight: 'bold' }
+  restoreText: { color: '#1A1A1A', fontSize: 16, fontWeight: 'bold' }
 });

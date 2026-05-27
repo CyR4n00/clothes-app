@@ -168,7 +168,7 @@ export default function SwipeScreen() {
   };
 
   return (
-    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
@@ -186,8 +186,8 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: { padding: 20, alignItems: 'center', marginBottom: 10 },
-  headerText: { fontSize: 28, fontWeight: 'bold', color: '#4C1D95' },
-  subHeaderText: { fontSize: 14, color: '#8B5CF6', marginTop: 5, fontWeight: 'bold' },
+  headerText: { fontSize: 28, fontWeight: 'bold', color: '#1A1A1A' },
+  subHeaderText: { fontSize: 14, color: '#666666', marginTop: 5, fontWeight: 'bold' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
@@ -204,10 +204,10 @@ const styles = StyleSheet.create({
     borderColor: '#EDE9FE',
   },
   cardImage: { flex: 1, width: '100%', height: null, resizeMode: 'cover' },
-  placeholderImage: { flex: 1, backgroundColor: '#F5F3FF', justifyContent: 'center', alignItems: 'center' },
+  placeholderImage: { flex: 1, backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
   cardDetails: { padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.9)' },
-  cardName: { fontSize: 24, fontWeight: 'bold', color: '#4C1D95' },
-  cardCategory: { fontSize: 16, color: '#8B5CF6', marginTop: 5, fontWeight: 'bold' },
+  cardName: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A' },
+  cardCategory: { fontSize: 16, color: '#666666', marginTop: 5, fontWeight: 'bold' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
   noMoreText: { fontSize: 18, color: '#6D28D9', marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
   skipButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15 },

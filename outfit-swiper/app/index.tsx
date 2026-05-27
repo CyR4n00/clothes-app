@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Image, SafeAreaView, Dimensions } from 'react-native';
 import { useRouter, Link } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
@@ -10,6 +10,14 @@ const { width } = Dimensions.get('window');
 export default function ClosetScreen() {
   const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
+  const [selectedSeason, setSelectedSeason] = useState<string>('すべて');
+
+  const SEASONS = ['すべて', '春', '夏', '秋', '冬', '通年'];
+
+  const filteredClothes = clothes.filter(item => {
+    if (selectedSeason === 'すべて') return true;
+    return item.season === selectedSeason;
+  });
   const addMockClothes = useOutfitStore((state) => state.addMockClothes);
 
   React.useEffect(() => {
@@ -42,7 +50,7 @@ export default function ClosetScreen() {
 
   return (
     <LinearGradient
-      colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']}
+      colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']}
       style={styles.container}
     >
       <SafeAreaView style={styles.safeArea}>
@@ -55,13 +63,28 @@ export default function ClosetScreen() {
           <Text style={styles.sectionTitle}>あなたのクローゼット</Text>
           <Link href="/add-item" asChild>
             <TouchableOpacity style={styles.addButton}>
-              <Text style={{color: '#A78BFA', fontSize: 24, lineHeight: 26, fontWeight: 'bold'}}>+</Text>
+              <Text style={{color: '#1A1A1A', fontSize: 24, lineHeight: 26, fontWeight: 'bold'}}>+</Text>
             </TouchableOpacity>
           </Link>
         </View>
 
+
+        <View style={styles.seasonContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.seasonScroll}>
+            {SEASONS.map(season => (
+              <TouchableOpacity
+                key={season}
+                style={[styles.seasonTab, selectedSeason === season && styles.seasonTabActive]}
+                onPress={() => setSelectedSeason(season)}
+              >
+                <Text style={[styles.seasonTabText, selectedSeason === season && styles.seasonTabTextActive]}>{season}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
         <FlatList
-          data={clothes}
+          data={filteredClothes}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           numColumns={2}
@@ -77,16 +100,19 @@ export default function ClosetScreen() {
         />
 
         <View style={styles.floatingNav}>
+          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/explore')}>
+            <Text style={{fontSize: 24}}>🌍</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
             <Text style={{fontSize: 24}}>✨</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
             <LinearGradient
-              colors={['#A78BFA', '#8B5CF6']}
+              colors={['rgba(255,255,255,0.8)', 'rgba(255,255,255,0.4)']}
               style={styles.mainNavGradient}
             >
-              <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
+              <Text style={{color: '#1A1A1A', fontSize: 24, fontWeight: 'bold'}}>▶</Text>
             </LinearGradient>
           </TouchableOpacity>
 
@@ -103,41 +129,67 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 18, color: '#8B5CF6', fontWeight: '600', marginBottom: 4 },
-  headerTitle: { fontSize: 36, fontWeight: 'bold', color: '#4C1D95', lineHeight: 42 },
+  greeting: { fontSize: 18, color: '#666666', fontWeight: '600', marginBottom: 4 },
+  headerTitle: { fontSize: 36, fontWeight: 'bold', color: '#1A1A1A', lineHeight: 42 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#6D28D9' },
-  addButton: { width: 36, height: 36, borderRadius: 12, backgroundColor: '#EDE9FE', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
+  seasonContainer: { marginBottom: 16 },
+  seasonScroll: { paddingHorizontal: 20, gap: 10 },
+  seasonTab: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.8)',
+  },
+  seasonTabActive: {
+    backgroundColor: '#1A1A1A',
+  },
+  seasonTabText: {
+    color: '#666666',
+    fontWeight: '600',
+  },
+  seasonTabTextActive: {
+    color: '#FFFFFF',
+  },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#333333' },
+  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255, 255, 255, 0.8)', justifyContent: 'center', alignItems: 'center', zIndex: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5, elevation: 2, borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)' },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
     width: (width - 48) / 2,
     margin: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderRadius: 24,
     padding: 16,
     alignItems: 'center',
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
   placeholderImage: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+    //
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#F5F3FF',
+
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontWeight: '700', color: '#4C1D95', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#8B5CF6', fontWeight: '500' },
+  itemName: { fontSize: 16, fontWeight: '700', color: '#1A1A1A', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#666666', fontWeight: '500' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#8B5CF6', fontWeight: 'bold' },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#333333', fontWeight: 'bold' },
   emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#A78BFA' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#1A1A1A' },
   floatingNav: {
     position: 'absolute',
     bottom: 30,
@@ -145,16 +197,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: 240,
+    width: 300,
     height: 70,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     borderRadius: 35,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.15,
-    shadowRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 15,
     elevation: 10,
     zIndex: 1000,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
   },
   navItem: { padding: 12 },
   mainNavButton: {
@@ -162,9 +216,9 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     marginTop: -30,
-    shadowColor: '#8B5CF6',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 8,
   },

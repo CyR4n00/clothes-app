@@ -37,7 +37,7 @@ export default function MacroSettingsScreen() {
   };
 
   return (
-    <LinearGradient colors={['#E5D9F2', '#F5EFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.glassCard}>
@@ -80,35 +80,37 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { padding: 20 },
   glassCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderRadius: 24,
     padding: 20,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
     elevation: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#4C1D95', marginBottom: 10, textAlign: 'center' },
-  description: { fontSize: 14, color: '#6D28D9', marginBottom: 20, textAlign: 'center', lineHeight: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A', marginBottom: 10, textAlign: 'center' },
+  description: { fontSize: 14, color: '#666666', marginBottom: 20, textAlign: 'center', lineHeight: 20 },
   list: { marginBottom: 20 },
   listItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.8)',
     marginBottom: 10,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#EDE9FE',
+    borderColor: 'rgba(0,0,0,0.1)',
   },
-  itemText: { fontSize: 16, fontWeight: 'bold', color: '#4C1D95' },
+  itemText: { fontSize: 16, fontWeight: 'bold', color: '#1A1A1A' },
   controls: { flexDirection: 'row', gap: 10 },
-  controlButton: { padding: 10, backgroundColor: '#F5F3FF', borderRadius: 8 },
-  controlText: { color: '#8B5CF6', fontWeight: 'bold' },
-  saveButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15, alignItems: 'center' },
+  controlButton: { padding: 10, backgroundColor: 'rgba(0,0,0,0.05)', borderRadius: 8 },
+  controlText: { color: '#1A1A1A', fontWeight: 'bold' },
+  saveButton: { backgroundColor: '#1A1A1A', padding: 15, borderRadius: 15, alignItems: 'center' },
   saveButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
   cancelButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 10 },
-  cancelButtonText: { color: '#8B5CF6', fontSize: 16, fontWeight: 'bold' },
+  cancelButtonText: { color: '#1A1A1A', fontSize: 16, fontWeight: 'bold' },
 });
