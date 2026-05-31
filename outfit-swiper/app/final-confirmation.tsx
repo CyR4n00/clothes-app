@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -22,11 +23,11 @@ export default function FinalConfirmationScreen() {
     const item = currentOutfit[category];
     if (!item) return null;
 
-    let emoji = '👕';
-    if (category === 'シューズ') emoji = '👟';
-    if (category === 'パンツ') emoji = '👖';
-    if (category === 'アウター') emoji = '🧥';
-    if (category === 'アクセサリー') emoji = '🧢';
+    let iconName: any = 'shirt';
+    if (category === 'シューズ') iconName = 'footsteps';
+    if (category === 'パンツ') iconName = 'man';
+    if (category === 'アウター') iconName = 'snow';
+    if (category === 'アクセサリー') iconName = 'glasses';
 
     return (
       <View key={category} style={styles.mannequinRow}>
@@ -34,7 +35,7 @@ export default function FinalConfirmationScreen() {
           <Image source={{ uri: item.imageUrl }} style={styles.mannequinImage} />
         ) : (
           <View style={styles.mannequinPlaceholder}>
-            <Text style={{fontSize: 32}}>{emoji}</Text>
+            <Ionicons name={iconName} size={32} color="#666666" />
           </View>
         )}
         <View style={styles.mannequinInfo}>
@@ -47,7 +48,7 @@ export default function FinalConfirmationScreen() {
 
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.scrollArea}>
           <View style={styles.glassCard}>
@@ -76,33 +77,33 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollArea: { padding: 20 },
   glassCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    borderRadius: 30,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
     elevation: 5,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
     marginBottom: 40,
   },
-  title: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, color: '#1A1A1A' },
+  title: { fontSize: 28, fontWeight: '800', textAlign: 'center', marginBottom: 20, color: '#111827' },
   outfitContainer: { marginBottom: 30, alignItems: 'center' },
 
-  categoryLabel: { fontSize: 16, fontWeight: 'bold', color: '#1A1A1A', marginBottom: 5 },
+  categoryLabel: { fontSize: 16, fontWeight: '800', color: '#111827', marginBottom: 5 },
   itemCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     padding: 12,
-    borderRadius: 16,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.08,
     shadowRadius: 5,
     elevation: 2,
   },
@@ -110,23 +111,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     padding: 12,
-    borderRadius: 16,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.08,
     shadowRadius: 5,
     elevation: 2,
     marginBottom: 10,
   },
-  mannequinImage: { width: 80, height: 80, borderRadius: 16, marginRight: 15 },
+  mannequinImage: { width: 80, height: 80, borderRadius: 20, marginRight: 15 },
   mannequinPlaceholder: {
     width: 80,
     height: 80,
-    borderRadius: 16,
+    borderRadius: 20,
     backgroundColor: 'rgba(255,255,255,0.6)',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.8)',
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
   },
   mannequinInfo: { flex: 1 },
 
-  itemName: { fontSize: 18, fontWeight: 'bold', color: '#1A1A1A' },
+  itemName: { fontSize: 18, fontWeight: '800', color: '#111827' },
   adContainer: {
     backgroundColor: 'rgba(255,255,255,0.6)',
     height: 60,
@@ -148,12 +149,12 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.7)',
     borderStyle: 'dashed'
   },
-  adText: { color: '#999999', fontWeight: 'bold' },
+  adText: { color: '#999999', fontWeight: '800' },
   finishButton: {
-    backgroundColor: '#1A1A1A',
+    backgroundColor: '#111827',
     padding: 15,
     borderRadius: 15,
     alignItems: 'center',
   },
-  finishButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  finishButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '800' },
 });

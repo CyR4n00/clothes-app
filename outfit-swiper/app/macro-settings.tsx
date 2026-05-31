@@ -37,7 +37,7 @@ export default function MacroSettingsScreen() {
   };
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.glassCard}>
@@ -80,18 +80,18 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { padding: 20 },
   glassCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    borderRadius: 30,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
     elevation: 5,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
   },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A', marginBottom: 10, textAlign: 'center' },
+  title: { fontSize: 24, fontWeight: '800', color: '#111827', marginBottom: 10, textAlign: 'center' },
   description: { fontSize: 14, color: '#666666', marginBottom: 20, textAlign: 'center', lineHeight: 20 },
   list: { marginBottom: 20 },
   listItem: {
@@ -101,16 +101,16 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: 'rgba(255,255,255,0.8)',
     marginBottom: 10,
-    borderRadius: 16,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.1)',
   },
-  itemText: { fontSize: 16, fontWeight: 'bold', color: '#1A1A1A' },
+  itemText: { fontSize: 16, fontWeight: '800', color: '#111827' },
   controls: { flexDirection: 'row', gap: 10 },
   controlButton: { padding: 10, backgroundColor: 'rgba(0,0,0,0.05)', borderRadius: 8 },
-  controlText: { color: '#1A1A1A', fontWeight: 'bold' },
-  saveButton: { backgroundColor: '#1A1A1A', padding: 15, borderRadius: 15, alignItems: 'center' },
-  saveButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  controlText: { color: '#111827', fontWeight: '800' },
+  saveButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15, alignItems: 'center' },
+  saveButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '800' },
   cancelButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 10 },
-  cancelButtonText: { color: '#1A1A1A', fontSize: 16, fontWeight: 'bold' },
+  cancelButtonText: { color: '#111827', fontSize: 16, fontWeight: '800' },
 });

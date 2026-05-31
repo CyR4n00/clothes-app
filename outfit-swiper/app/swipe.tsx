@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -168,7 +169,7 @@ export default function SwipeScreen() {
   };
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
@@ -186,14 +187,14 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: { padding: 20, alignItems: 'center', marginBottom: 10 },
-  headerText: { fontSize: 28, fontWeight: 'bold', color: '#1A1A1A' },
-  subHeaderText: { fontSize: 14, color: '#666666', marginTop: 5, fontWeight: 'bold' },
+  headerText: { fontSize: 28, fontWeight: '800', color: '#111827' },
+  subHeaderText: { fontSize: 14, color: '#666666', marginTop: 5, fontWeight: '800' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
     height: 450,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: 24,
+    borderRadius: 30,
     shadowColor: '#8B5CF6',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
@@ -206,10 +207,10 @@ const styles = StyleSheet.create({
   cardImage: { flex: 1, width: '100%', height: null, resizeMode: 'cover' },
   placeholderImage: { flex: 1, backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
   cardDetails: { padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.9)' },
-  cardName: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A' },
-  cardCategory: { fontSize: 16, color: '#666666', marginTop: 5, fontWeight: 'bold' },
+  cardName: { fontSize: 24, fontWeight: '800', color: '#111827' },
+  cardCategory: { fontSize: 16, color: '#666666', marginTop: 5, fontWeight: '800' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  noMoreText: { fontSize: 18, color: '#6D28D9', marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
+  noMoreText: { fontSize: 18, color: '#6D28D9', marginBottom: 20, textAlign: 'center', fontWeight: '800' },
   skipButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15 },
-  skipButtonText: { color: 'white', fontWeight: 'bold', fontSize: 16 }
+  skipButtonText: { color: 'white', fontWeight: '800', fontSize: 16 }
 });

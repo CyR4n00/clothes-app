@@ -35,7 +35,7 @@ export default function ExploreScreen() {
   const router = useRouter();
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>みんなのコーデ</Text>
@@ -85,39 +85,39 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(0,0,0,0.05)'
   },
-  headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A' },
+  headerTitle: { fontSize: 24, fontWeight: '800', color: '#111827' },
   backButton: {
     width: 36, height: 36, borderRadius: 18,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     justifyContent: 'center', alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05, shadowRadius: 5, elevation: 2,
+    shadowOpacity: 0.08, shadowRadius: 5, elevation: 2,
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)'
   },
-  backButtonText: { fontSize: 16, color: '#1A1A1A', fontWeight: 'bold' },
+  backButtonText: { fontSize: 16, color: '#111827', fontWeight: '800' },
   scrollArea: { padding: 16, paddingBottom: 100 },
   postCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    borderRadius: 30,
     padding: 16,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
     elevation: 3,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
   },
   postHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   avatar: { width: 40, height: 40, borderRadius: 20, marginRight: 12 },
-  username: { fontSize: 16, fontWeight: 'bold', color: '#1A1A1A' },
-  postImage: { width: '100%', height: 300, borderRadius: 16, marginBottom: 12 },
+  username: { fontSize: 16, fontWeight: '800', color: '#111827' },
+  postImage: { width: '100%', height: 300, borderRadius: 20, marginBottom: 12 },
   postFooter: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.05)'
   },
   actionIcon: { fontSize: 16, marginRight: 6 },
-  actionCount: { fontSize: 14, fontWeight: 'bold', color: '#666666' },
-  description: { fontSize: 14, color: '#333333', lineHeight: 20 },
+  actionCount: { fontSize: 14, fontWeight: '800', color: '#666666' },
+  description: { fontSize: 14, color: '#111827', lineHeight: 20 },
 });

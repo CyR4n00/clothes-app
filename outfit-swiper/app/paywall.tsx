@@ -41,7 +41,7 @@ export default function PaywallScreen() {
   };
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
           <Ionicons name="close" size={28} color="#4C1D95" />
@@ -85,23 +85,23 @@ const styles = StyleSheet.create({
   glassCard: {
     marginHorizontal: 20,
     marginTop: 100,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.45)',
+    borderRadius: 30,
     padding: 20,
     shadowColor: '#8B5CF6',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
+    shadowOpacity: 0.15,
+    shadowRadius: 25,
     elevation: 5,
   },
   header: { alignItems: 'center', paddingHorizontal: 20 },
-  title: { fontSize: 28, fontWeight: 'bold', marginTop: 20, color: '#1A1A1A' },
-  subtitle: { fontSize: 16, color: '#666666', marginTop: 10, textAlign: 'center', fontWeight: 'bold' },
+  title: { fontSize: 28, fontWeight: '800', marginTop: 20, color: '#111827' },
+  subtitle: { fontSize: 16, color: '#666666', marginTop: 10, textAlign: 'center', fontWeight: '800' },
   packagesContainer: { marginTop: 40 },
   packageCard: {
     backgroundColor: 'rgba(255,255,255,0.8)',
     padding: 20,
-    borderRadius: 16,
+    borderRadius: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#8B5CF6'
   },
-  packageName: { fontSize: 18, fontWeight: 'bold', color: '#1A1A1A' },
-  packagePrice: { fontSize: 18, fontWeight: 'bold', color: '#1A1A1A' },
+  packageName: { fontSize: 18, fontWeight: '800', color: '#111827' },
+  packagePrice: { fontSize: 18, fontWeight: '800', color: '#111827' },
   restoreButton: { marginTop: 'auto', marginBottom: 40, alignItems: 'center' },
-  restoreText: { color: '#1A1A1A', fontSize: 16, fontWeight: 'bold' }
+  restoreText: { color: '#111827', fontSize: 16, fontWeight: '800' }
 });

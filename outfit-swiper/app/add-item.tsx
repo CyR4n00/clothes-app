@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, ActionSheetIOS, Platform, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -115,7 +116,7 @@ export default function AddItemScreen() {
   };
 
   return (
-    <LinearGradient colors={['#F8F9FA', '#FFFFFF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.glassCard}>
@@ -187,33 +188,33 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   glassCard: {
     margin: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    borderRadius: 30,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
     elevation: 5,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
   },
   imageSection: { alignItems: 'center', marginBottom: 20 },
   imagePreview: { width: 200, height: 200, borderRadius: 20 },
-  imagePlaceholder: { width: 200, height: 200, borderRadius: 20, backgroundColor: 'rgba(255, 255, 255, 0.8)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
+  imagePlaceholder: { width: 200, height: 200, borderRadius: 20, backgroundColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
   imagePlaceholderText: { color: '#666666' },
-  imageButton: { backgroundColor: '#1A1A1A', paddingVertical: 12, paddingHorizontal: 20, borderRadius: 20, marginTop: 15 },
-  imageButtonText: { color: '#fff', fontWeight: 'bold' },
+  imageButton: { backgroundColor: '#111827', paddingVertical: 12, paddingHorizontal: 20, borderRadius: 20, marginTop: 15 },
+  imageButtonText: { color: '#FFFFFF', fontWeight: '800' },
   formSection: { },
-  label: { fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginTop: 15, color: '#1A1A1A' },
-  input: { backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(0,0,0,0.1)', borderRadius: 12, padding: 15, fontSize: 16, color: '#1A1A1A' },
+  label: { fontSize: 16, fontWeight: '800', marginBottom: 8, marginTop: 15, color: '#111827' },
+  input: { backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(0,0,0,0.1)', borderRadius: 12, padding: 15, fontSize: 16, color: '#111827' },
   categoryContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 5 },
   categoryButton: { backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(0,0,0,0.1)', borderRadius: 20, paddingVertical: 10, paddingHorizontal: 15 },
-  categoryButtonActive: { backgroundColor: '#1A1A1A', borderColor: '#8B5CF6' },
+  categoryButtonActive: { backgroundColor: '#111827', borderColor: '#8B5CF6' },
   categoryText: { color: '#666666' },
-  categoryTextActive: { color: '#fff', fontWeight: 'bold' },
-  saveButton: { backgroundColor: '#1A1A1A', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 30 },
-  saveButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  categoryTextActive: { color: '#FFFFFF', fontWeight: '800' },
+  saveButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 30 },
+  saveButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '800' },
   cancelButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, alignItems: 'center', marginTop: 10 },
-  cancelButtonText: { color: '#666666', fontSize: 16, fontWeight: 'bold' },
+  cancelButtonText: { color: '#666666', fontSize: 16, fontWeight: '800' },
 });
