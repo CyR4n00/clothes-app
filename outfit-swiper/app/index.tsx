@@ -89,7 +89,7 @@ export default function ClosetScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
-              <Ionicons name="file-tray-outline" size={60} color="#000000" />
+              <Ionicons name="file-tray-outline" size={60} color="#A0A0A0" />
               <Text style={styles.emptyText}>服がありません</Text>
               <Text style={styles.emptySubText}>上の「+」ボタンから追加してください</Text>
             </View>
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 14, color: '#4CAF50', marginBottom: 4, fontFamily: 'DotGothic' },
-  headerTitle: { fontSize: 32, fontFamily: 'ZenDots', color: '#E0E0E0', lineHeight: 44, textShadowColor: '#4CAF50', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  greeting: { fontSize: 14, color: '#A0A0A0', marginBottom: 4, fontFamily: 'DotGothic' },
+  headerTitle: { fontSize: 32, fontFamily: 'ZenDots', color: '#FFFFFF', lineHeight: 44, textShadowColor: '#FFFFFF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
   seasonScroll: { paddingHorizontal: 20, gap: 10 },
@@ -114,19 +114,19 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: 'rgba(255,255,255,0.1)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.8)',
+    borderColor: 'rgba(255,255,255,0.3)',
   },
   seasonTabActive: {
-    backgroundColor: '#111827',
+    backgroundColor: '#E0E0E0',
   },
   seasonTabText: {
     color: '#888',
     fontFamily: 'Orbitron',
   },
   seasonTabTextActive: {
-    color: '#4CAF50',
+    color: '#111827',
     fontFamily: 'Orbitron-Bold',
   },
   sectionTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#E0E0E0' },
@@ -161,12 +161,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#E0E0E0', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#4CAF50', fontFamily: 'Orbitron' },
+  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#FFFFFF', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#A0A0A0', fontFamily: 'Orbitron' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontWeight: '800' },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#E0E0E0', fontFamily: 'Orbitron-Bold' },
   emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#111827' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#A0A0A0', fontFamily: 'DotGothic' },
   floatingNav: {
     position: 'absolute',
     bottom: 25,

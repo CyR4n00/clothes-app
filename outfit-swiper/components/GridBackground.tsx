@@ -8,9 +8,9 @@ const { width, height } = Dimensions.get('window');
 export const GridBackground = () => {
   return (
     <View style={StyleSheet.absoluteFillObject} pointerEvents="none">
-      {/* Deep purple base like the image */}
+      {/* Monochrome base */}
       <LinearGradient
-        colors={['#5E35B1', '#4527A0', '#311B92']}
+        colors={['#1E1E1E', '#121212', '#0A0A0A']}
         style={StyleSheet.absoluteFillObject}
       />
       <Svg height="100%" width="100%" style={StyleSheet.absoluteFillObject}>
@@ -24,7 +24,7 @@ export const GridBackground = () => {
             <Path
               d="M 40 0 L 0 0 0 40"
               fill="none"
-              stroke="rgba(255, 255, 255, 0.08)"
+              stroke="rgba(255, 255, 255, 0.15)"
               strokeWidth="1"
             />
           </Pattern>

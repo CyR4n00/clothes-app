@@ -16,9 +16,9 @@ const TAB_BAR_WIDTH = width * 0.9;
 const TAB_WIDTH = TAB_BAR_WIDTH / 3;
 
 const TABS = [
-  { route: '/', icon: 'shirt-outline', activeColor: '#4CAF50' }, // Green like the image
-  { route: '/swipe', icon: 'layers-outline', activeColor: '#4CAF50' },
-  { route: '/macro-settings', icon: 'options-outline', activeColor: '#4CAF50' },
+  { route: '/', icon: 'shirt-outline', activeColor: '#E0E0E0' },
+  { route: '/swipe', icon: 'layers-outline', activeColor: '#E0E0E0' },
+  { route: '/macro-settings', icon: 'options-outline', activeColor: '#E0E0E0' },
 ];
 
 export const AnimatedTabBar = () => {
@@ -70,7 +70,7 @@ export const AnimatedTabBar = () => {
               <Ionicons
                 name={tab.icon as any}
                 size={24}
-                color={isActive ? '#000' : '#888'} // Black icon when active (inside green circle)
+                color={isActive ? '#000' : '#888'} // Black icon when active (inside white circle)
                 style={[
                    styles.icon,
                    isActive && styles.activeIcon
@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#4CAF50', // Bright green from the user image
+    backgroundColor: '#E0E0E0', // White/Silver
     transform: [{ translateY: -5 }],
-    shadowColor: '#4CAF50',
+    shadowColor: '#FFF',
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.3,
     shadowRadius: 10,
   },
   curveLeft: {
