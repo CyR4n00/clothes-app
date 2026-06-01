@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Image, SafeAreaView, Dimensions } from 'react-native';
 import { useRouter, Link } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { Category, ClothingItem } from '../src/types';
 
@@ -50,18 +49,15 @@ export default function ClosetScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>こんにちは、</Text>
-          <Text style={styles.headerTitle}>今日の服を{'\n'}決めましょう！</Text>
+          <Text style={styles.greeting}>ACCESS GRANTED,</Text>
+          <Text style={styles.headerTitle}>CYBER_CLOSET_</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>あなたのクローゼット</Text>
+          <Text style={styles.sectionTitle}>DATABASE</Text>
           <Link href="/add-item" asChild>
             <TouchableOpacity style={styles.addButton}>
               <Ionicons name="add" size={28} color="#000000" />
@@ -100,29 +96,8 @@ export default function ClosetScreen() {
           }
         />
 
-        <View style={styles.floatingNav}>
-          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/explore')}>
-            <Ionicons name="earth" size={26} color="#000000" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/paywall')}>
-            <Ionicons name="sparkles" size={26} color="#000000" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.mainNavButton} onPress={() => router.push('/swipe')}>
-            <LinearGradient
-              colors={['rgba(255,255,255,0.8)', 'rgba(255,255,255,0.4)']}
-              style={styles.mainNavGradient}
-            >
-              <Ionicons name="play" size={28} color="#000000" />
-            </LinearGradient>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.navItem} onPress={() => router.push('/macro-settings')}>
-            <Ionicons name="settings-sharp" size={26} color="#000000" />
-          </TouchableOpacity>
-        </View>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -130,8 +105,8 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 18, color: '#666666', fontWeight: '600', marginBottom: 4 },
-  headerTitle: { fontSize: 36, fontWeight: '800', color: '#111827', lineHeight: 42 },
+  greeting: { fontSize: 14, color: '#4CAF50', marginBottom: 4, fontFamily: 'DotGothic' },
+  headerTitle: { fontSize: 32, fontFamily: 'ZenDots', color: '#E0E0E0', lineHeight: 44, textShadowColor: '#4CAF50', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
   seasonScroll: { paddingHorizontal: 20, gap: 10 },
@@ -147,13 +122,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#111827',
   },
   seasonTabText: {
-    color: '#666666',
-    fontWeight: '600',
+    color: '#888',
+    fontFamily: 'Orbitron',
   },
   seasonTabTextActive: {
-    color: '#FFFFFF',
+    color: '#4CAF50',
+    fontFamily: 'Orbitron-Bold',
   },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#111827' },
+  sectionTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#E0E0E0' },
   addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255, 255, 255, 0.75)', justifyContent: 'center', alignItems: 'center', zIndex: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 5, elevation: 2, borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)' },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
@@ -185,8 +161,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontWeight: '700', color: '#111827', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#666666', fontWeight: '500' },
+  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#E0E0E0', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#4CAF50', fontFamily: 'Orbitron' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
   emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontWeight: '800' },
   emptyIcon: { fontSize: 60 },
