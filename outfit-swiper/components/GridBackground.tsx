@@ -7,29 +7,23 @@ const { width, height } = Dimensions.get('window');
 
 export const GridBackground = () => {
   return (
-    <View style={StyleSheet.absoluteFillObject} pointerEvents="none">
-      {/* Monochrome base */}
-      <LinearGradient
-        colors={['#1E1E1E', '#121212', '#0A0A0A']}
-        style={StyleSheet.absoluteFillObject}
-      />
+    <View style={[StyleSheet.absoluteFillObject, { backgroundColor: '#FFFFFF' }]} pointerEvents="none">
+      {/* Nothing Aesthetic Background (Pure White) */}
       <Svg height="100%" width="100%" style={StyleSheet.absoluteFillObject}>
         <Defs>
           <Pattern
-            id="grid"
+            id="stripe"
             width="40"
             height="40"
             patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
           >
-            <Path
-              d="M 40 0 L 0 0 0 40"
-              fill="none"
-              stroke="rgba(255, 255, 255, 0.15)"
-              strokeWidth="1"
-            />
+            <Rect width="20" height="40" fill="#F0F0F0" />
+            <Rect x="20" width="20" height="40" fill="#FFFFFF" />
           </Pattern>
         </Defs>
-        <Rect width="100%" height="100%" fill="url(#grid)" />
+        {/* Subtle background texture matching the brand style */}
+        <Rect width="100%" height="100%" fill="url(#stripe)" opacity={0.3} />
       </Svg>
     </View>
   );

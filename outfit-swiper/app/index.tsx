@@ -52,15 +52,15 @@ export default function ClosetScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>ACCESS GRANTED,</Text>
-          <Text style={styles.headerTitle}>CYBER_CLOSET_</Text>
+          <Text style={styles.greeting}>NOTHING (R)</Text>
+          <Text style={styles.headerTitle}>CLOSET_OS</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>DATABASE</Text>
+          <Text style={styles.sectionTitle}>INDEXED ITEMS</Text>
           <Link href="/add-item" asChild>
             <TouchableOpacity style={styles.addButton}>
-              <Ionicons name="add" size={28} color="#000000" />
+              <Ionicons name="add" size={24} color="#FFFFFF" />
             </TouchableOpacity>
           </Link>
         </View>
@@ -105,64 +105,60 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 14, color: '#A0A0A0', marginBottom: 4, fontFamily: 'DotGothic' },
-  headerTitle: { fontSize: 32, fontFamily: 'ZenDots', color: '#FFFFFF', lineHeight: 44 },
+  greeting: { fontSize: 14, color: '#000000', marginBottom: 4, fontFamily: 'DotGothic' },
+  headerTitle: { fontSize: 32, fontFamily: 'DotGothic', color: '#000000', lineHeight: 44, letterSpacing: -1 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
   seasonScroll: { paddingHorizontal: 20, gap: 10 },
   seasonTab: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 4,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#000000',
   },
   seasonTabActive: {
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#000000',
   },
   seasonTabText: {
-    color: '#888',
-    fontFamily: 'Orbitron',
+    color: '#000000',
+    fontFamily: 'DotGothic',
   },
   seasonTabTextActive: {
-    color: '#111827',
-    fontFamily: 'Orbitron-Bold',
+    color: '#FFFFFF',
   },
-  sectionTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#E0E0E0' },
-  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255, 255, 255, 0.75)', justifyContent: 'center', alignItems: 'center', zIndex: 10, elevation: 2, borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)' },
+  sectionTitle: { fontSize: 18, fontFamily: 'DotGothic', color: '#000000' },
+  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#000000', justifyContent: 'center', alignItems: 'center', zIndex: 10, borderWidth: 0 },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
     width: (width - 48) / 2,
     margin: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
-    borderRadius: 30,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 0,
     padding: 16,
     alignItems: 'center',
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
+    borderWidth: 2,
+    borderColor: '#000000',
   },
-  itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
+  itemImage: { width: 80, height: 80, borderRadius: 0, marginBottom: 12, borderWidth: 2, borderColor: '#000000' },
   placeholderImage: {
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
-    //
+    backgroundColor: '#F5F5F5',
+    borderWidth: 2,
+    borderColor: '#000000',
     width: 80,
     height: 80,
-    borderRadius: 40,
-
+    borderRadius: 0,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#FFFFFF', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#A0A0A0', fontFamily: 'Orbitron' },
+  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#000000', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#666666', fontFamily: 'DotGothic' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#E0E0E0', fontFamily: 'Orbitron-Bold' },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#000000', fontFamily: 'DotGothic' },
   emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#A0A0A0', fontFamily: 'DotGothic' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666', fontFamily: 'DotGothic' },
   floatingNav: {
     position: 'absolute',
     bottom: 25,
