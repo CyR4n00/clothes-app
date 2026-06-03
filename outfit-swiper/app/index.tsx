@@ -52,15 +52,15 @@ export default function ClosetScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>NOTHING (R)</Text>
-          <Text style={styles.headerTitle}>CLOSET_OS</Text>
+          <Text style={styles.greeting}>こんにちは、</Text>
+          <Text style={styles.headerTitle}>今日の服を{'\n'}決めましょう！</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>INDEXED ITEMS</Text>
+          <Text style={styles.sectionTitle}>クローゼット</Text>
           <Link href="/add-item" asChild>
             <TouchableOpacity style={styles.addButton}>
-              <Ionicons name="add" size={24} color="#FFFFFF" />
+              <Ionicons name="add" size={24} color="#000000" />
             </TouchableOpacity>
           </Link>
         </View>
@@ -105,60 +105,60 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 14, color: '#000000', marginBottom: 4, fontFamily: 'DotGothic' },
-  headerTitle: { fontSize: 32, fontFamily: 'DotGothic', color: '#000000', lineHeight: 44, letterSpacing: -1 },
+  greeting: { fontSize: 16, color: '#666666', marginBottom: 4, fontWeight: '600' },
+  headerTitle: { fontSize: 32, fontWeight: '800', color: '#111827', lineHeight: 42 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
   seasonScroll: { paddingHorizontal: 20, gap: 10 },
   seasonTab: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 4,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#000000',
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.8)',
   },
   seasonTabActive: {
-    backgroundColor: '#000000',
+    backgroundColor: '#111827',
   },
   seasonTabText: {
-    color: '#000000',
-    fontFamily: 'DotGothic',
+    color: '#666666',
+    fontWeight: '600',
   },
   seasonTabTextActive: {
     color: '#FFFFFF',
   },
-  sectionTitle: { fontSize: 18, fontFamily: 'DotGothic', color: '#000000' },
-  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#000000', justifyContent: 'center', alignItems: 'center', zIndex: 10, borderWidth: 0 },
+  sectionTitle: { fontSize: 20, fontWeight: '800', color: '#111827' },
+  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255, 255, 255, 0.9)', justifyContent: 'center', alignItems: 'center', zIndex: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)' },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
     width: (width - 48) / 2,
     margin: 8,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 30,
     padding: 16,
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#000000',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
   },
-  itemImage: { width: 80, height: 80, borderRadius: 0, marginBottom: 12, borderWidth: 2, borderColor: '#000000' },
+  itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
   placeholderImage: {
-    backgroundColor: '#F5F5F5',
-    borderWidth: 2,
-    borderColor: '#000000',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
     width: 80,
     height: 80,
-    borderRadius: 0,
+    borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#000000', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#666666', fontFamily: 'DotGothic' },
+  itemName: { fontSize: 16, fontWeight: '700', color: '#111827', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#666666', fontWeight: '500' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#000000', fontFamily: 'DotGothic' },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontWeight: '800' },
   emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666', fontFamily: 'DotGothic' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666' },
   floatingNav: {
     position: 'absolute',
     bottom: 25,

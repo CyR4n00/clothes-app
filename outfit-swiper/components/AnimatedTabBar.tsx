@@ -70,7 +70,7 @@ export const AnimatedTabBar = () => {
               <Ionicons
                 name={tab.icon as any}
                 size={24}
-                color={isActive ? '#FFFFFF' : '#888888'} // White icon when active
+                color={isActive ? '#111827' : '#888888'} // Black icon when active (on white circle)
                 style={[
                    styles.icon,
                    isActive && styles.activeIcon
@@ -95,10 +95,8 @@ const styles = StyleSheet.create({
   tabBar: {
     width: TAB_BAR_WIDTH,
     height: 60,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#000000',
-    borderRadius: 0, // Brutalist sharp edges
+    backgroundColor: '#1E1E1E', // Dark grey/black matching the initial request
+    borderRadius: 30,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 0,
@@ -132,7 +130,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#000000', // Pure black to contrast the white bar
+    backgroundColor: '#FAFBFC', // Pure white to contrast the dark bar
     transform: [{ translateY: -5 }],
   },
   curveLeft: {
