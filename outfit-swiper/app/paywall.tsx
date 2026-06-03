@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.45)',
     borderRadius: 30,
     padding: 20,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 25,
+
+
+
+
     elevation: 5,
   },
   header: { alignItems: 'center', paddingHorizontal: 20 },

@@ -191,10 +191,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.65)',
     borderRadius: 30,
     padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 15,
+
+
+
+
     elevation: 5,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.6)',

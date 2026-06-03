@@ -195,10 +195,10 @@ const styles = StyleSheet.create({
     height: 450,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 30,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.2,
-    shadowRadius: 15,
+
+
+
+
     elevation: 8,
     overflow: 'hidden',
     borderWidth: 1,

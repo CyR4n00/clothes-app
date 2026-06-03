@@ -100,10 +100,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
     elevation: 10,
   },
   tabButton: {
@@ -136,10 +132,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: '#E0E0E0', // White/Silver
     transform: [{ translateY: -5 }],
-    shadowColor: '#FFF',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
   },
   curveLeft: {
     position: 'absolute',
@@ -149,10 +141,6 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: 'transparent',
     borderBottomRightRadius: 20,
-    shadowColor: '#1E1E1E',
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
   },
   curveRight: {
     position: 'absolute',
@@ -162,9 +150,5 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: 'transparent',
     borderBottomLeftRadius: 20,
-    shadowColor: '#1E1E1E',
-    shadowOffset: { width: -10, height: 10 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
   }
 });

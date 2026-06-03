@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     width: 36, height: 36, borderRadius: 18,
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
     justifyContent: 'center', alignItems: 'center',
-    shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08, shadowRadius: 5, elevation: 2,
+
+
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)'
   },
   backButtonText: { fontSize: 16, color: '#111827', fontWeight: '800' },
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 16,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 15,
+
+
+
+
     elevation: 3,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.6)',
