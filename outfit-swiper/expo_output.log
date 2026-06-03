@@ -1,17 +1,37 @@
 Starting project at /app/outfit-swiper
-(node:1159946) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:1232328) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Experimental React Compiler is enabled.
 Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
 Waiting on http://localhost:8081
 Logs for your project will appear below.
-λ Bundled 3009ms node_modules/expo-router/node/render.js (1125 modules)
+Web Bundled 18380ms node_modules/expo-router/entry.js (1059 modules)
+λ Bundled 18447ms node_modules/expo-router/node/render.js (1125 modules)
 λ  WARN  Require cycle: node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/Gestures.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/PanGestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js -> node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js
 
 Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
   factory (node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js:17:54)
   factory (node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js:18:29)
 λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
-Web Bundled 5631ms node_modules/expo-router/entry.js (987 modules)
-Web Bundled 1521ms node_modules/expo-router/entry.js (1051 modules)
+Web Bundled 7008ms node_modules/expo-router/entry.js (1107 modules)
+ LOG  [web] Logs will appear in the browser console
+λ Bundled 113ms node_modules/expo-router/node/render.js (1 module)
+λ  WARN  Require cycle: node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/Gestures.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/PanGestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js -> node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+  factory (node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js:17:54)
+  factory (node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js:18:29)
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+Web Bundled 1111ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 84ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+λ Bundled 77ms node_modules/expo-router/node/render.js (1 module)
+λ  WARN  Require cycle: node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/Gestures.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/PanGestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js -> node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+  factory (node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js:17:54)
+  factory (node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js:18:29)
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
+Web Bundled 664ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 57ms node_modules/expo-router/entry.js (1 module)
  LOG  [web] Logs will appear in the browser console
