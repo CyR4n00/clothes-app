@@ -1,12 +1,12 @@
 Starting project at /app/outfit-swiper
-(node:1408596) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:1447668) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 Starting Metro Bundler
 warning: Bundler cache is empty, rebuilding (this may take a minute)
 Waiting on http://localhost:8081
 Logs for your project will appear below.
-Web Bundled 20357ms node_modules/expo-router/entry.js (1107 modules)
-λ Bundled 20658ms node_modules/expo-router/node/render.js (1125 modules)
+Web Bundled 21331ms node_modules/expo-router/entry.js (1087 modules)
+λ Bundled 21545ms node_modules/expo-router/node/render.js (1125 modules)
 λ  WARN  Require cycle: node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/Gestures.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/PanGestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js -> node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js
 
 Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
@@ -15,8 +15,8 @@ Require cycles are allowed, but can result in uninitialized values. Consider ref
 λ  WARN  "shadow*" style props are deprecated. Use "boxShadow".
   factory (app/index.tsx:149:27)
 λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
-Web Bundled 8258ms node_modules/expo-router/entry.js (1107 modules)
-λ Bundled 45ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 8673ms node_modules/expo-router/entry.js (1107 modules)
+λ Bundled 54ms node_modules/expo-router/node/render.js (1 module)
 λ  WARN  Require cycle: node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/Gestures.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/PanGestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/web/handlers/GestureHandler.js -> node_modules/react-native-gesture-handler/lib/commonjs/handlers/gestureHandlerCommon.js -> node_modules/react-native-gesture-handler/lib/commonjs/RNGestureHandlerModule.web.js
 
 Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
@@ -25,6 +25,6 @@ Require cycles are allowed, but can result in uninitialized values. Consider ref
 λ  WARN  "shadow*" style props are deprecated. Use "boxShadow".
   factory (app/index.tsx:149:27)
 λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents
-Web Bundled 541ms node_modules/expo-router/entry.js (1 module)
-Web Bundled 47ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 592ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 49ms node_modules/expo-router/entry.js (1 module)
  LOG  [web] Logs will appear in the browser console

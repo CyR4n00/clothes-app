@@ -57,8 +57,8 @@ export default function ClosetScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>クローゼット{'\n'}ACCESS GRANTED,</Text>
-          <Text style={styles.headerTitle}>CYBER_CLOSET_</Text>
+          <Text style={styles.greeting}>HELLO,</Text>
+          <Text style={styles.headerTitle}>OutfitFlow</Text>
         </View>
 
         <View style={styles.sectionHeader}>
@@ -151,10 +151,10 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
   greeting: { fontSize: 14, color: '#888888', marginBottom: 4, fontFamily: 'DotGothic', lineHeight: 20 },
-  headerTitle: { fontSize: 36, fontFamily: 'ZenDots', color: '#FFFFFF', lineHeight: 44, letterSpacing: -1 },
+  headerTitle: { fontSize: 36, fontFamily: 'ZenDots', color: '#111827', lineHeight: 44, letterSpacing: -1 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
-  seasonScroll: { paddingHorizontal: 20, gap: 10 },
+  seasonScroll: { paddingHorizontal: 24, gap: 10 },
   seasonTab: {
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -174,11 +174,11 @@ const styles = StyleSheet.create({
   seasonTabTextActive: {
     color: '#111827',
   },
-  sectionTitle: { fontSize: 18, fontFamily: 'ZenDots', color: '#E0E0E0' },
+  sectionTitle: { fontSize: 18, fontFamily: 'ZenDots', color: '#111827' },
   addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', zIndex: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 2 },
-  listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
+  listContainer: { paddingHorizontal: 16, paddingBottom: 120 }, // 16px container + 8px card margin = 24px outer alignment
   itemCard: {
-    width: (width - 48) / 2,
+    width: (width - 64) / 2,
     margin: 8,
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 14, fontFamily: 'DotGothic', color: '#FAFAFA', marginBottom: 4, textAlign: 'center' },
+  itemName: { fontSize: 14, fontFamily: 'DotGothic', color: '#111827', marginBottom: 4, textAlign: 'center' },
   itemCategory: { fontSize: 12, color: '#888888', fontFamily: 'DotGothic' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
   emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontFamily: 'Orbitron-Bold' },

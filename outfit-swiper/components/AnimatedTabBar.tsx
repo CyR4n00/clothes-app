@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter, usePathname } from 'expo-router';
 
 const { width } = Dimensions.get('window');
-const TAB_BAR_WIDTH = width * 0.9;
+const TAB_BAR_WIDTH = width - 48; // Align with the 24px left/right margins
 const TAB_WIDTH = TAB_BAR_WIDTH / 3;
 
 const TABS = [
