@@ -8,9 +8,11 @@ interface OutfitState {
   clothes: ClothingItem[];
   macroOrder: Category[];
   currentOutfit: Outfit;
+  customCategories: string[];
   addClothingItem: (item: Omit<ClothingItem, 'id'>) => void;
   setMacroOrder: (order: Category[]) => void;
   setOutfitItem: (category: Category, item: ClothingItem) => void;
+  addCustomCategory: (category: string) => void;
   resetOutfit: () => void;
   addMockClothes: () => void;
   clearAll: () => void;
@@ -22,6 +24,7 @@ export const useOutfitStore = create<OutfitState>()(
       clothes: [],
       macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'],
       currentOutfit: {},
+      customCategories: [],
 
       addClothingItem: (item) =>
         set((state) => ({
@@ -34,6 +37,14 @@ export const useOutfitStore = create<OutfitState>()(
         set((state) => ({
           currentOutfit: { ...state.currentOutfit, [category]: item },
         })),
+
+      addCustomCategory: (category) =>
+        set((state) => {
+          if (!state.customCategories.includes(category)) {
+             return { customCategories: [...state.customCategories, category] };
+          }
+          return state;
+        }),
 
       resetOutfit: () => set({ currentOutfit: {} }),
 
@@ -55,7 +66,7 @@ export const useOutfitStore = create<OutfitState>()(
         });
       },
 
-      clearAll: () => set({ clothes: [], currentOutfit: {}, macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'] }),
+      clearAll: () => set({ clothes: [], currentOutfit: {}, customCategories: [], macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'] }),
     }),
     {
       name: 'outfit-storage', // AsyncStorageに保存されるキー名
