@@ -52,12 +52,12 @@ export default function ClosetScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>こんにちは、</Text>
-          <Text style={styles.headerTitle}>今日の服を{'\n'}決めましょう！</Text>
+          <Text style={styles.greeting}>SYS.WELCOME</Text>
+          <Text style={styles.headerTitle}>クローゼット</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>クローゼット</Text>
+          <Text style={styles.sectionTitle}>DATABASE</Text>
           <Link href="/add-item" asChild>
             <TouchableOpacity style={styles.addButton}>
               <Ionicons name="add" size={24} color="#000000" />
@@ -105,60 +105,61 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
   header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 16, color: '#666666', marginBottom: 4, fontWeight: '600' },
-  headerTitle: { fontSize: 32, fontWeight: '800', color: '#111827', lineHeight: 42 },
+  greeting: { fontSize: 14, color: '#111827', marginBottom: 4, fontFamily: 'DotGothic' },
+  headerTitle: { fontSize: 32, fontFamily: 'ZenDots', color: '#111827', lineHeight: 44, letterSpacing: -1 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
   seasonContainer: { marginBottom: 16 },
   seasonScroll: { paddingHorizontal: 20, gap: 10 },
   seasonTab: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 4,
+    backgroundColor: 'rgba(255,255,255,0.8)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.8)',
+    borderColor: '#111827',
   },
   seasonTabActive: {
     backgroundColor: '#111827',
   },
   seasonTabText: {
-    color: '#666666',
-    fontWeight: '600',
+    color: '#111827',
+    fontFamily: 'Orbitron',
   },
   seasonTabTextActive: {
     color: '#FFFFFF',
+    fontFamily: 'Orbitron-Bold',
   },
-  sectionTitle: { fontSize: 20, fontWeight: '800', color: '#111827' },
-  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255, 255, 255, 0.9)', justifyContent: 'center', alignItems: 'center', zIndex: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)' },
+  sectionTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#111827' },
+  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#111827', justifyContent: 'center', alignItems: 'center', zIndex: 10, borderWidth: 0 },
   listContainer: { paddingHorizontal: 16, paddingBottom: 120 },
   itemCard: {
     width: (width - 48) / 2,
     margin: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    borderRadius: 30,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 16,
     padding: 16,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
+    borderColor: '#111827',
   },
-  itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
+  itemImage: { width: 80, height: 80, borderRadius: 16, marginBottom: 12, borderWidth: 1, borderColor: '#111827' },
   placeholderImage: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: '#F5F5F5',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
+    borderColor: '#111827',
     width: 80,
     height: 80,
-    borderRadius: 40,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  itemName: { fontSize: 16, fontWeight: '700', color: '#111827', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#666666', fontWeight: '500' },
+  itemName: { fontSize: 16, fontFamily: 'DotGothic', color: '#111827', marginBottom: 4, textAlign: 'center' },
+  itemCategory: { fontSize: 12, color: '#666666', fontFamily: 'Orbitron' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontWeight: '800' },
+  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontFamily: 'Orbitron-Bold' },
   emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666' },
+  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666', fontFamily: 'DotGothic' },
   floatingNav: {
     position: 'absolute',
     bottom: 25,
