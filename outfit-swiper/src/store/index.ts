@@ -50,12 +50,12 @@ export const useOutfitStore = create<OutfitState>()(
 
       addMockClothes: () => {
         const mocks: ClothingItem[] = [
-          { id: '1', name: '黒のダウンジャケット', category: 'アウター', season: '冬', style: 'カジュアル' },
-          { id: '2', name: 'デニムジャケット', category: 'アウター', season: '春', style: 'カジュアル' },
-          { id: '3', name: '白Tシャツ', category: 'トップス', season: '通年', style: 'カジュアル' },
-          { id: '4', name: '黒のスラックス', category: 'パンツ', season: '通年', style: 'フォーマル' },
-          { id: '5', name: 'ブルージーンズ', category: 'パンツ', season: '通年', style: 'カジュアル' },
-          { id: '6', name: '白スニーカー', category: 'シューズ', season: '通年', style: 'カジュアル' },
+          { id: '1', name: '黒のダウンジャケット', category: 'アウター', season: '冬', style: 'カジュアル', tags: ['防寒', 'ヘビロテ'] },
+          { id: '2', name: 'デニムジャケット', category: 'アウター', season: '春', style: 'カジュアル', tags: ['ビンテージ'] },
+          { id: '3', name: '白Tシャツ', category: 'トップス', season: '通年', style: 'カジュアル', tags: ['インナー', '無地'] },
+          { id: '4', name: '黒のスラックス', category: 'パンツ', season: '通年', style: 'フォーマル', tags: ['仕事用', 'きれいめ'] },
+          { id: '5', name: 'ブルージーンズ', category: 'パンツ', season: '通年', style: 'カジュアル', tags: ['休日', 'お気に入り'] },
+          { id: '6', name: '白スニーカー', category: 'シューズ', season: '通年', style: 'カジュアル', tags: ['歩きやすい'] },
         ];
         // 既存の服がなければモックを追加
         set((state) => {

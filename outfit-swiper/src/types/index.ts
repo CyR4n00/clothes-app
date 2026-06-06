@@ -7,6 +7,7 @@ export interface ClothingItem {
   imageUrl?: string;
   season: string;
   style: string;
+  tags?: string[];
 }
 
 export type Outfit = {

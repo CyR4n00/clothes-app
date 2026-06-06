@@ -49,6 +49,15 @@ export default function ClosetScreen() {
         )}
         <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
         <Text style={styles.itemCategory}>{item.category}</Text>
+        {item.tags && item.tags.length > 0 && (
+          <View style={styles.tagContainer}>
+            {item.tags.slice(0, 2).map((tag, idx) => (
+              <View key={idx} style={styles.tagBadge}>
+                <Text style={styles.tagText} numberOfLines={1}>#{tag}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     );
   };
@@ -201,6 +210,9 @@ const styles = StyleSheet.create({
   },
   itemName: { fontSize: 14, fontFamily: 'DotGothic', color: '#111827', marginBottom: 4, textAlign: 'center' },
   itemCategory: { fontSize: 12, color: '#888888', fontFamily: 'DotGothic' },
+  tagContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 4, marginTop: 6 },
+  tagBadge: { backgroundColor: 'rgba(17, 24, 39, 0.05)', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, borderWidth: 1, borderColor: 'rgba(17, 24, 39, 0.1)' },
+  tagText: { fontSize: 10, fontFamily: 'DotGothic', color: '#111827' },
   emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
   emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontFamily: 'Orbitron-Bold' },
   emptyIcon: { fontSize: 60 },

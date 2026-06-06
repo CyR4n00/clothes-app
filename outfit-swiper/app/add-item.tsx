@@ -16,6 +16,7 @@ export default function AddItemScreen() {
   const [name, setName] = useState('');
   const [category, setCategory] = useState<Category>('トップス');
   const [season, setSeason] = useState<string>('通年');
+  const [tagsInput, setTagsInput] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -97,12 +98,15 @@ export default function AddItemScreen() {
       return;
     }
 
+    const parsedTags = tagsInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
+
     addClothingItem({
       name,
       category,
       imageUrl: imageUri || undefined,
       season,
       style: 'casual',
+      tags: parsedTags.length > 0 ? parsedTags : undefined,
     });
 
     if (Platform.OS === 'web') {
@@ -168,6 +172,15 @@ export default function AddItemScreen() {
                   </TouchableOpacity>
                 ))}
               </View>
+
+              <Text style={styles.label}>タグ (カンマ区切り)</Text>
+              <TextInput
+                style={styles.input}
+                value={tagsInput}
+                onChangeText={setTagsInput}
+                placeholder="例: デート用, ユニクロ, お気に入り"
+                placeholderTextColor="#A78BFA"
+              />
 
               <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
                 <Text style={styles.saveButtonText}>登録する</Text>
