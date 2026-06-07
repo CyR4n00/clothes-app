@@ -10,7 +10,6 @@ const { width } = Dimensions.get('window');
 export default function FinalConfirmationScreen() {
   const router = useRouter();
   const currentOutfit = useOutfitStore((state) => state.currentOutfit);
-  const categories = useOutfitStore((state) => state.categories);
   const resetOutfit = useOutfitStore((state) => state.resetOutfit);
 
   const handleFinish = () => {
@@ -19,11 +18,10 @@ export default function FinalConfirmationScreen() {
   };
 
   const selectedItems = useMemo(() => {
-    return Object.entries(currentOutfit).map(([catId, item]) => {
-      const categoryName = categories.find(c => c.id === catId)?.name || 'カテゴリー';
-      return { categoryName, item };
+    return Object.entries(currentOutfit).map(([partName, item]) => {
+      return { partName, item };
     });
-  }, [currentOutfit, categories]);
+  }, [currentOutfit]);
 
   return (
     <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
@@ -39,13 +37,12 @@ export default function FinalConfirmationScreen() {
                 <Text style={styles.emptyText}>アイテムが選ばれていません</Text>
               </View>
             ) : (
-              selectedItems.map(({ categoryName, item }, index) => {
-                // Determine styling based on index to create a collage look
+              selectedItems.map(({ partName, item }, index) => {
                 const isFirst = index === 0;
 
                 return (
                   <View key={item.id + index} style={[styles.collageItem, isFirst ? styles.firstItem : styles.subItem]}>
-                    <Text style={styles.catLabel}>{categoryName}</Text>
+                    <Text style={styles.catLabel}>{partName}</Text>
                     {item.imageUrl ? (
                       <Image source={{ uri: item.imageUrl }} style={styles.collageImage} />
                     ) : (

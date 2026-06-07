@@ -2,42 +2,45 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { ClothingItem, CategoryDefinition, Outfit } from '../types';
+import { ClothingItem, Collection, Outfit, Part } from '../types';
 
 interface OutfitState {
   clothes: ClothingItem[];
-  categories: CategoryDefinition[];
-  macroOrder: string[]; // array of category IDs
+  collections: Collection[];
+  macroOrder: Part[];
   currentOutfit: Outfit;
 
   // Actions
   addClothingItem: (item: Omit<ClothingItem, 'id'>) => void;
   removeClothingItem: (id: string) => void;
 
-  addCategory: (name: string) => void;
-  removeCategory: (id: string) => void;
+  addCollection: (name: string) => void;
+  removeCollection: (id: string) => void;
 
-  assignItemToCategory: (itemId: string, categoryId: string) => void;
-  removeItemFromCategory: (itemId: string, categoryId: string) => void;
+  assignItemToCollection: (itemId: string, collectionId: string) => void;
+  removeItemFromCollection: (itemId: string, collectionId: string) => void;
 
-  setMacroOrder: (order: string[]) => void;
-  setOutfitItem: (categoryId: string, item: ClothingItem) => void;
+  setMacroOrder: (order: Part[]) => void;
+  setOutfitItem: (part: Part, item: ClothingItem) => void;
   resetOutfit: () => void;
 
   addMockData: () => void;
   clearAll: () => void;
 }
 
+const defaultCollections: Collection[] = [
+  { id: 'col-spring', name: '春', itemIds: [], isDefault: true },
+  { id: 'col-summer', name: '夏', itemIds: [], isDefault: true },
+  { id: 'col-autumn', name: '秋', itemIds: [], isDefault: true },
+  { id: 'col-winter', name: '冬', itemIds: [], isDefault: true },
+];
+
 export const useOutfitStore = create<OutfitState>()(
   persist(
     (set) => ({
       clothes: [],
-      categories: [
-        { id: 'cat-1', name: 'アウター', itemIds: [] },
-        { id: 'cat-2', name: 'トップス', itemIds: [] },
-        { id: 'cat-3', name: 'パンツ', itemIds: [] },
-      ],
-      macroOrder: ['cat-1', 'cat-2', 'cat-3'],
+      collections: defaultCollections,
+      macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'],
       currentOutfit: {},
 
       addClothingItem: (item) =>
@@ -48,71 +51,67 @@ export const useOutfitStore = create<OutfitState>()(
       removeClothingItem: (id) =>
         set((state) => ({
           clothes: state.clothes.filter(c => c.id !== id),
-          categories: state.categories.map(cat => ({
-            ...cat,
-            itemIds: cat.itemIds.filter(itemId => itemId !== id)
+          collections: state.collections.map(col => ({
+            ...col,
+            itemIds: col.itemIds.filter(itemId => itemId !== id)
           }))
         })),
 
-      addCategory: (name) =>
+      addCollection: (name) =>
         set((state) => {
-          const newId = `cat-${Date.now()}`;
+          const newId = `col-${Date.now()}`;
           return {
-            categories: [...state.categories, { id: newId, name, itemIds: [] }],
-            macroOrder: [...state.macroOrder, newId]
+            collections: [...state.collections, { id: newId, name, itemIds: [] }]
           };
         }),
 
-      removeCategory: (id) =>
+      removeCollection: (id) =>
         set((state) => ({
-          categories: state.categories.filter(c => c.id !== id),
-          macroOrder: state.macroOrder.filter(catId => catId !== id),
-          currentOutfit: Object.fromEntries(Object.entries(state.currentOutfit).filter(([k]) => k !== id))
+          collections: state.collections.filter(c => c.id !== id || c.isDefault) // cannot remove default
         })),
 
-      assignItemToCategory: (itemId, categoryId) =>
+      assignItemToCollection: (itemId, collectionId) =>
         set((state) => ({
-          categories: state.categories.map(cat =>
-            cat.id === categoryId && (!cat.itemIds.includes(itemId))
-              ? { ...cat, itemIds: [...cat.itemIds, itemId] }
-              : cat
+          collections: state.collections.map(col =>
+            col.id === collectionId && (!col.itemIds.includes(itemId))
+              ? { ...col, itemIds: [...col.itemIds, itemId] }
+              : col
           )
         })),
 
-      removeItemFromCategory: (itemId, categoryId) =>
+      removeItemFromCollection: (itemId, collectionId) =>
         set((state) => ({
-          categories: state.categories.map(cat =>
-            cat.id === categoryId
-              ? { ...cat, itemIds: cat.itemIds.filter(id => id !== itemId) }
-              : cat
+          collections: state.collections.map(col =>
+            col.id === collectionId
+              ? { ...col, itemIds: col.itemIds.filter(id => id !== itemId) }
+              : col
           )
         })),
 
       setMacroOrder: (order) => set({ macroOrder: order }),
 
-      setOutfitItem: (categoryId, item) =>
+      setOutfitItem: (part, item) =>
         set((state) => ({
-          currentOutfit: { ...state.currentOutfit, [categoryId]: item },
+          currentOutfit: { ...state.currentOutfit, [part]: item },
         })),
 
       resetOutfit: () => set({ currentOutfit: {} }),
 
       addMockData: () => {
         const mockClothes: ClothingItem[] = [
-          { id: '1', name: '黒のダウンジャケット', tags: ['防寒', '冬'] },
-          { id: '2', name: '白Tシャツ', tags: ['インナー', '無地'] },
-          { id: '3', name: '黒のスラックス', tags: ['仕事用', 'きれいめ'] },
+          { id: '1', name: '黒のダウンジャケット', part: 'アウター', tags: ['防寒'] },
+          { id: '2', name: '白Tシャツ', part: 'トップス', tags: ['インナー'] },
+          { id: '3', name: '黒のスラックス', part: 'パンツ', tags: ['仕事用'] },
         ];
         set((state) => {
           if (state.clothes.length === 0) {
             return {
               clothes: mockClothes,
-              categories: [
-                { id: 'cat-1', name: 'アウター', itemIds: ['1'] },
-                { id: 'cat-2', name: 'トップス', itemIds: ['2'] },
-                { id: 'cat-3', name: 'パンツ', itemIds: ['3'] },
-              ],
-              macroOrder: ['cat-1', 'cat-2', 'cat-3']
+              collections: state.collections.map(c =>
+                c.id === 'col-winter' ? { ...c, itemIds: ['1', '3'] } :
+                c.id === 'col-summer' ? { ...c, itemIds: ['2'] } : c
+              ),
+              macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー']
             };
           }
           return state;
@@ -122,12 +121,8 @@ export const useOutfitStore = create<OutfitState>()(
       clearAll: () => set({
         clothes: [],
         currentOutfit: {},
-        categories: [
-          { id: 'cat-1', name: 'アウター', itemIds: [] },
-          { id: 'cat-2', name: 'トップス', itemIds: [] },
-          { id: 'cat-3', name: 'パンツ', itemIds: [] },
-        ],
-        macroOrder: ['cat-1', 'cat-2', 'cat-3']
+        collections: defaultCollections,
+        macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー']
       }),
     }),
     {

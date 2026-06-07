@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView, Modal, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
@@ -11,39 +11,47 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 export default function SwipeScreen() {
   const router = useRouter();
-  const { clothes, categories, macroOrder, currentOutfit, setOutfitItem } = useOutfitStore();
+  const { clothes, collections, macroOrder, currentOutfit, setOutfitItem } = useOutfitStore();
+
+  // Modal for picking a collection before swiping
+  const [collectionModalVisible, setCollectionModalVisible] = useState(true);
+  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
 
   const [currentMacroIndex, setCurrentMacroIndex] = useState(0);
   const [currentCards, setCurrentCards] = useState<ClothingItem[]>([]);
   const [cardIndex, setCardIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
 
-  // Initialize deck for current macro category
+  // Initialize deck for current macro part, filtering by selected collection
   useEffect(() => {
+    if (collectionModalVisible || !selectedCollectionId) return;
+
     if (currentMacroIndex < macroOrder.length) {
-      const targetCategoryId = macroOrder[currentMacroIndex];
-      const targetCategory = categories.find(c => c.id === targetCategoryId);
+      const currentPart = macroOrder[currentMacroIndex];
 
-      if (targetCategory) {
-        // Find clothes that belong to this category
-        const itemsForCategory = targetCategory.itemIds
-          .map(id => clothes.find(c => c.id === id))
-          .filter((item): item is ClothingItem => item !== undefined);
-
-        setCurrentCards(itemsForCategory);
-        setCardIndex(0);
+      // Get all items in the selected collection
+      let collectionItemIds: string[] = [];
+      if (selectedCollectionId === 'all') {
+        collectionItemIds = clothes.map(c => c.id);
       } else {
-        // Invalid category ID somehow, skip to next
-        setCurrentMacroIndex(prev => prev + 1);
+        const col = collections.find(c => c.id === selectedCollectionId);
+        if (col) collectionItemIds = col.itemIds;
       }
+
+      // Filter clothes to those in the collection AND matching the current part
+      const itemsForPart = clothes.filter(c =>
+        c.part === currentPart && collectionItemIds.includes(c.id)
+      );
+
+      setCurrentCards(itemsForPart);
+      setCardIndex(0);
     } else {
-      // All categories selected, go to final screen
+      // All parts selected, go to final screen
       router.replace('/final-confirmation');
     }
-  }, [currentMacroIndex, macroOrder, categories, clothes, router]);
+  }, [currentMacroIndex, macroOrder, collections, clothes, router, collectionModalVisible, selectedCollectionId]);
 
-  const currentCategoryId = macroOrder[currentMacroIndex];
-  const currentCategoryName = categories.find(c => c.id === currentCategoryId)?.name || 'カテゴリー';
+  const currentPartName = macroOrder[currentMacroIndex];
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -81,16 +89,13 @@ export default function SwipeScreen() {
   const onSwipeComplete = (direction: 'right' | 'left' | 'up') => {
     const item = currentCards[cardIndex];
     if (direction === 'right') {
-      // Select item and move to next category in macro order
-      setOutfitItem(currentCategoryId, item);
+      setOutfitItem(currentPartName, item);
       position.setValue({ x: 0, y: 0 });
       setCurrentMacroIndex(prev => prev + 1);
     } else if (direction === 'left') {
-      // Skip: move to next card in current category
       position.setValue({ x: 0, y: 0 });
       setCardIndex(prev => prev + 1);
     } else if (direction === 'up') {
-      // Hold: move the card to the end of the deck
       position.setValue({ x: 0, y: 0 });
       setCurrentCards(prev => {
         const newCards = [...prev];
@@ -112,7 +117,7 @@ export default function SwipeScreen() {
     if (cardIndex >= currentCards.length) {
       return (
         <View style={styles.noMoreCards}>
-          <Text style={styles.noMoreText}>このカテゴリーにはもう服がありません。</Text>
+          <Text style={styles.noMoreText}>この部位にはもう服がありません。</Text>
           <TouchableOpacity
             style={styles.skipButton}
             onPress={() => setCurrentMacroIndex(prev => prev + 1)}
@@ -183,20 +188,52 @@ export default function SwipeScreen() {
   return (
     <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
-            <Ionicons name="close" size={24} color="#111827" />
-          </TouchableOpacity>
-          <View style={styles.headerCenter}>
-            <Text style={styles.stepText}>STEP {currentMacroIndex + 1} / {macroOrder.length}</Text>
-            <Text style={styles.headerText}>{currentCategoryName}</Text>
+        <Modal visible={collectionModalVisible} transparent={true} animationType="slide">
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>どのカテゴリーから選びますか？</Text>
+              <ScrollView style={{ maxHeight: 300 }}>
+                <TouchableOpacity
+                  style={styles.modalColBtn}
+                  onPress={() => { setSelectedCollectionId('all'); setCollectionModalVisible(false); }}
+                >
+                  <Text style={styles.modalColText}>すべての服</Text>
+                </TouchableOpacity>
+                {collections.map(col => (
+                  <TouchableOpacity
+                    key={col.id}
+                    style={styles.modalColBtn}
+                    onPress={() => { setSelectedCollectionId(col.id); setCollectionModalVisible(false); }}
+                  >
+                    <Text style={styles.modalColText}>{col.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+              <TouchableOpacity style={styles.modalCancelBtn} onPress={() => router.back()}>
+                <Text style={styles.modalCancelText}>戻る</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={{ width: 40 }} />
-        </View>
+        </Modal>
 
-        <View style={styles.deckContainer}>
-          {renderCards()}
-        </View>
+        {!collectionModalVisible && (
+          <>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+                <Ionicons name="close" size={24} color="#111827" />
+              </TouchableOpacity>
+              <View style={styles.headerCenter}>
+                <Text style={styles.stepText}>STEP {currentMacroIndex + 1} / {macroOrder.length}</Text>
+                <Text style={styles.headerText}>{currentPartName}</Text>
+              </View>
+              <View style={{ width: 40 }} />
+            </View>
+
+            <View style={styles.deckContainer}>
+              {renderCards()}
+            </View>
+          </>
+        )}
       </SafeAreaView>
     </LinearGradient>
   );
@@ -204,6 +241,14 @@ export default function SwipeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { width: '100%', backgroundColor: '#FAFBFC', borderRadius: 24, padding: 24 },
+  modalTitle: { fontSize: 18, fontWeight: '800', color: '#111827', marginBottom: 20, textAlign: 'center' },
+  modalColBtn: { paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#E5E7EB', alignItems: 'center' },
+  modalColText: { fontSize: 16, fontWeight: '800', color: '#4C1D95' },
+  modalCancelBtn: { marginTop: 20, backgroundColor: '#E5E7EB', padding: 15, borderRadius: 12, alignItems: 'center' },
+  modalCancelText: { color: '#4B5563', fontWeight: '800', fontSize: 16 },
+
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20 },
   closeButton: { padding: 8, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
   headerCenter: { alignItems: 'center' },
