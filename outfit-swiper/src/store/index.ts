@@ -2,19 +2,29 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { ClothingItem, Category, Outfit } from '../types';
+import { ClothingItem, CategoryDefinition, Outfit } from '../types';
 
 interface OutfitState {
   clothes: ClothingItem[];
-  macroOrder: Category[];
+  categories: CategoryDefinition[];
+  macroOrder: string[]; // array of category IDs
   currentOutfit: Outfit;
-  customCategories: string[];
+
+  // Actions
   addClothingItem: (item: Omit<ClothingItem, 'id'>) => void;
-  setMacroOrder: (order: Category[]) => void;
-  setOutfitItem: (category: Category, item: ClothingItem) => void;
-  addCustomCategory: (category: string) => void;
+  removeClothingItem: (id: string) => void;
+
+  addCategory: (name: string) => void;
+  removeCategory: (id: string) => void;
+
+  assignItemToCategory: (itemId: string, categoryId: string) => void;
+  removeItemFromCategory: (itemId: string, categoryId: string) => void;
+
+  setMacroOrder: (order: string[]) => void;
+  setOutfitItem: (categoryId: string, item: ClothingItem) => void;
   resetOutfit: () => void;
-  addMockClothes: () => void;
+
+  addMockData: () => void;
   clearAll: () => void;
 }
 
@@ -22,63 +32,113 @@ export const useOutfitStore = create<OutfitState>()(
   persist(
     (set) => ({
       clothes: [],
-      macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'],
+      categories: [
+        { id: 'cat-1', name: 'アウター', itemIds: [] },
+        { id: 'cat-2', name: 'トップス', itemIds: [] },
+        { id: 'cat-3', name: 'パンツ', itemIds: [] },
+      ],
+      macroOrder: ['cat-1', 'cat-2', 'cat-3'],
       currentOutfit: {},
-      customCategories: [],
 
       addClothingItem: (item) =>
         set((state) => ({
           clothes: [...state.clothes, { ...item, id: Date.now().toString() }],
         })),
 
-      setMacroOrder: (order) => set({ macroOrder: order }),
-
-      setOutfitItem: (category, item) =>
+      removeClothingItem: (id) =>
         set((state) => ({
-          currentOutfit: { ...state.currentOutfit, [category]: item },
+          clothes: state.clothes.filter(c => c.id !== id),
+          categories: state.categories.map(cat => ({
+            ...cat,
+            itemIds: cat.itemIds.filter(itemId => itemId !== id)
+          }))
         })),
 
-      addCustomCategory: (category) =>
+      addCategory: (name) =>
         set((state) => {
-          if (!state.customCategories.includes(category)) {
-             return { customCategories: [...state.customCategories, category] };
-          }
-          return state;
+          const newId = `cat-${Date.now()}`;
+          return {
+            categories: [...state.categories, { id: newId, name, itemIds: [] }],
+            macroOrder: [...state.macroOrder, newId]
+          };
         }),
+
+      removeCategory: (id) =>
+        set((state) => ({
+          categories: state.categories.filter(c => c.id !== id),
+          macroOrder: state.macroOrder.filter(catId => catId !== id),
+          currentOutfit: Object.fromEntries(Object.entries(state.currentOutfit).filter(([k]) => k !== id))
+        })),
+
+      assignItemToCategory: (itemId, categoryId) =>
+        set((state) => ({
+          categories: state.categories.map(cat =>
+            cat.id === categoryId && (!cat.itemIds.includes(itemId))
+              ? { ...cat, itemIds: [...cat.itemIds, itemId] }
+              : cat
+          )
+        })),
+
+      removeItemFromCategory: (itemId, categoryId) =>
+        set((state) => ({
+          categories: state.categories.map(cat =>
+            cat.id === categoryId
+              ? { ...cat, itemIds: cat.itemIds.filter(id => id !== itemId) }
+              : cat
+          )
+        })),
+
+      setMacroOrder: (order) => set({ macroOrder: order }),
+
+      setOutfitItem: (categoryId, item) =>
+        set((state) => ({
+          currentOutfit: { ...state.currentOutfit, [categoryId]: item },
+        })),
 
       resetOutfit: () => set({ currentOutfit: {} }),
 
-      addMockClothes: () => {
-        const mocks: ClothingItem[] = [
-          { id: '1', name: '黒のダウンジャケット', category: 'アウター', season: '冬', style: 'カジュアル', tags: ['防寒', 'ヘビロテ'] },
-          { id: '2', name: 'デニムジャケット', category: 'アウター', season: '春', style: 'カジュアル', tags: ['ビンテージ'] },
-          { id: '3', name: '白Tシャツ', category: 'トップス', season: '通年', style: 'カジュアル', tags: ['インナー', '無地'] },
-          { id: '4', name: '黒のスラックス', category: 'パンツ', season: '通年', style: 'フォーマル', tags: ['仕事用', 'きれいめ'] },
-          { id: '5', name: 'ブルージーンズ', category: 'パンツ', season: '通年', style: 'カジュアル', tags: ['休日', 'お気に入り'] },
-          { id: '6', name: '白スニーカー', category: 'シューズ', season: '通年', style: 'カジュアル', tags: ['歩きやすい'] },
+      addMockData: () => {
+        const mockClothes: ClothingItem[] = [
+          { id: '1', name: '黒のダウンジャケット', tags: ['防寒', '冬'] },
+          { id: '2', name: '白Tシャツ', tags: ['インナー', '無地'] },
+          { id: '3', name: '黒のスラックス', tags: ['仕事用', 'きれいめ'] },
         ];
-        // 既存の服がなければモックを追加
         set((state) => {
           if (state.clothes.length === 0) {
-            return { clothes: mocks };
+            return {
+              clothes: mockClothes,
+              categories: [
+                { id: 'cat-1', name: 'アウター', itemIds: ['1'] },
+                { id: 'cat-2', name: 'トップス', itemIds: ['2'] },
+                { id: 'cat-3', name: 'パンツ', itemIds: ['3'] },
+              ],
+              macroOrder: ['cat-1', 'cat-2', 'cat-3']
+            };
           }
           return state;
         });
       },
 
-      clearAll: () => set({ clothes: [], currentOutfit: {}, customCategories: [], macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'] }),
+      clearAll: () => set({
+        clothes: [],
+        currentOutfit: {},
+        categories: [
+          { id: 'cat-1', name: 'アウター', itemIds: [] },
+          { id: 'cat-2', name: 'トップス', itemIds: [] },
+          { id: 'cat-3', name: 'パンツ', itemIds: [] },
+        ],
+        macroOrder: ['cat-1', 'cat-2', 'cat-3']
+      }),
     }),
     {
-      name: 'outfit-storage', // AsyncStorageに保存されるキー名
+      name: 'outfit-storage',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => {
-        // If on web, we might not want to persist base64 images to localStorage to avoid QuotaExceededError
         if (Platform.OS === 'web') {
           return {
             ...state,
             clothes: state.clothes.map(item => ({
               ...item,
-              // Keep image if it's a short URL or mock, strip if it's a huge data URI on web
               imageUrl: item.imageUrl && item.imageUrl.startsWith('data:image') && item.imageUrl.length > 500000
                         ? undefined : item.imageUrl
             }))

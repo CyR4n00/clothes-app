@@ -1,15 +1,16 @@
-export type Category = 'アウター' | 'トップス' | 'パンツ' | 'シューズ' | 'アクセサリー';
-
 export interface ClothingItem {
   id: string;
   name: string;
-  category: Category;
   imageUrl?: string;
-  season: string;
-  style: string;
   tags?: string[];
 }
 
+export interface CategoryDefinition {
+  id: string;
+  name: string;
+  itemIds: string[];
+}
+
 export type Outfit = {
-  [key in Category]?: ClothingItem;
+  [categoryId: string]: ClothingItem;
 };

@@ -1,259 +1,168 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Image, SafeAreaView, Dimensions, TextInput, Alert, Modal } from 'react-native';
-import { useRouter, Link } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Animated } from 'react-native';
+import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
-import { Category, ClothingItem } from '../src/types';
 
 const { width } = Dimensions.get('window');
 
-export default function ClosetScreen() {
+export default function HomeScreen() {
   const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
-  const customCategories = useOutfitStore((state) => state.customCategories);
-  const addCustomCategory = useOutfitStore((state) => state.addCustomCategory);
+  const categories = useOutfitStore((state) => state.categories);
+  const addMockData = useOutfitStore((state) => state.addMockData);
+  const [activeTab, setActiveTab] = useState('closet');
 
-  const [selectedSeason, setSelectedSeason] = useState<string>('すべて');
-  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
-  const [newCategoryName, setNewCategoryName] = useState('');
-
-  const SEASONS = ['すべて', '春', '夏', '秋', '冬', '通年', ...customCategories];
-
-  const filteredClothes = clothes.filter(item => {
-    if (selectedSeason === 'すべて') return true;
-    return item.season === selectedSeason;
-  });
-  const addMockClothes = useOutfitStore((state) => state.addMockClothes);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (clothes.length === 0) {
-      addMockClothes();
+      addMockData();
     }
-  }, []);
+  }, [clothes, addMockData]);
 
-  const renderItem = ({ item }: { item: ClothingItem }) => {
-    let iconName: any = 'shirt';
-    if (item.category === 'シューズ') iconName = 'footsteps';
-    if (item.category === 'パンツ') iconName = 'man';
-    if (item.category === 'アウター') iconName = 'snow';
-    if (item.category === 'アクセサリー') iconName = 'glasses';
-
-    return (
-      <View style={styles.itemCard}>
-        {item.imageUrl ? (
-          <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
-        ) : (
-          <View style={styles.placeholderImage}>
-            <Ionicons name={iconName} size={40} color="#666666" />
-          </View>
-        )}
+  const renderClothingItem = ({ item }: { item: any }) => (
+    <TouchableOpacity style={styles.itemCard}>
+      {item.imageUrl ? (
+        <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+      ) : (
+        <View style={styles.placeholderImage}>
+          <Ionicons name="shirt-outline" size={40} color="#666666" />
+        </View>
+      )}
+      <View style={styles.itemInfo}>
         <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-        <Text style={styles.itemCategory}>{item.category}</Text>
-        {item.tags && item.tags.length > 0 && (
-          <View style={styles.tagContainer}>
-            {item.tags.slice(0, 2).map((tag, idx) => (
-              <View key={idx} style={styles.tagBadge}>
-                <Text style={styles.tagText} numberOfLines={1}>#{tag}</Text>
-              </View>
-            ))}
-          </View>
-        )}
+        <View style={styles.tagsContainer}>
+          {item.tags?.map((tag: string, index: number) => (
+            <View key={index} style={styles.tagBadge}>
+              <Text style={styles.tagText}>#{tag}</Text>
+            </View>
+          ))}
+        </View>
       </View>
-    );
-  };
+    </TouchableOpacity>
+  );
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
+    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
+      <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>HELLO,</Text>
-          <Text style={styles.headerTitle}>OutfitFlow</Text>
-        </View>
-
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>DATABASE</Text>
-          <Link href="/add-item" asChild>
-            <TouchableOpacity style={styles.addButton}>
-              <Ionicons name="add" size={24} color="#000000" />
-            </TouchableOpacity>
-          </Link>
-        </View>
-
-
-        <View style={styles.seasonContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.seasonScroll}>
-            {SEASONS.map(season => (
-              <TouchableOpacity
-                key={season}
-                style={[styles.seasonTab, selectedSeason === season && styles.seasonTabActive]}
-                onPress={() => setSelectedSeason(season)}
-              >
-                <Text style={[styles.seasonTabText, selectedSeason === season && styles.seasonTabTextActive]}>{season}</Text>
-              </TouchableOpacity>
-            ))}
-            <TouchableOpacity
-              style={[styles.seasonTab, { backgroundColor: 'transparent', borderStyle: 'dashed' }]}
-              onPress={() => setShowAddCategoryModal(true)}
-            >
-              <Text style={styles.seasonTabText}>+ 追加</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-
-        {/* Add Category Modal */}
-        <Modal visible={showAddCategoryModal} transparent animationType="fade">
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>カテゴリーを追加</Text>
-              <TextInput
-                style={styles.modalInput}
-                placeholder="カテゴリー名"
-                placeholderTextColor="#888"
-                value={newCategoryName}
-                onChangeText={setNewCategoryName}
-                autoFocus
-              />
-              <View style={styles.modalButtons}>
-                <TouchableOpacity style={styles.modalButtonCancel} onPress={() => setShowAddCategoryModal(false)}>
-                  <Text style={styles.modalButtonText}>キャンセル</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.modalButtonAdd}
-                  onPress={() => {
-                    if (newCategoryName.trim()) {
-                      addCustomCategory(newCategoryName.trim());
-                      setNewCategoryName('');
-                      setShowAddCategoryModal(false);
-                    }
-                  }}
-                >
-                  <Text style={styles.modalButtonTextAdd}>追加する</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+          <Text style={styles.title}>キルコレ</Text>
+          <View style={styles.headerRight}>
+             <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
+              <Ionicons name="settings-outline" size={24} color="#111827" />
+             </TouchableOpacity>
           </View>
-        </Modal>
+        </View>
 
-        <FlatList
-          data={filteredClothes}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          numColumns={2}
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <Ionicons name="file-tray-outline" size={60} color="#A0A0A0" />
-              <Text style={styles.emptyText}>服がありません</Text>
-              <Text style={styles.emptySubText}>上の「+」ボタンから追加してください</Text>
-            </View>
-          }
-        />
+        <View style={styles.heroSection}>
+          <LinearGradient colors={['#A78BFA', '#8B5CF6']} style={styles.swipeHeroButton} start={{x:0, y:0}} end={{x:1, y:1}}>
+            <TouchableOpacity style={styles.swipeHeroInner} onPress={() => router.push('/swipe')}>
+              <Ionicons name="layers" size={32} color="#FFFFFF" style={styles.heroIcon} />
+              <Text style={styles.swipeHeroText}>今日のセットアップを決める</Text>
+              <Text style={styles.swipeHeroSub}>スワイプして直感的に服を選ぶ</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
 
+        <View style={styles.tabContainer}>
+          <TouchableOpacity style={[styles.tab, activeTab === 'closet' && styles.activeTab]} onPress={() => setActiveTab('closet')}>
+            <Text style={[styles.tabText, activeTab === 'closet' && styles.activeTabText]}>クローゼット</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.tab, activeTab === 'categories' && styles.activeTab]} onPress={() => setActiveTab('categories')}>
+            <Text style={[styles.tabText, activeTab === 'categories' && styles.activeTabText]}>カテゴリー別</Text>
+          </TouchableOpacity>
+        </View>
+
+        {activeTab === 'closet' ? (
+          <View style={styles.listContainer}>
+            <TouchableOpacity style={styles.addButton} onPress={() => router.push('/add-item')}>
+              <Text style={styles.addButtonText}>+ 新しい服を登録</Text>
+            </TouchableOpacity>
+            <FlatList
+              data={clothes}
+              keyExtractor={(item) => item.id}
+              renderItem={renderClothingItem}
+              numColumns={2}
+              columnWrapperStyle={styles.row}
+              contentContainerStyle={{ paddingBottom: 100 }}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+        ) : (
+          <ScrollView style={styles.listContainer} contentContainerStyle={{ paddingBottom: 100 }}>
+            {categories.map(cat => {
+              const catClothes = cat.itemIds.map(id => clothes.find(c => c.id === id)).filter(Boolean);
+              return (
+                <View key={cat.id} style={styles.categorySection}>
+                  <Text style={styles.categoryTitle}>{cat.name} ({catClothes.length})</Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+                    {catClothes.map(item => (
+                      <View key={item?.id} style={styles.miniCard}>
+                        {item?.imageUrl ? (
+                           <Image source={{ uri: item.imageUrl }} style={styles.miniImage} />
+                        ) : (
+                           <View style={styles.miniPlaceholder}>
+                             <Ionicons name="shirt" size={24} color="#9ca3af" />
+                           </View>
+                        )}
+                        <Text style={styles.miniName} numberOfLines={1}>{item?.name}</Text>
+                      </View>
+                    ))}
+                    {catClothes.length === 0 && (
+                      <View style={styles.emptyCat}><Text style={styles.emptyCatText}>アイテムがありません</Text></View>
+                    )}
+                  </ScrollView>
+                </View>
+              );
+            })}
+          </ScrollView>
+        )}
       </SafeAreaView>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  safeArea: { flex: 1 },
-  header: { paddingHorizontal: 24, paddingTop: 40, paddingBottom: 20 },
-  greeting: { fontSize: 14, color: '#888888', marginBottom: 4, fontFamily: 'DotGothic', lineHeight: 20 },
-  headerTitle: { fontSize: 36, fontFamily: 'ZenDots', color: '#111827', lineHeight: 44, letterSpacing: -1 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, marginBottom: 16 },
-  seasonContainer: { marginBottom: 16 },
-  seasonScroll: { paddingHorizontal: 24, gap: 10 },
-  seasonTab: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    backgroundColor: '#EAEAEA',
-    borderWidth: 0,
-  },
-  seasonTabActive: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#D0D0D0'
-  },
-  seasonTabText: {
-    color: '#666666',
-    fontFamily: 'DotGothic',
-  },
-  seasonTabTextActive: {
-    color: '#111827',
-  },
-  sectionTitle: { fontSize: 18, fontFamily: 'ZenDots', color: '#111827' },
-  addButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', zIndex: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 2 },
-  listContainer: { paddingHorizontal: 16, paddingBottom: 120 }, // 16px container + 8px card margin = 24px outer alignment
-  itemCard: {
-    width: (width - 64) / 2,
-    margin: 8,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 16,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 2,
-  },
-  itemImage: { width: 80, height: 80, borderRadius: 40, marginBottom: 12 },
-  placeholderImage: {
-    backgroundColor: '#FAFAFA',
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  itemName: { fontSize: 14, fontFamily: 'DotGothic', color: '#111827', marginBottom: 4, textAlign: 'center' },
-  itemCategory: { fontSize: 12, color: '#888888', fontFamily: 'DotGothic' },
-  tagContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 4, marginTop: 6 },
-  tagBadge: { backgroundColor: 'rgba(17, 24, 39, 0.05)', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, borderWidth: 1, borderColor: 'rgba(17, 24, 39, 0.1)' },
-  tagText: { fontSize: 10, fontFamily: 'DotGothic', color: '#111827' },
-  emptyContainer: { alignItems: 'center', marginTop: 60, padding: 20 },
-  emptyText: { textAlign: 'center', marginTop: 16, fontSize: 18, color: '#111827', fontFamily: 'Orbitron-Bold' },
-  emptyIcon: { fontSize: 60 },
-  emptySubText: { textAlign: 'center', marginTop: 8, fontSize: 14, color: '#666666', fontFamily: 'DotGothic' },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' },
-  modalContent: { width: '80%', backgroundColor: '#FAFBFC', padding: 24, borderRadius: 16, borderWidth: 1, borderColor: '#111827' },
-  modalTitle: { fontSize: 18, fontFamily: 'ZenDots', color: '#111827', marginBottom: 16, textAlign: 'center' },
-  modalInput: { borderWidth: 1, borderColor: '#111827', borderRadius: 8, padding: 12, fontSize: 16, fontFamily: 'DotGothic', color: '#111827', marginBottom: 20 },
-  modalButtons: { flexDirection: 'row', justifyContent: 'space-between' },
-  modalButtonCancel: { paddingVertical: 12, paddingHorizontal: 20, borderRadius: 8, borderWidth: 1, borderColor: '#111827' },
-  modalButtonAdd: { paddingVertical: 12, paddingHorizontal: 20, borderRadius: 8, backgroundColor: '#111827' },
-  modalButtonText: { fontFamily: 'DotGothic', color: '#111827' },
-  modalButtonTextAdd: { fontFamily: 'DotGothic', color: '#FFFFFF' },
-  floatingNav: {
-    position: 'absolute',
-    bottom: 25,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '85%',
-    height: 64,
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
-    borderRadius: 32,
-    elevation: 10,
-    zIndex: 1000,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
-  },
-  navItem: { padding: 12 },
-  mainNavButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginTop: -30,
-    elevation: 8,
-  },
-  mainNavGradient: {
-    flex: 1,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 20, paddingBottom: 10 },
+  title: { fontSize: 28, fontFamily: 'ZenDots', color: '#111827' },
+  headerRight: { flexDirection: 'row', alignItems: 'center' },
+  iconButton: { padding: 8, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
+
+  heroSection: { paddingHorizontal: 24, marginBottom: 20 },
+  swipeHeroButton: { borderRadius: 24, padding: 2 },
+  swipeHeroInner: { backgroundColor: 'rgba(255,255,255,0.1)', padding: 24, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
+  heroIcon: { marginBottom: 10 },
+  swipeHeroText: { color: '#FFFFFF', fontSize: 20, fontWeight: '800', marginBottom: 5 },
+  swipeHeroSub: { color: '#EDE9FE', fontSize: 14, fontWeight: '600' },
+
+  tabContainer: { flexDirection: 'row', paddingHorizontal: 24, marginBottom: 15, gap: 10 },
+  tab: { paddingVertical: 8, paddingHorizontal: 16, borderRadius: 20, backgroundColor: '#E5E7EB' },
+  activeTab: { backgroundColor: '#111827' },
+  tabText: { color: '#6B7280', fontWeight: '800', fontSize: 14 },
+  activeTabText: { color: '#FFFFFF' },
+
+  listContainer: { flex: 1, paddingHorizontal: 24 },
+  addButton: { width: '100%', backgroundColor: 'rgba(255,255,255,0.7)', padding: 15, borderRadius: 16, alignItems: 'center', marginBottom: 20, borderWidth: 1, borderColor: '#D1D5DB', borderStyle: 'dashed' },
+  addButtonText: { color: '#4B5563', fontWeight: '800', fontSize: 16 },
+
+  row: { justifyContent: 'space-between', marginBottom: 15 },
+  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: 20, padding: 10, elevation: 2, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.5)' },
+  itemImage: { width: '100%', height: 120, borderRadius: 12, resizeMode: 'cover' },
+  placeholderImage: { width: '100%', height: 120, borderRadius: 12, backgroundColor: '#E5E7EB', justifyContent: 'center', alignItems: 'center' },
+  itemInfo: { marginTop: 10 },
+  itemName: { fontSize: 14, fontWeight: '800', color: '#111827', marginBottom: 4 },
+  tagsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  tagBadge: { backgroundColor: '#F3F4F6', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, borderWidth: 1, borderColor: '#E5E7EB' },
+  tagText: { fontSize: 10, color: '#4B5563', fontWeight: '700' },
+
+  categorySection: { marginBottom: 25 },
+  categoryTitle: { fontSize: 18, fontWeight: '800', color: '#111827', marginBottom: 10 },
+  horizontalScroll: { paddingBottom: 10 },
+  miniCard: { width: 100, marginRight: 15, backgroundColor: 'rgba(255,255,255,0.8)', padding: 8, borderRadius: 16, borderWidth: 1, borderColor: '#E5E7EB' },
+  miniImage: { width: '100%', height: 80, borderRadius: 10, marginBottom: 5 },
+  miniPlaceholder: { width: '100%', height: 80, borderRadius: 10, backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center', marginBottom: 5 },
+  miniName: { fontSize: 12, fontWeight: '700', color: '#4B5563', textAlign: 'center' },
+  emptyCat: { padding: 20, backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB', borderStyle: 'dashed' },
+  emptyCatText: { color: '#9CA3AF', fontSize: 12, fontWeight: '800' }
 });

@@ -4,34 +4,46 @@ import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, Touc
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
-import { ClothingItem, Category } from '../src/types';
+import { ClothingItem } from '../src/types';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 export default function SwipeScreen() {
   const router = useRouter();
-  const { clothes, macroOrder, currentOutfit, setOutfitItem, resetOutfit } = useOutfitStore();
+  const { clothes, categories, macroOrder, currentOutfit, setOutfitItem } = useOutfitStore();
 
-  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
+  const [currentMacroIndex, setCurrentMacroIndex] = useState(0);
   const [currentCards, setCurrentCards] = useState<ClothingItem[]>([]);
   const [cardIndex, setCardIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
 
-  // Initialize deck for current category
+  // Initialize deck for current macro category
   useEffect(() => {
-    if (currentCategoryIndex < macroOrder.length) {
-      const targetCategory = macroOrder[currentCategoryIndex];
-      const itemsForCategory = clothes.filter(item => item.category === targetCategory);
-      setCurrentCards(itemsForCategory);
-      setCardIndex(0);
+    if (currentMacroIndex < macroOrder.length) {
+      const targetCategoryId = macroOrder[currentMacroIndex];
+      const targetCategory = categories.find(c => c.id === targetCategoryId);
+
+      if (targetCategory) {
+        // Find clothes that belong to this category
+        const itemsForCategory = targetCategory.itemIds
+          .map(id => clothes.find(c => c.id === id))
+          .filter((item): item is ClothingItem => item !== undefined);
+
+        setCurrentCards(itemsForCategory);
+        setCardIndex(0);
+      } else {
+        // Invalid category ID somehow, skip to next
+        setCurrentMacroIndex(prev => prev + 1);
+      }
     } else {
       // All categories selected, go to final screen
       router.replace('/final-confirmation');
     }
-  }, [currentCategoryIndex, macroOrder, clothes, router]);
+  }, [currentMacroIndex, macroOrder, categories, clothes, router]);
 
-  const currentCategory = macroOrder[currentCategoryIndex];
+  const currentCategoryId = macroOrder[currentMacroIndex];
+  const currentCategoryName = categories.find(c => c.id === currentCategoryId)?.name || 'カテゴリー';
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -69,10 +81,10 @@ export default function SwipeScreen() {
   const onSwipeComplete = (direction: 'right' | 'left' | 'up') => {
     const item = currentCards[cardIndex];
     if (direction === 'right') {
-      // Select item and move to next category
-      setOutfitItem(currentCategory, item);
+      // Select item and move to next category in macro order
+      setOutfitItem(currentCategoryId, item);
       position.setValue({ x: 0, y: 0 });
-      setCurrentCategoryIndex(prev => prev + 1);
+      setCurrentMacroIndex(prev => prev + 1);
     } else if (direction === 'left') {
       // Skip: move to next card in current category
       position.setValue({ x: 0, y: 0 });
@@ -100,12 +112,12 @@ export default function SwipeScreen() {
     if (cardIndex >= currentCards.length) {
       return (
         <View style={styles.noMoreCards}>
-          <Text style={styles.noMoreText}>このカテゴリーの服はもうありません。</Text>
+          <Text style={styles.noMoreText}>このカテゴリーにはもう服がありません。</Text>
           <TouchableOpacity
             style={styles.skipButton}
-            onPress={() => setCurrentCategoryIndex(prev => prev + 1)}
+            onPress={() => setCurrentMacroIndex(prev => prev + 1)}
           >
-            <Text style={styles.skipButtonText}>スキップして次のカテゴリーへ</Text>
+            <Text style={styles.skipButtonText}>スキップして次へ</Text>
           </TouchableOpacity>
         </View>
       );
@@ -116,7 +128,7 @@ export default function SwipeScreen() {
       if (index === cardIndex) {
         return (
           <Animated.View
-            key={item.id}
+            key={item.id + index}
             style={[getCardStyle(), styles.cardStyle]}
             {...panResponder.panHandlers}
           >
@@ -125,7 +137,7 @@ export default function SwipeScreen() {
         );
       }
       return (
-        <View key={item.id} style={[styles.cardStyle, { top: 10 * (index - cardIndex) }]}>
+        <View key={item.id + index} style={[styles.cardStyle, { top: 10 * (index - cardIndex) }]}>
           {renderCard(item)}
         </View>
       );
@@ -145,24 +157,24 @@ export default function SwipeScreen() {
   };
 
   const renderCard = (item: ClothingItem) => {
-    let emoji = '👕';
-    if (item.category === 'シューズ') emoji = '👟';
-    if (item.category === 'パンツ') emoji = '👖';
-    if (item.category === 'アウター') emoji = '🧥';
-    if (item.category === 'アクセサリー') emoji = '🧢';
-
     return (
       <View style={styles.card}>
         {item.imageUrl ? (
           <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Text style={{fontSize: 80}}>{emoji}</Text>
+            <Ionicons name="shirt-outline" size={80} color="#9CA3AF" />
           </View>
         )}
         <View style={styles.cardDetails}>
           <Text style={styles.cardName}>{item.name}</Text>
-          <Text style={styles.cardCategory}>{item.category}</Text>
+          {item.tags && item.tags.length > 0 && (
+            <View style={styles.tagsRow}>
+              {item.tags.map((tag, i) => (
+                <Text key={i} style={styles.cardTag}>#{tag}</Text>
+              ))}
+            </View>
+          )}
         </View>
       </View>
     );
@@ -172,8 +184,14 @@ export default function SwipeScreen() {
     <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>{currentCategory} を選ぶ</Text>
-          <Text style={styles.subHeaderText}>右: 決定 | 左: パス | 上: 後回し</Text>
+          <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+            <Ionicons name="close" size={24} color="#111827" />
+          </TouchableOpacity>
+          <View style={styles.headerCenter}>
+            <Text style={styles.stepText}>STEP {currentMacroIndex + 1} / {macroOrder.length}</Text>
+            <Text style={styles.headerText}>{currentCategoryName}</Text>
+          </View>
+          <View style={{ width: 40 }} />
         </View>
 
         <View style={styles.deckContainer}>
@@ -186,19 +204,17 @@ export default function SwipeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  header: { padding: 20, alignItems: 'center', marginBottom: 10 },
-  headerText: { fontSize: 28, fontWeight: '800', color: '#111827' },
-  subHeaderText: { fontSize: 14, color: '#666666', marginTop: 5, fontWeight: '800' },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20 },
+  closeButton: { padding: 8, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
+  headerCenter: { alignItems: 'center' },
+  stepText: { fontSize: 12, fontWeight: '800', color: '#8B5CF6', marginBottom: 4 },
+  headerText: { fontSize: 24, fontWeight: '800', color: '#111827' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
     height: 450,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 30,
-
-
-
-
     elevation: 8,
     overflow: 'hidden',
     borderWidth: 1,
@@ -208,9 +224,10 @@ const styles = StyleSheet.create({
   placeholderImage: { flex: 1, backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
   cardDetails: { padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.9)' },
   cardName: { fontSize: 24, fontWeight: '800', color: '#111827' },
-  cardCategory: { fontSize: 16, color: '#666666', marginTop: 5, fontWeight: '800' },
+  tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 10 },
+  cardTag: { fontSize: 14, color: '#6D28D9', fontWeight: '800' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  noMoreText: { fontSize: 18, color: '#6D28D9', marginBottom: 20, textAlign: 'center', fontWeight: '800' },
-  skipButton: { backgroundColor: '#A78BFA', padding: 15, borderRadius: 15 },
+  noMoreText: { fontSize: 16, color: '#666', marginBottom: 20, textAlign: 'center', fontWeight: '800' },
+  skipButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15 },
   skipButtonText: { color: 'white', fontWeight: '800', fontSize: 16 }
 });

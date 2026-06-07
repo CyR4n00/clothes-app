@@ -1,0 +1,99 @@
+ INFO  Accepting connections at http://localhost:8080
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 44 ms
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 8 ms
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 9 ms
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 9 ms
+ HTTP  6/7/2026 3:02:29 PM ::1 GET /_expo/static/js/web/entry-6be8cb0e2e620a63b2cedf5e6d363e2e.js
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 57 ms
+ HTTP  6/7/2026 3:02:29 PM ::1 Returned 200 in 43 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 304 in 1 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 200 in 6 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:30 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 304 in 4 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 304 in 4 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:30 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /macro-settings
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 200 in 3 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /_expo/static/js/web/entry-6be8cb0e2e620a63b2cedf5e6d363e2e.js
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:32 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 8 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 8 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:32 PM ::1 Returned 304 in 8 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /swipe
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 200 in 3 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 4 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /_expo/static/js/web/entry-6be8cb0e2e620a63b2cedf5e6d363e2e.js
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 1 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 1 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 1 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:34 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 4 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 5 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 5 ms
+ HTTP  6/7/2026 3:02:34 PM ::1 Returned 304 in 6 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /final-confirmation
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 200 in 3 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /_expo/static/js/web/entry-6be8cb0e2e620a63b2cedf5e6d363e2e.js
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 2 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 1 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 0 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/7/2026 3:02:36 PM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 3 ms
+ HTTP  6/7/2026 3:02:36 PM ::1 Returned 304 in 3 ms
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+ INFO  Gracefully shutting down. Please wait...
