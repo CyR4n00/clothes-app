@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
+import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
 
@@ -24,17 +24,18 @@ export default function FinalConfirmationScreen() {
   }, [currentOutfit]);
 
   return (
-    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
+    <View style={styles.container}>
+      <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.scrollArea}>
-          <Text style={styles.title}>今日のセットアップ</Text>
-          <Text style={styles.subtitle}>Perfect Match!</Text>
+          <Text style={styles.title}>FINAL OUTFIT</Text>
+          <Text style={styles.subtitle}>// SYSTEM MATCH DETECTED</Text>
 
           <View style={styles.collageContainer}>
             {selectedItems.length === 0 ? (
               <View style={styles.emptyState}>
-                <Ionicons name="shirt-outline" size={48} color="#9CA3AF" />
-                <Text style={styles.emptyText}>アイテムが選ばれていません</Text>
+                <Ionicons name="shirt-outline" size={48} color="#FF00FF" />
+                <Text style={styles.emptyText}>NO ITEMS SELECTED</Text>
               </View>
             ) : (
               selectedItems.map(({ partName, item }, index) => {
@@ -47,7 +48,7 @@ export default function FinalConfirmationScreen() {
                       <Image source={{ uri: item.imageUrl }} style={styles.collageImage} />
                     ) : (
                       <View style={styles.collagePlaceholder}>
-                        <Ionicons name="shirt" size={isFirst ? 60 : 32} color="#9CA3AF" />
+                        <Ionicons name="shirt" size={isFirst ? 60 : 32} color="#39FF14" />
                       </View>
                     )}
                     <View style={styles.itemInfoOverlay}>
@@ -60,23 +61,23 @@ export default function FinalConfirmationScreen() {
           </View>
 
           <View style={styles.adContainer}>
-            <Text style={styles.adText}>[広告] スポンサーリンク</Text>
+            <Text style={styles.adText}>[ ADVERTISEMENT SLOT ]</Text>
           </View>
 
           <TouchableOpacity style={styles.finishButton} onPress={handleFinish}>
-            <Text style={styles.finishButtonText}>これで決定！ (ホームへ)</Text>
+            <Text style={styles.finishButtonText}>CONFIRM & RETURN</Text>
           </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: '#050505' },
   scrollArea: { padding: 20 },
-  title: { fontSize: 28, fontWeight: '900', textAlign: 'center', marginTop: 10, color: '#111827', fontFamily: 'ZenDots' },
-  subtitle: { fontSize: 16, fontWeight: '800', textAlign: 'center', color: '#8B5CF6', marginBottom: 30 },
+  title: { fontSize: 28, textAlign: 'center', marginTop: 10, color: '#39FF14', fontFamily: 'Orbitron-Bold', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  subtitle: { fontSize: 14, textAlign: 'center', color: '#00FFFF', marginBottom: 30, fontFamily: 'DotGothic16-Regular' },
 
   collageContainer: {
     flexDirection: 'row',
@@ -85,16 +86,20 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     justifyContent: 'center',
   },
-  emptyState: { width: '100%', height: 200, backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#E5E7EB', borderStyle: 'dashed' },
-  emptyText: { marginTop: 10, color: '#9CA3AF', fontWeight: '800' },
+  emptyState: { width: '100%', height: 200, backgroundColor: 'rgba(255, 0, 255, 0.05)', borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#FF00FF', borderStyle: 'dashed' },
+  emptyText: { marginTop: 10, color: '#FF00FF', fontFamily: 'Orbitron-Bold' },
 
   collageItem: {
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    backgroundColor: '#111',
     borderRadius: 20,
     overflow: 'hidden',
-    elevation: 5,
+    elevation: 10,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#39FF14',
+    shadowColor: '#39FF14',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
   },
   firstItem: {
     width: width - 40,
@@ -108,14 +113,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 10,
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    backgroundColor: 'rgba(57, 255, 20, 0.8)',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
     zIndex: 10,
     fontSize: 10,
-    fontWeight: '800',
-    color: '#111827',
+    fontFamily: 'Orbitron-Bold',
+    color: '#050505',
   },
   collageImage: {
     width: '100%',
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
   collagePlaceholder: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#222',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -134,33 +139,40 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(0,0,0,0.8)',
     padding: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#39FF14',
   },
   itemName: {
-    color: '#FFFFFF',
-    fontWeight: '800',
+    color: '#FFF',
+    fontFamily: 'DotGothic16-Regular',
     fontSize: 14,
   },
 
   adContainer: {
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 30,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.7)',
+    borderColor: '#333',
     borderStyle: 'dashed'
   },
-  adText: { color: '#999999', fontWeight: '800' },
+  adText: { color: '#666', fontFamily: 'Orbitron-Regular' },
   finishButton: {
-    backgroundColor: '#111827',
+    backgroundColor: '#39FF14',
     padding: 16,
     borderRadius: 16,
     alignItems: 'center',
     marginBottom: 40,
+    shadowColor: '#39FF14',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: 5,
   },
-  finishButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '800' },
+  finishButtonText: { color: '#050505', fontSize: 18, fontFamily: 'Orbitron-Bold' },
 });

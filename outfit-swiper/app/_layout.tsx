@@ -39,11 +39,11 @@ export default function Layout() {
             fontFamily: 'ZenDots',
             fontSize: 20,
           },
-          headerTransparent: true,
+          headerShown: false,
           headerBlurEffect: 'dark', // For iOS transparent header blur
         }}
       >
-        <Stack.Screen name="index" options={{ title: 'クローゼット' }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="add-item" options={{ title: '服を追加' }} />
         <Stack.Screen name="macro-settings" options={{ title: '選択順の変更' }} />
         <Stack.Screen name="swipe" options={{ title: '今日の服を選ぶ' }} />

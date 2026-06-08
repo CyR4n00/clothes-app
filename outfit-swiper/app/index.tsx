@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
+import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
 
@@ -61,13 +61,13 @@ export default function HomeScreen() {
           <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Ionicons name="shirt-outline" size={40} color="#666666" />
+            <Ionicons name="shirt-outline" size={40} color="#39FF14" />
           </View>
         )}
 
         {activeTabId !== 'all' && isSelectedInCurrentCollection && (
           <View style={styles.checkBadge}>
-            <Ionicons name="checkmark" size={16} color="white" />
+            <Ionicons name="checkmark" size={16} color="#050505" />
           </View>
         )}
 
@@ -86,34 +86,25 @@ export default function HomeScreen() {
     );
   };
 
-  // The displayed items in the grid. If "all", show everything. If collection, still show all, but selecting them adds/removes to collection.
-  // Actually, wait, the user wants "see all clothes registered in the closet, and add them to the category".
-  // If activeTab is 'all', just a normal view.
-  // If activeTab is a collection, we could filter to only show items IN the collection?
-  // But the prompt says "assign clothes to them by clicking the + button next to categories".
-  // Let's make the "all" view the main closet.
-  // In a specific collection tab, show ALL clothes, but highlight the ones in the collection so the user can toggle them.
-
   return (
-    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
+    <View style={styles.container}>
+      <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.title}>キルコレ</Text>
+          <Text style={styles.title}>OUTFIT SWIPER</Text>
           <View style={styles.headerRight}>
              <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
-              <Ionicons name="settings-outline" size={24} color="#111827" />
+              <Ionicons name="settings-outline" size={24} color="#39FF14" />
              </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.heroSection}>
-          <LinearGradient colors={['#A78BFA', '#8B5CF6']} style={styles.swipeHeroButton} start={{x:0, y:0}} end={{x:1, y:1}}>
-            <TouchableOpacity style={styles.swipeHeroInner} onPress={() => router.push('/swipe')}>
-              <Ionicons name="layers" size={32} color="#FFFFFF" style={styles.heroIcon} />
-              <Text style={styles.swipeHeroText}>今日のセットアップを決める</Text>
-              <Text style={styles.swipeHeroSub}>スワイプして直感的に服を選ぶ</Text>
-            </TouchableOpacity>
-          </LinearGradient>
+          <TouchableOpacity style={styles.swipeHeroButton} onPress={() => router.push('/swipe')}>
+            <Ionicons name="layers" size={32} color="#050505" style={styles.heroIcon} />
+            <Text style={styles.swipeHeroText}>SWIPE TO DECIDE</Text>
+            <Text style={styles.swipeHeroSub}>今日のセットアップを決める</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.tabsWrapper}>
@@ -122,7 +113,7 @@ export default function HomeScreen() {
               style={[styles.tab, activeTabId === 'all' && styles.activeTab]}
               onPress={() => setActiveTabId('all')}
             >
-              <Text style={[styles.tabText, activeTabId === 'all' && styles.activeTabText]}>すべて</Text>
+              <Text style={[styles.tabText, activeTabId === 'all' && styles.activeTabText]}>ALL</Text>
             </TouchableOpacity>
 
             {collections.map(col => (
@@ -136,14 +127,14 @@ export default function HomeScreen() {
             ))}
 
             <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)}>
-              <Ionicons name="add" size={20} color="#111827" />
+              <Ionicons name="add" size={20} color="#39FF14" />
             </TouchableOpacity>
           </ScrollView>
         </View>
 
         {activeTabId !== 'all' && (
           <View style={styles.collectionInfo}>
-            <Ionicons name="information-circle-outline" size={16} color="#6B7280" style={{marginRight: 4}} />
+            <Ionicons name="information-circle-outline" size={16} color="#FF00FF" style={{marginRight: 4}} />
             <Text style={styles.collectionInfoText}>タップしてこのカテゴリーに服を追加・削除</Text>
           </View>
         )}
@@ -151,7 +142,7 @@ export default function HomeScreen() {
         <View style={styles.listContainer}>
           {activeTabId === 'all' && (
             <TouchableOpacity style={styles.addButton} onPress={() => router.push('/add-item')}>
-              <Text style={styles.addButtonText}>+ 新しい服を登録</Text>
+              <Text style={styles.addButtonText}>+ NEW ITEM</Text>
             </TouchableOpacity>
           )}
 
@@ -170,19 +161,20 @@ export default function HomeScreen() {
         <Modal visible={modalVisible} transparent={true} animationType="fade">
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>新しいカテゴリーを作成</Text>
+              <Text style={styles.modalTitle}>NEW CATEGORY</Text>
               <TextInput
                 style={styles.modalInput}
                 placeholder="例: デート用, 宴会用"
+                placeholderTextColor="#666"
                 value={newCollectionName}
                 onChangeText={setNewCollectionName}
               />
               <View style={styles.modalActions}>
                 <TouchableOpacity style={styles.modalCancel} onPress={() => setModalVisible(false)}>
-                  <Text style={styles.modalCancelText}>キャンセル</Text>
+                  <Text style={styles.modalCancelText}>CANCEL</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.modalSave} onPress={handleCreateCollection}>
-                  <Text style={styles.modalSaveText}>作成</Text>
+                  <Text style={styles.modalSaveText}>CREATE</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -190,59 +182,58 @@ export default function HomeScreen() {
         </Modal>
 
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: '#050505' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 20, paddingBottom: 10 },
-  title: { fontSize: 28, fontFamily: 'ZenDots', color: '#111827' },
+  title: { fontSize: 24, fontFamily: 'Orbitron-Bold', color: '#39FF14', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
   headerRight: { flexDirection: 'row', alignItems: 'center' },
-  iconButton: { padding: 8, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
+  iconButton: { padding: 8, backgroundColor: 'rgba(57, 255, 20, 0.1)', borderRadius: 12, borderWidth: 1, borderColor: '#39FF14' },
 
   heroSection: { paddingHorizontal: 24, marginBottom: 20 },
-  swipeHeroButton: { borderRadius: 24, padding: 2 },
-  swipeHeroInner: { backgroundColor: 'rgba(255,255,255,0.1)', padding: 24, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
+  swipeHeroButton: { backgroundColor: '#39FF14', padding: 24, borderRadius: 22, alignItems: 'center', justifyContent: 'center', shadowColor: '#39FF14', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.8, shadowRadius: 10, elevation: 10 },
   heroIcon: { marginBottom: 10 },
-  swipeHeroText: { color: '#FFFFFF', fontSize: 20, fontWeight: '800', marginBottom: 5 },
-  swipeHeroSub: { color: '#EDE9FE', fontSize: 14, fontWeight: '600' },
+  swipeHeroText: { color: '#050505', fontSize: 22, fontFamily: 'Orbitron-Bold', marginBottom: 5 },
+  swipeHeroSub: { color: '#050505', fontSize: 14, fontFamily: 'DotGothic16-Regular' },
 
   tabsWrapper: { marginBottom: 15 },
   tabContainer: { paddingHorizontal: 24, gap: 10, alignItems: 'center' },
-  tab: { paddingVertical: 8, paddingHorizontal: 16, borderRadius: 20, backgroundColor: '#E5E7EB' },
-  activeTab: { backgroundColor: '#111827' },
-  tabText: { color: '#6B7280', fontWeight: '800', fontSize: 14 },
-  activeTabText: { color: '#FFFFFF' },
-  addTabBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.8)', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#E5E7EB', borderStyle: 'dashed' },
+  tab: { paddingVertical: 8, paddingHorizontal: 16, borderRadius: 20, backgroundColor: 'rgba(255, 255, 255, 0.05)', borderWidth: 1, borderColor: '#333' },
+  activeTab: { backgroundColor: 'rgba(57, 255, 20, 0.2)', borderColor: '#39FF14' },
+  tabText: { color: '#888', fontFamily: 'Orbitron-Regular', fontSize: 14 },
+  activeTabText: { color: '#39FF14', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 5 },
+  addTabBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(57, 255, 20, 0.1)', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#39FF14', borderStyle: 'dashed' },
 
   collectionInfo: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 24, marginBottom: 15 },
-  collectionInfoText: { color: '#6B7280', fontSize: 12, fontWeight: '700' },
+  collectionInfoText: { color: '#FF00FF', fontSize: 12, fontFamily: 'DotGothic16-Regular' },
 
   listContainer: { flex: 1, paddingHorizontal: 24 },
-  addButton: { width: '100%', backgroundColor: 'rgba(255,255,255,0.7)', padding: 15, borderRadius: 16, alignItems: 'center', marginBottom: 20, borderWidth: 1, borderColor: '#D1D5DB', borderStyle: 'dashed' },
-  addButtonText: { color: '#4B5563', fontWeight: '800', fontSize: 16 },
+  addButton: { width: '100%', backgroundColor: 'rgba(57, 255, 20, 0.05)', padding: 15, borderRadius: 16, alignItems: 'center', marginBottom: 20, borderWidth: 1, borderColor: '#39FF14', borderStyle: 'dashed' },
+  addButtonText: { color: '#39FF14', fontFamily: 'Orbitron-Bold', fontSize: 16 },
 
   row: { justifyContent: 'space-between', marginBottom: 15 },
-  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: 20, padding: 10, elevation: 2, borderWidth: 2, borderColor: 'transparent' },
-  itemCardSelected: { borderColor: '#8B5CF6', backgroundColor: '#F5F3FF' },
+  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: '#111', borderRadius: 20, padding: 10, elevation: 2, borderWidth: 1, borderColor: '#333' },
+  itemCardSelected: { borderColor: '#FF00FF', backgroundColor: 'rgba(255, 0, 255, 0.1)' },
   itemImage: { width: '100%', height: 120, borderRadius: 12, resizeMode: 'cover' },
-  placeholderImage: { width: '100%', height: 120, borderRadius: 12, backgroundColor: '#E5E7EB', justifyContent: 'center', alignItems: 'center' },
-  checkBadge: { position: 'absolute', top: 5, right: 5, backgroundColor: '#8B5CF6', borderRadius: 12, width: 24, height: 24, justifyContent: 'center', alignItems: 'center', zIndex: 10 },
+  placeholderImage: { width: '100%', height: 120, borderRadius: 12, backgroundColor: '#222', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#333', borderStyle: 'dashed' },
+  checkBadge: { position: 'absolute', top: 5, right: 5, backgroundColor: '#FF00FF', borderRadius: 12, width: 24, height: 24, justifyContent: 'center', alignItems: 'center', zIndex: 10, shadowColor: '#FF00FF', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.8, shadowRadius: 5 },
   itemInfo: { marginTop: 10 },
-  itemName: { fontSize: 14, fontWeight: '800', color: '#111827', marginBottom: 2 },
-  itemPart: { fontSize: 10, color: '#8B5CF6', fontWeight: '800', marginBottom: 4 },
+  itemName: { fontSize: 14, fontFamily: 'DotGothic16-Regular', color: '#FFF', marginBottom: 2 },
+  itemPart: { fontSize: 10, color: '#39FF14', fontFamily: 'Orbitron-Regular', marginBottom: 4 },
   tagsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  tagBadge: { backgroundColor: '#F3F4F6', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, borderWidth: 1, borderColor: '#E5E7EB' },
-  tagText: { fontSize: 10, color: '#4B5563', fontWeight: '700' },
+  tagBadge: { backgroundColor: 'rgba(0, 255, 255, 0.1)', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, borderWidth: 1, borderColor: '#00FFFF' },
+  tagText: { fontSize: 10, color: '#00FFFF', fontFamily: 'DotGothic16-Regular' },
 
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalContent: { width: '100%', backgroundColor: '#FAFBFC', borderRadius: 24, padding: 24 },
-  modalTitle: { fontSize: 18, fontWeight: '800', color: '#111827', marginBottom: 15 },
-  modalInput: { backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 1, borderColor: '#E5E7EB', color: '#111827', marginBottom: 20 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { width: '100%', backgroundColor: '#111', borderRadius: 24, padding: 24, borderWidth: 1, borderColor: '#39FF14' },
+  modalTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#39FF14', marginBottom: 15 },
+  modalInput: { backgroundColor: '#222', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 1, borderColor: '#333', color: '#FFF', marginBottom: 20, fontFamily: 'DotGothic16-Regular' },
   modalActions: { flexDirection: 'row', justifyContent: 'flex-end', gap: 10 },
   modalCancel: { padding: 10 },
-  modalCancelText: { color: '#6B7280', fontWeight: '800', fontSize: 16 },
-  modalSave: { backgroundColor: '#111827', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 12 },
-  modalSaveText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 },
+  modalCancelText: { color: '#888', fontFamily: 'Orbitron-Bold', fontSize: 16 },
+  modalSave: { backgroundColor: '#39FF14', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 12 },
+  modalSaveText: { color: '#050505', fontFamily: 'Orbitron-Bold', fontSize: 16 },
 });

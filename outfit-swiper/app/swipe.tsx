@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView, Modal, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useOutfitStore } from '../src/store';
 import { ClothingItem } from '../src/types';
+import { GridBackground } from '../components/GridBackground';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -117,12 +117,12 @@ export default function SwipeScreen() {
     if (cardIndex >= currentCards.length) {
       return (
         <View style={styles.noMoreCards}>
-          <Text style={styles.noMoreText}>この部位にはもう服がありません。</Text>
+          <Text style={styles.noMoreText}>OUT OF ITEMS</Text>
           <TouchableOpacity
             style={styles.skipButton}
             onPress={() => setCurrentMacroIndex(prev => prev + 1)}
           >
-            <Text style={styles.skipButtonText}>スキップして次へ</Text>
+            <Text style={styles.skipButtonText}>SKIP</Text>
           </TouchableOpacity>
         </View>
       );
@@ -168,7 +168,7 @@ export default function SwipeScreen() {
           <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Ionicons name="shirt-outline" size={80} color="#9CA3AF" />
+            <Ionicons name="shirt-outline" size={80} color="#39FF14" />
           </View>
         )}
         <View style={styles.cardDetails}>
@@ -186,18 +186,19 @@ export default function SwipeScreen() {
   };
 
   return (
-    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
+    <View style={styles.container}>
+      <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
-        <Modal visible={collectionModalVisible} transparent={true} animationType="slide">
+        <Modal visible={collectionModalVisible} transparent={true} animationType="fade">
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>どのカテゴリーから選びますか？</Text>
+              <Text style={styles.modalTitle}>SELECT COLLECTION</Text>
               <ScrollView style={{ maxHeight: 300 }}>
                 <TouchableOpacity
                   style={styles.modalColBtn}
                   onPress={() => { setSelectedCollectionId('all'); setCollectionModalVisible(false); }}
                 >
-                  <Text style={styles.modalColText}>すべての服</Text>
+                  <Text style={styles.modalColText}>ALL CLOTHES</Text>
                 </TouchableOpacity>
                 {collections.map(col => (
                   <TouchableOpacity
@@ -210,7 +211,7 @@ export default function SwipeScreen() {
                 ))}
               </ScrollView>
               <TouchableOpacity style={styles.modalCancelBtn} onPress={() => router.back()}>
-                <Text style={styles.modalCancelText}>戻る</Text>
+                <Text style={styles.modalCancelText}>BACK</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -220,7 +221,7 @@ export default function SwipeScreen() {
           <>
             <View style={styles.header}>
               <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#111827" />
+                <Ionicons name="close" size={24} color="#39FF14" />
               </TouchableOpacity>
               <View style={styles.headerCenter}>
                 <Text style={styles.stepText}>STEP {currentMacroIndex + 1} / {macroOrder.length}</Text>
@@ -235,44 +236,48 @@ export default function SwipeScreen() {
           </>
         )}
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalContent: { width: '100%', backgroundColor: '#FAFBFC', borderRadius: 24, padding: 24 },
-  modalTitle: { fontSize: 18, fontWeight: '800', color: '#111827', marginBottom: 20, textAlign: 'center' },
-  modalColBtn: { paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#E5E7EB', alignItems: 'center' },
-  modalColText: { fontSize: 16, fontWeight: '800', color: '#4C1D95' },
-  modalCancelBtn: { marginTop: 20, backgroundColor: '#E5E7EB', padding: 15, borderRadius: 12, alignItems: 'center' },
-  modalCancelText: { color: '#4B5563', fontWeight: '800', fontSize: 16 },
+  container: { flex: 1, backgroundColor: '#050505' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { width: '100%', backgroundColor: '#111', borderRadius: 24, padding: 24, borderWidth: 1, borderColor: '#39FF14' },
+  modalTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#39FF14', marginBottom: 20, textAlign: 'center', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  modalColBtn: { paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#333', alignItems: 'center' },
+  modalColText: { fontSize: 16, fontFamily: 'Orbitron-Bold', color: '#FFF' },
+  modalCancelBtn: { marginTop: 20, backgroundColor: '#222', padding: 15, borderRadius: 12, alignItems: 'center', borderWidth: 1, borderColor: '#333' },
+  modalCancelText: { color: '#888', fontFamily: 'Orbitron-Bold', fontSize: 16 },
 
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20 },
-  closeButton: { padding: 8, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
+  closeButton: { padding: 8, backgroundColor: 'rgba(57, 255, 20, 0.1)', borderRadius: 12, borderWidth: 1, borderColor: '#39FF14' },
   headerCenter: { alignItems: 'center' },
-  stepText: { fontSize: 12, fontWeight: '800', color: '#8B5CF6', marginBottom: 4 },
-  headerText: { fontSize: 24, fontWeight: '800', color: '#111827' },
+  stepText: { fontSize: 12, fontFamily: 'Orbitron-Bold', color: '#FF00FF', marginBottom: 4, textShadowColor: '#FF00FF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 5 },
+  headerText: { fontSize: 24, fontFamily: 'Orbitron-Bold', color: '#FFF' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
     height: 450,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: '#111',
     borderRadius: 30,
-    elevation: 8,
+    elevation: 10,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#EDE9FE',
+    borderWidth: 2,
+    borderColor: '#39FF14',
+    shadowColor: '#39FF14',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
   },
   cardImage: { flex: 1, width: '100%', height: null, resizeMode: 'cover' },
-  placeholderImage: { flex: 1, backgroundColor: 'rgba(255,255,255,0.8)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)', justifyContent: 'center', alignItems: 'center' },
-  cardDetails: { padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.9)' },
-  cardName: { fontSize: 24, fontWeight: '800', color: '#111827' },
+  placeholderImage: { flex: 1, backgroundColor: '#222', borderWidth: 1, borderColor: '#333', borderStyle: 'dashed', justifyContent: 'center', alignItems: 'center' },
+  cardDetails: { padding: 20, backgroundColor: '#111', borderTopWidth: 1, borderTopColor: '#333' },
+  cardName: { fontSize: 24, fontFamily: 'DotGothic16-Regular', color: '#FFF' },
   tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 10 },
-  cardTag: { fontSize: 14, color: '#6D28D9', fontWeight: '800' },
+  cardTag: { fontSize: 14, color: '#00FFFF', fontFamily: 'DotGothic16-Regular' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  noMoreText: { fontSize: 16, color: '#666', marginBottom: 20, textAlign: 'center', fontWeight: '800' },
-  skipButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15 },
-  skipButtonText: { color: 'white', fontWeight: '800', fontSize: 16 }
+  noMoreText: { fontSize: 18, color: '#FF00FF', marginBottom: 20, textAlign: 'center', fontFamily: 'Orbitron-Bold', textShadowColor: '#FF00FF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  skipButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, borderWidth: 1, borderColor: '#39FF14' },
+  skipButtonText: { color: '#39FF14', fontFamily: 'Orbitron-Bold', fontSize: 16 }
 });

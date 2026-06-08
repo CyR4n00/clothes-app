@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { GridBackground } from '../components/GridBackground';
 
 export default function PaywallScreen() {
   const router = useRouter();
   const [isPurchasing, setIsPurchasing] = useState(false);
 
-  // モックのプランデータ（WebやExpo Goで表示確認するため）
   const mockPackages = [
-    { identifier: 'monthly', title: '月額プラン', priceString: '¥500' },
-    { identifier: 'yearly', title: '年間プラン', priceString: '¥5,000' }
+    { identifier: 'monthly', title: 'MONTHLY', priceString: '¥500' },
+    { identifier: 'yearly', title: 'YEARLY', priceString: '¥5,000' }
   ];
 
   const handlePurchase = async () => {
@@ -19,9 +18,9 @@ export default function PaywallScreen() {
     setTimeout(() => {
       setIsPurchasing(false);
       if (Platform.OS === 'web') {
-        window.alert('購入完了: プレミアムプランの登録が完了しました！（モック）');
+        window.alert('SYSTEM UPDATE: Premium features unlocked.');
       } else {
-        Alert.alert('購入完了', 'プレミアムプランの登録が完了しました！（モック）');
+        Alert.alert('SYSTEM UPDATE', 'Premium features unlocked.');
       }
       router.back();
     }, 1000);
@@ -32,26 +31,27 @@ export default function PaywallScreen() {
     setTimeout(() => {
       setIsPurchasing(false);
       if (Platform.OS === 'web') {
-        window.alert('復元完了: プレミアムプランを復元しました。（モック）');
+        window.alert('SYSTEM RESTORE: Purchases recovered.');
       } else {
-        Alert.alert('復元完了', 'プレミアムプランを復元しました。（モック）');
+        Alert.alert('SYSTEM RESTORE', 'Purchases recovered.');
       }
       router.back();
     }, 1000);
   };
 
   return (
-    <LinearGradient colors={['#EAEFF2', '#FAFBFC', '#F0F3F5']} style={styles.container}>
+    <View style={styles.container}>
+      <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
-          <Ionicons name="close" size={28} color="#4C1D95" />
+          <Ionicons name="close" size={28} color="#FF00FF" />
         </TouchableOpacity>
 
         <View style={styles.glassCard}>
           <View style={styles.header}>
-            <Ionicons name="diamond" size={60} color="#8B5CF6" />
-            <Text style={styles.title}>プレミアムプラン</Text>
-            <Text style={styles.subtitle}>AIがあなたにぴったりの服を提案！</Text>
+            <Ionicons name="hardware-chip" size={60} color="#39FF14" />
+            <Text style={styles.title}>PREMIUM ACCESS</Text>
+            <Text style={styles.subtitle}>Unlock AI Outfit Suggestions</Text>
           </View>
 
           <View style={styles.packagesContainer}>
@@ -68,49 +68,51 @@ export default function PaywallScreen() {
             ))}
           </View>
 
-          {isPurchasing && <ActivityIndicator size="large" color="#8B5CF6" style={{ marginTop: 20 }} />}
+          {isPurchasing && <ActivityIndicator size="large" color="#39FF14" style={{ marginTop: 20 }} />}
         </View>
 
         <TouchableOpacity onPress={handleRestore} style={styles.restoreButton}>
-          <Text style={styles.restoreText}>購入を復元する</Text>
+          <Text style={styles.restoreText}>RESTORE PURCHASES</Text>
         </TouchableOpacity>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  closeButton: { position: 'absolute', top: 50, right: 20, zIndex: 10, padding: 10 },
+  container: { flex: 1, backgroundColor: '#050505' },
+  closeButton: { position: 'absolute', top: 50, right: 20, zIndex: 10, padding: 10, backgroundColor: 'rgba(255,0,255,0.1)', borderRadius: 12, borderWidth: 1, borderColor: '#FF00FF' },
   glassCard: {
     marginHorizontal: 20,
     marginTop: 100,
-    backgroundColor: 'rgba(255, 255, 255, 0.45)',
+    backgroundColor: '#111',
     borderRadius: 30,
     padding: 20,
-
-
-
-
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: '#39FF14',
+    shadowColor: '#39FF14',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
+    elevation: 10,
   },
   header: { alignItems: 'center', paddingHorizontal: 20 },
-  title: { fontSize: 28, fontWeight: '800', marginTop: 20, color: '#111827' },
-  subtitle: { fontSize: 16, color: '#666666', marginTop: 10, textAlign: 'center', fontWeight: '800' },
+  title: { fontSize: 24, fontFamily: 'Orbitron-Bold', marginTop: 20, color: '#39FF14', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  subtitle: { fontSize: 14, fontFamily: 'DotGothic16-Regular', color: '#00FFFF', marginTop: 10, textAlign: 'center' },
   packagesContainer: { marginTop: 40 },
   packageCard: {
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: '#222',
     padding: 20,
     borderRadius: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
-    borderWidth: 2,
-    borderColor: '#8B5CF6'
+    borderWidth: 1,
+    borderColor: '#333'
   },
-  packageName: { fontSize: 18, fontWeight: '800', color: '#111827' },
-  packagePrice: { fontSize: 18, fontWeight: '800', color: '#111827' },
+  packageName: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#FFF' },
+  packagePrice: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#39FF14' },
   restoreButton: { marginTop: 'auto', marginBottom: 40, alignItems: 'center' },
-  restoreText: { color: '#111827', fontSize: 16, fontWeight: '800' }
+  restoreText: { color: '#888', fontSize: 14, fontFamily: 'Orbitron-Bold', textDecorationLine: 'underline' }
 });
