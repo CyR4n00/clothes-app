@@ -29,12 +29,12 @@ export default function FinalConfirmationScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.scrollArea}>
           <Text style={styles.title}>FINAL OUTFIT</Text>
-          <Text style={styles.subtitle}>// SYSTEM MATCH DETECTED</Text>
+          <Text style={styles.subtitle}>// THE LOOK //.</Text>
 
           <View style={styles.collageContainer}>
             {selectedItems.length === 0 ? (
               <View style={styles.emptyState}>
-                <Ionicons name="shirt-outline" size={48} color="#FF00FF" />
+                <Ionicons name="shirt-outline" size={48} color="#111827" />
                 <Text style={styles.emptyText}>NO ITEMS SELECTED</Text>
               </View>
             ) : (
@@ -48,7 +48,7 @@ export default function FinalConfirmationScreen() {
                       <Image source={{ uri: item.imageUrl }} style={styles.collageImage} />
                     ) : (
                       <View style={styles.collagePlaceholder}>
-                        <Ionicons name="shirt" size={isFirst ? 60 : 32} color="#39FF14" />
+                        <Ionicons name="shirt" size={isFirst ? 60 : 32} color="#111827" />
                       </View>
                     )}
                     <View style={styles.itemInfoOverlay}>
@@ -74,10 +74,10 @@ export default function FinalConfirmationScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#050505' },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
   scrollArea: { padding: 20 },
-  title: { fontSize: 28, textAlign: 'center', marginTop: 10, color: '#39FF14', fontFamily: 'Orbitron-Bold', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
-  subtitle: { fontSize: 14, textAlign: 'center', color: '#00FFFF', marginBottom: 30, fontFamily: 'DotGothic16-Regular' },
+  title: { fontSize: 28, textAlign: 'center', marginTop: 10, color: '#111827', fontWeight: '900' },
+  subtitle: { fontSize: 14, textAlign: 'center', color: '#6B7280', marginBottom: 30, fontWeight: '700' },
 
   collageContainer: {
     flexDirection: 'row',
@@ -86,20 +86,16 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     justifyContent: 'center',
   },
-  emptyState: { width: '100%', height: 200, backgroundColor: 'rgba(255, 0, 255, 0.05)', borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#FF00FF', borderStyle: 'dashed' },
-  emptyText: { marginTop: 10, color: '#FF00FF', fontFamily: 'Orbitron-Bold' },
+  emptyState: { width: '100%', height: 200, backgroundColor: '#F9FAFB', borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#E5E7EB', borderStyle: 'dashed' },
+  emptyText: { marginTop: 10, color: '#111827', fontWeight: '900' },
 
   collageItem: {
-    backgroundColor: '#111',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     overflow: 'hidden',
     elevation: 10,
-    borderWidth: 1,
-    borderColor: '#39FF14',
-    shadowColor: '#39FF14',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
+    borderWidth: 2,
+    borderColor: '#111827',
   },
   firstItem: {
     width: width - 40,
@@ -113,14 +109,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 10,
-    backgroundColor: 'rgba(57, 255, 20, 0.8)',
+    backgroundColor: '#111827',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
     zIndex: 10,
     fontSize: 10,
-    fontFamily: 'Orbitron-Bold',
-    color: '#050505',
+    fontWeight: '900',
+    color: '#FFFFFF',
   },
   collageImage: {
     width: '100%',
@@ -130,7 +126,7 @@ const styles = StyleSheet.create({
   collagePlaceholder: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#222',
+    backgroundColor: '#F9FAFB',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -139,40 +135,35 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#39FF14',
+    borderTopWidth: 2,
+    borderTopColor: '#111827',
   },
   itemName: {
-    color: '#FFF',
-    fontFamily: 'DotGothic16-Regular',
+    color: '#111827',
+    fontWeight: '900',
     fontSize: 14,
   },
 
   adContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: '#F9FAFB',
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 30,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#333',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
     borderStyle: 'dashed'
   },
-  adText: { color: '#666', fontFamily: 'Orbitron-Regular' },
+  adText: { color: '#9CA3AF', fontWeight: '800' },
   finishButton: {
-    backgroundColor: '#39FF14',
+    backgroundColor: '#111827',
     padding: 16,
     borderRadius: 16,
     alignItems: 'center',
     marginBottom: 40,
-    shadowColor: '#39FF14',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 5,
   },
-  finishButtonText: { color: '#050505', fontSize: 18, fontFamily: 'Orbitron-Bold' },
+  finishButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '900' },
 });

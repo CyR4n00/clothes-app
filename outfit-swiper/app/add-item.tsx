@@ -64,7 +64,7 @@ export default function AddItemScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color="#39FF14" />
+            <Ionicons name="arrow-back" size={24} color="#111827" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>ADD ITEM</Text>
           <View style={{ width: 40 }} />
@@ -76,7 +76,7 @@ export default function AddItemScreen() {
               <Image source={{ uri: imageUri }} style={styles.image} />
             ) : (
               <View style={styles.imagePlaceholder}>
-                <Ionicons name="camera-outline" size={40} color="#39FF14" />
+                <Ionicons name="camera-outline" size={40} color="#111827" />
                 <Text style={styles.imagePlaceholderText}>UPLOAD PHOTO</Text>
               </View>
             )}
@@ -87,7 +87,7 @@ export default function AddItemScreen() {
             <TextInput
               style={styles.input}
               placeholder="例: 黒のダウンジャケット"
-              placeholderTextColor="#666"
+              placeholderTextColor="#9CA3AF"
               value={name}
               onChangeText={setName}
             />
@@ -115,7 +115,7 @@ export default function AddItemScreen() {
             <TextInput
               style={styles.input}
               placeholder="例: 防寒, お気に入り"
-              placeholderTextColor="#666"
+              placeholderTextColor="#9CA3AF"
               value={tagsInput}
               onChangeText={setTagsInput}
             />
@@ -131,24 +131,24 @@ export default function AddItemScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#050505' },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20 },
-  backButton: { padding: 8, backgroundColor: 'rgba(57, 255, 20, 0.1)', borderRadius: 12, borderWidth: 1, borderColor: '#39FF14' },
-  headerTitle: { fontSize: 20, fontFamily: 'Orbitron-Bold', color: '#39FF14', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  backButton: { padding: 8, backgroundColor: '#FFFFFF', borderRadius: 12, borderWidth: 2, borderColor: '#111827' },
+  headerTitle: { fontSize: 20, fontWeight: '900', color: '#111827' },
   formContainer: { padding: 20 },
-  imagePicker: { width: '100%', height: 250, backgroundColor: '#111', borderRadius: 20, marginBottom: 20, overflow: 'hidden', borderWidth: 1, borderColor: '#333', borderStyle: 'dashed' },
+  imagePicker: { width: '100%', height: 250, backgroundColor: '#F9FAFB', borderRadius: 16, marginBottom: 20, overflow: 'hidden', borderWidth: 2, borderColor: '#111827', borderStyle: 'dashed' },
   image: { width: '100%', height: '100%', resizeMode: 'cover' },
   imagePlaceholder: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  imagePlaceholderText: { color: '#39FF14', marginTop: 10, fontFamily: 'Orbitron-Bold' },
+  imagePlaceholderText: { color: '#111827', marginTop: 10, fontWeight: '800' },
   inputGroup: { marginBottom: 20 },
-  label: { fontSize: 16, fontFamily: 'Orbitron-Bold', color: '#FFF', marginBottom: 8 },
-  required: { color: '#FF00FF' },
-  input: { backgroundColor: '#111', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 1, borderColor: '#333', color: '#FFF', fontFamily: 'DotGothic16-Regular' },
+  label: { fontSize: 16, fontWeight: '900', color: '#111827', marginBottom: 8 },
+  required: { color: '#EF4444' },
+  input: { backgroundColor: '#F9FAFB', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 2, borderColor: '#E5E7EB', color: '#111827', fontWeight: '700' },
   partsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
-  partChip: { backgroundColor: '#111', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 20, borderWidth: 1, borderColor: '#333' },
-  partChipSelected: { backgroundColor: 'rgba(57, 255, 20, 0.2)', borderColor: '#39FF14' },
-  partChipText: { color: '#888', fontFamily: 'Orbitron-Bold' },
-  partChipTextSelected: { color: '#39FF14', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 5 },
-  saveButton: { backgroundColor: '#39FF14', padding: 16, borderRadius: 16, alignItems: 'center', marginTop: 10, marginBottom: 40, shadowColor: '#39FF14', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 10, elevation: 5 },
-  saveButtonText: { color: '#050505', fontSize: 18, fontFamily: 'Orbitron-Bold' }
+  partChip: { backgroundColor: '#FFFFFF', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 20, borderWidth: 2, borderColor: '#E5E7EB' },
+  partChipSelected: { backgroundColor: '#111827', borderColor: '#111827' },
+  partChipText: { color: '#6B7280', fontWeight: '800' },
+  partChipTextSelected: { color: '#FFFFFF' },
+  saveButton: { backgroundColor: '#111827', padding: 16, borderRadius: 16, alignItems: 'center', marginTop: 10, marginBottom: 40 },
+  saveButtonText: { color: '#FFFFFF', fontSize: 18, fontWeight: '900' }
 });

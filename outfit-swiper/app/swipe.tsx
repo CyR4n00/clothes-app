@@ -13,7 +13,6 @@ export default function SwipeScreen() {
   const router = useRouter();
   const { clothes, collections, macroOrder, currentOutfit, setOutfitItem } = useOutfitStore();
 
-  // Modal for picking a collection before swiping
   const [collectionModalVisible, setCollectionModalVisible] = useState(true);
   const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
 
@@ -22,14 +21,12 @@ export default function SwipeScreen() {
   const [cardIndex, setCardIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
 
-  // Initialize deck for current macro part, filtering by selected collection
   useEffect(() => {
     if (collectionModalVisible || !selectedCollectionId) return;
 
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      // Get all items in the selected collection
       let collectionItemIds: string[] = [];
       if (selectedCollectionId === 'all') {
         collectionItemIds = clothes.map(c => c.id);
@@ -38,7 +35,6 @@ export default function SwipeScreen() {
         if (col) collectionItemIds = col.itemIds;
       }
 
-      // Filter clothes to those in the collection AND matching the current part
       const itemsForPart = clothes.filter(c =>
         c.part === currentPart && collectionItemIds.includes(c.id)
       );
@@ -46,7 +42,6 @@ export default function SwipeScreen() {
       setCurrentCards(itemsForPart);
       setCardIndex(0);
     } else {
-      // All parts selected, go to final screen
       router.replace('/final-confirmation');
     }
   }, [currentMacroIndex, macroOrder, collections, clothes, router, collectionModalVisible, selectedCollectionId]);
@@ -168,7 +163,7 @@ export default function SwipeScreen() {
           <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Ionicons name="shirt-outline" size={80} color="#39FF14" />
+            <Ionicons name="shirt-outline" size={80} color="#111827" />
           </View>
         )}
         <View style={styles.cardDetails}>
@@ -221,7 +216,7 @@ export default function SwipeScreen() {
           <>
             <View style={styles.header}>
               <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#39FF14" />
+                <Ionicons name="close" size={24} color="#111827" />
               </TouchableOpacity>
               <View style={styles.headerCenter}>
                 <Text style={styles.stepText}>STEP {currentMacroIndex + 1} / {macroOrder.length}</Text>
@@ -241,43 +236,39 @@ export default function SwipeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#050505' },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalContent: { width: '100%', backgroundColor: '#111', borderRadius: 24, padding: 24, borderWidth: 1, borderColor: '#39FF14' },
-  modalTitle: { fontSize: 18, fontFamily: 'Orbitron-Bold', color: '#39FF14', marginBottom: 20, textAlign: 'center', textShadowColor: '#39FF14', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
-  modalColBtn: { paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#333', alignItems: 'center' },
-  modalColText: { fontSize: 16, fontFamily: 'Orbitron-Bold', color: '#FFF' },
-  modalCancelBtn: { marginTop: 20, backgroundColor: '#222', padding: 15, borderRadius: 12, alignItems: 'center', borderWidth: 1, borderColor: '#333' },
-  modalCancelText: { color: '#888', fontFamily: 'Orbitron-Bold', fontSize: 16 },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { width: '100%', backgroundColor: '#FFFFFF', borderRadius: 24, padding: 24, borderWidth: 2, borderColor: '#111827' },
+  modalTitle: { fontSize: 18, fontWeight: '900', color: '#111827', marginBottom: 20, textAlign: 'center' },
+  modalColBtn: { paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#E5E7EB', alignItems: 'center' },
+  modalColText: { fontSize: 16, fontWeight: '900', color: '#111827' },
+  modalCancelBtn: { marginTop: 20, backgroundColor: '#F3F4F6', padding: 15, borderRadius: 12, alignItems: 'center', borderWidth: 2, borderColor: '#E5E7EB' },
+  modalCancelText: { color: '#4B5563', fontWeight: '800', fontSize: 16 },
 
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20 },
-  closeButton: { padding: 8, backgroundColor: 'rgba(57, 255, 20, 0.1)', borderRadius: 12, borderWidth: 1, borderColor: '#39FF14' },
+  closeButton: { padding: 8, backgroundColor: '#FFFFFF', borderRadius: 12, borderWidth: 2, borderColor: '#111827' },
   headerCenter: { alignItems: 'center' },
-  stepText: { fontSize: 12, fontFamily: 'Orbitron-Bold', color: '#FF00FF', marginBottom: 4, textShadowColor: '#FF00FF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 5 },
-  headerText: { fontSize: 24, fontFamily: 'Orbitron-Bold', color: '#FFF' },
+  stepText: { fontSize: 12, fontWeight: '900', color: '#6B7280', marginBottom: 4 },
+  headerText: { fontSize: 24, fontWeight: '900', color: '#111827' },
   deckContainer: { flex: 1, marginTop: 20 },
   cardStyle: { position: 'absolute', width: SCREEN_WIDTH, paddingHorizontal: 20 },
   card: {
     height: 450,
-    backgroundColor: '#111',
+    backgroundColor: '#FFFFFF',
     borderRadius: 30,
     elevation: 10,
     overflow: 'hidden',
     borderWidth: 2,
-    borderColor: '#39FF14',
-    shadowColor: '#39FF14',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 15,
+    borderColor: '#111827',
   },
   cardImage: { flex: 1, width: '100%', height: null, resizeMode: 'cover' },
-  placeholderImage: { flex: 1, backgroundColor: '#222', borderWidth: 1, borderColor: '#333', borderStyle: 'dashed', justifyContent: 'center', alignItems: 'center' },
-  cardDetails: { padding: 20, backgroundColor: '#111', borderTopWidth: 1, borderTopColor: '#333' },
-  cardName: { fontSize: 24, fontFamily: 'DotGothic16-Regular', color: '#FFF' },
+  placeholderImage: { flex: 1, backgroundColor: '#F9FAFB', borderWidth: 2, borderColor: '#E5E7EB', borderStyle: 'dashed', justifyContent: 'center', alignItems: 'center' },
+  cardDetails: { padding: 20, backgroundColor: '#FFFFFF', borderTopWidth: 2, borderTopColor: '#111827' },
+  cardName: { fontSize: 24, fontWeight: '900', color: '#111827' },
   tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 10 },
-  cardTag: { fontSize: 14, color: '#00FFFF', fontFamily: 'DotGothic16-Regular' },
+  cardTag: { fontSize: 14, color: '#4B5563', fontWeight: '800' },
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  noMoreText: { fontSize: 18, color: '#FF00FF', marginBottom: 20, textAlign: 'center', fontFamily: 'Orbitron-Bold', textShadowColor: '#FF00FF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
-  skipButton: { backgroundColor: 'transparent', padding: 15, borderRadius: 15, borderWidth: 1, borderColor: '#39FF14' },
-  skipButtonText: { color: '#39FF14', fontFamily: 'Orbitron-Bold', fontSize: 16 }
+  noMoreText: { fontSize: 18, color: '#111827', marginBottom: 20, textAlign: 'center', fontWeight: '900' },
+  skipButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15 },
+  skipButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 }
 });

@@ -7,9 +7,9 @@ import { GridBackground } from '../components/GridBackground';
 const { width } = Dimensions.get('window');
 
 const dummyCommunityOutfits = [
-  { id: '1', user: 'StreetWearFan', likes: 120, tags: ['#Street', '#Casual'], imageUrl: 'https://via.placeholder.com/400x500/000000/39FF14?text=Outfit+1' },
-  { id: '2', user: 'MinimalistGuru', likes: 85, tags: ['#Monochrome'], imageUrl: 'https://via.placeholder.com/400x500/000000/00FFFF?text=Outfit+2' },
-  { id: '3', user: 'TechWearBoy', likes: 210, tags: ['#Techwear', '#Dark'], imageUrl: 'https://via.placeholder.com/400x500/000000/FF00FF?text=Outfit+3' },
+  { id: '1', user: 'StreetWearFan', likes: 120, tags: ['#Street', '#Casual'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+1' },
+  { id: '2', user: 'MinimalistGuru', likes: 85, tags: ['#Monochrome'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+2' },
+  { id: '3', user: 'TechWearBoy', likes: 210, tags: ['#Techwear', '#Dark'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+3' },
 ];
 
 export default function ExploreScreen() {
@@ -21,7 +21,7 @@ export default function ExploreScreen() {
       <View style={styles.overlay}>
         <Text style={styles.username}>@{item.user}</Text>
         <View style={styles.statsRow}>
-          <Ionicons name="heart" size={16} color="#FF00FF" />
+          <Ionicons name="heart" size={16} color="#111827" />
           <Text style={styles.likes}>{item.likes}</Text>
         </View>
       </View>
@@ -34,7 +34,7 @@ export default function ExploreScreen() {
       </View>
 
       <View style={styles.paywallOverlay}>
-        <Ionicons name="lock-closed" size={32} color="#00FFFF" style={{ marginBottom: 10 }} />
+        <Ionicons name="lock-closed" size={32} color="#111827" style={{ marginBottom: 10 }} />
         <Text style={styles.paywallText}>PREMIUM ONLY</Text>
         <TouchableOpacity style={styles.unlockButton} onPress={() => router.push('/paywall')}>
           <Text style={styles.unlockButtonText}>UNLOCK</Text>
@@ -64,19 +64,19 @@ export default function ExploreScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#050505' },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: { padding: 20 },
-  title: { fontSize: 24, fontFamily: 'Orbitron-Bold', color: '#00FFFF', textShadowColor: '#00FFFF', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 },
+  title: { fontSize: 24, fontWeight: '900', color: '#111827' },
   listContainer: { paddingHorizontal: 20, paddingBottom: 100, gap: 20 },
 
   card: {
     width: '100%',
     height: 400,
-    backgroundColor: '#111',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#333'
+    borderWidth: 2,
+    borderColor: '#111827'
   },
   image: { width: '100%', height: '100%' },
   overlay: {
@@ -85,11 +85,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 15,
-    backgroundColor: 'rgba(0,0,0,0.5)'
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    borderBottomWidth: 2,
+    borderBottomColor: '#111827'
   },
-  username: { color: '#FFF', fontFamily: 'Orbitron-Bold', fontSize: 14 },
+  username: { color: '#111827', fontWeight: '900', fontSize: 14 },
   statsRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  likes: { color: '#FFF', fontFamily: 'Orbitron-Bold', fontSize: 14 },
+  likes: { color: '#111827', fontWeight: '900', fontSize: 14 },
 
   tagsContainer: {
     position: 'absolute',
@@ -97,21 +99,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row', gap: 8
   },
   tagBadge: {
-    backgroundColor: 'rgba(0, 255, 255, 0.2)',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 8, paddingVertical: 4,
-    borderRadius: 8, borderWidth: 1, borderColor: '#00FFFF'
+    borderRadius: 8, borderWidth: 2, borderColor: '#111827'
   },
-  tagText: { color: '#00FFFF', fontFamily: 'DotGothic16-Regular', fontSize: 12 },
+  tagText: { color: '#111827', fontWeight: '800', fontSize: 12 },
 
   paywallOverlay: {
     position: 'absolute',
     top: 0, bottom: 0, left: 0, right: 0,
-    backgroundColor: 'rgba(0,0,0,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    /* backdropFilter: 'blur(5px)' */
   },
-  paywallText: { color: '#FFF', fontFamily: 'Orbitron-Bold', fontSize: 18, marginBottom: 20, letterSpacing: 2 },
-  unlockButton: { backgroundColor: '#39FF14', paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, shadowColor: '#39FF14', shadowOpacity: 0.8, shadowRadius: 10 },
-  unlockButtonText: { color: '#000', fontFamily: 'Orbitron-Bold', fontSize: 16 }
+  paywallText: { color: '#111827', fontWeight: '900', fontSize: 18, marginBottom: 20, letterSpacing: 2 },
+  unlockButton: { backgroundColor: '#111827', paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15 },
+  unlockButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 16 }
 });

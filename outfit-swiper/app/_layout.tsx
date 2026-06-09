@@ -34,9 +34,9 @@ export default function Layout() {
         screenOptions={{
           contentStyle: { backgroundColor: 'transparent' },
           headerStyle: { backgroundColor: 'transparent' },
-          headerTintColor: '#E0E0E0',
+          headerTintColor: '#111827',
           headerTitleStyle: {
-            fontFamily: 'ZenDots',
+            fontWeight: '900',
             fontSize: 20,
           },
           headerShown: false,

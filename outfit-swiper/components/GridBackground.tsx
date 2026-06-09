@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Svg, { Defs, Pattern, Path, Rect } from 'react-native-svg';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
 export const GridBackground = () => {
   return (
-    <View style={[StyleSheet.absoluteFillObject, { backgroundColor: '#050505' }]} pointerEvents="none">
+    <View style={[StyleSheet.absoluteFillObject, { backgroundColor: '#FFFFFF' }]} pointerEvents="none">
       <Svg height="100%" width="100%" style={StyleSheet.absoluteFillObject}>
         <Defs>
           <Pattern
@@ -19,9 +18,8 @@ export const GridBackground = () => {
             <Path
               d="M 40 0 L 0 0 0 40"
               fill="none"
-              stroke="#39FF14"
-              strokeWidth="0.5"
-              strokeOpacity="0.2"
+              stroke="#E5E7EB"
+              strokeWidth="1"
             />
           </Pattern>
         </Defs>
