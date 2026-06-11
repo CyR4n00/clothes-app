@@ -1,69 +1,70 @@
  INFO  Accepting connections at http://localhost:8080
- HTTP  6/11/2026 2:15:32 AM ::1 GET /
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 42 ms
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 9 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 8 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 9 ms
- HTTP  6/11/2026 2:15:32 AM ::1 GET /_expo/static/js/web/entry-7e7da5e28899c212d43bd0077e35e644.js
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 27 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 19 ms
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 304 in 2 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 200 in 8 ms
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:32 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:32 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:36 AM ::1 GET /swipe
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 200 in 3 ms
- HTTP  6/11/2026 2:15:36 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:36 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:36 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:36 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 304 in 2 ms
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:36 AM ::1 GET /_expo/static/js/web/entry-7e7da5e28899c212d43bd0077e35e644.js
- HTTP  6/11/2026 2:15:36 AM ::1 Returned 304 in 1 ms
- HTTP  6/11/2026 2:15:37 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
- HTTP  6/11/2026 2:15:37 AM ::1 Returned 304 in 2 ms
- HTTP  6/11/2026 2:15:37 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:37 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:37 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:37 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:37 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:37 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:37 AM ::1 Returned 304 in 2 ms
- HTTP  6/11/2026 2:15:37 AM ::1 Returned 304 in 2 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /final-confirmation
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 200 in 2 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 6 ms
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 5 ms
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 6 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /_expo/static/js/web/entry-7e7da5e28899c212d43bd0077e35e644.js
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 1 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 1 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 3 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 0 ms
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
- HTTP  6/11/2026 2:15:40 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 4 ms
- HTTP  6/11/2026 2:15:40 AM ::1 Returned 304 in 5 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 45 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 7 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 7 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 7 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 GET /_expo/static/js/web/entry-eff7ab34fe3f006e4377260acc078f38.js
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 27 ms
+ HTTP  6/11/2026 3:50:11 AM ::1 Returned 200 in 20 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 304 in 2 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 200 in 10 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:12 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 304 in 5 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 304 in 4 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 304 in 5 ms
+ HTTP  6/11/2026 3:50:12 AM ::1 Returned 304 in 5 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /swipe
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 200 in 3 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 4 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 5 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 6 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 6 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /_expo/static/js/web/entry-eff7ab34fe3f006e4377260acc078f38.js
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 1 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 2 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 2 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 3 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 3 ms
+ HTTP  6/11/2026 3:50:16 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:16 AM ::1 Returned 304 in 1 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /final-confirmation
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 200 in 3 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 6 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 4 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 4 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 2 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /_expo/static/js/web/entry-eff7ab34fe3f006e4377260acc078f38.js
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 0 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf?platform=web&hash=6148e7019854f3bde85b633cb88f3c25
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 1 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/Orbitron-Regular.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 1 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/Orbitron-Bold.a4ff8249fc28b57cab2c57139c5a4bcd.ttf?platform=web&hash=a4ff8249fc28b57cab2c57139c5a4bcd
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/ZenDots-Regular.b52c0b3924294a33d4dedfbe0a6027b3.ttf?platform=web&hash=b52c0b3924294a33d4dedfbe0a6027b3
+ HTTP  6/11/2026 3:50:20 AM ::1 GET /assets/assets/fonts/DotGothic16-Regular.0aa15fd2a37ca562567b38bd39cfa524.ttf?platform=web&hash=0aa15fd2a37ca562567b38bd39cfa524
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 2 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 1 ms
+ HTTP  6/11/2026 3:50:20 AM ::1 Returned 304 in 2 ms
+ INFO  Gracefully shutting down. Please wait...
