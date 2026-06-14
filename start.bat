@@ -1,0 +1,6 @@
+@echo off
+cd outfit-swiper
+echo 依存関係をインストールしています...
+call npm install
+echo アプリを起動しています...
+call npx expo start --web
