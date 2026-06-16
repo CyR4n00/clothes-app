@@ -5,9 +5,7 @@ import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { ClothingItem } from '../src/types';
 import { GridBackground } from '../components/GridBackground';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
+import { SCREEN_WIDTH, SWIPE_THRESHOLD } from '../src/constants';
 
 export default function SwipeScreen() {
   const router = useRouter();
