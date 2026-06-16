@@ -1,12 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Animated, PanResponder, TouchableOpacity, SafeAreaView, Modal, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Animated, PanResponder, TouchableOpacity, SafeAreaView, Modal, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { ClothingItem } from '../src/types';
 import { GridBackground } from '../components/GridBackground';
+import { SCREEN_WIDTH } from '../src/constants/layout';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 export default function SwipeScreen() {

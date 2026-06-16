@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { GridBackground } from '../components/GridBackground';
-
-const { width } = Dimensions.get('window');
 
 const dummyCommunityOutfits = [
   { id: '1', user: 'StreetWearFan', likes: 120, tags: ['#Street', '#Casual'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+1' },

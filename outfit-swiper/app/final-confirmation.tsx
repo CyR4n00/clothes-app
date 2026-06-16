@@ -1,11 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { GridBackground } from '../components/GridBackground';
-
-const { width } = Dimensions.get('window');
+import { SCREEN_WIDTH } from '../src/constants/layout';
 
 export default function FinalConfirmationScreen() {
   const router = useRouter();
@@ -98,11 +97,11 @@ const styles = StyleSheet.create({
     borderColor: '#111827',
   },
   firstItem: {
-    width: width - 40,
+    width: SCREEN_WIDTH - 40,
     height: 300,
   },
   subItem: {
-    width: (width - 40 - 15) / 2,
+    width: (SCREEN_WIDTH - 40 - 15) / 2,
     height: 180,
   },
   catLabel: {
