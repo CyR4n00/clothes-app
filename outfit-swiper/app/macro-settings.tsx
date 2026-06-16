@@ -55,10 +55,10 @@ export default function MacroSettingsScreen() {
 
                 <View style={styles.macroRight}>
                   <View style={styles.arrowContainer}>
-                    <TouchableOpacity onPress={() => moveUp(index)} disabled={index === 0} style={styles.arrowBtn}>
+                    <TouchableOpacity onPress={() => moveUp(index)} disabled={index === 0} style={styles.arrowBtn} testID={`move-up-${index}`}>
                       <Ionicons name="chevron-up" size={24} color={index === 0 ? "#D1D5DB" : "#111827"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => moveDown(index)} disabled={index === macroOrder.length - 1} style={styles.arrowBtn}>
+                    <TouchableOpacity onPress={() => moveDown(index)} disabled={index === macroOrder.length - 1} style={styles.arrowBtn} testID={`move-down-${index}`}>
                       <Ionicons name="chevron-down" size={24} color={index === macroOrder.length - 1 ? "#D1D5DB" : "#111827"} />
                     </TouchableOpacity>
                   </View>
