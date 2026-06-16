@@ -39,7 +39,7 @@ export default function SwipeScreen() {
         c.part === currentPart && collectionItemIds.includes(c.id)
       );
 
-      setCurrentCards(itemsForPart);
+      setCurrentCards(prev => prev.length !== itemsForPart.length ? itemsForPart : prev);
       setCardIndex(0);
     } else {
       router.replace('/final-confirmation');
