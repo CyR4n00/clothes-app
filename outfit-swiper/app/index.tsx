@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
+
+const keyExtractor = (item: any) => item.id;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -33,7 +35,8 @@ export default function HomeScreen() {
     setModalVisible(false);
   };
 
-  const toggleItemInCollection = (itemId: string) => {
+  // ⚡ Bolt Performance Optimization: Memoize toggle handler to prevent unnecessary re-renders of the FlatList when other state (like modal input) changes.
+  const toggleItemInCollection = useCallback((itemId: string) => {
     if (activeTabId === 'all') return;
     const col = collections.find(c => c.id === activeTabId);
     if (!col) return;
@@ -43,9 +46,10 @@ export default function HomeScreen() {
     } else {
       assignItemToCollection(itemId, activeTabId);
     }
-  };
+  }, [activeTabId, collections, removeItemFromCollection, assignItemToCollection]);
 
-  const renderClothingItem = ({ item }: { item: any }) => {
+  // ⚡ Bolt Performance Optimization: Memoize renderItem function to avoid full list re-renders on every keystroke in the modal.
+  const renderClothingItem = useCallback(({ item }: { item: any }) => {
     let isSelectedInCurrentCollection = false;
     if (activeTabId !== 'all') {
       const col = collections.find(c => c.id === activeTabId);
@@ -84,7 +88,7 @@ export default function HomeScreen() {
         </View>
       </TouchableOpacity>
     );
-  };
+  }, [activeTabId, collections, toggleItemInCollection]);
 
   return (
     <View style={styles.container}>
@@ -153,7 +157,7 @@ export default function HomeScreen() {
 
           <FlatList
             data={clothes}
-            keyExtractor={(item) => item.id}
+            keyExtractor={keyExtractor}
             renderItem={renderClothingItem}
             numColumns={2}
             columnWrapperStyle={styles.row}
