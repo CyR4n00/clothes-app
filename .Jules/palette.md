@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing Accessibility Properties on React Native Icon-Only Buttons
+**Learning:** In React Native/Expo, icon-only components (like `TouchableOpacity` wrapping `Ionicons`) are completely opaque to screen readers by default. Without explicit accessibility properties, users navigating via VoiceOver/TalkBack cannot decipher the action triggered by an icon-only button (e.g., "arrow-back", "chevron-up").
+**Action:** Always verify icon-only interactive elements in React Native (such as navigation controls, settings options, and dynamic list order changers) have `accessibilityRole="button"`, a descriptive localized `accessibilityLabel`, and any relevant `accessibilityState` (like `disabled`).
