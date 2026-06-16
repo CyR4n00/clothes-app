@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridBackground renders correctly 1`] = `
+<View
+  pointerEvents="none"
+  style={
+    [
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      },
+      {
+        "backgroundColor": "#FFFFFF",
+      },
+    ]
+  }
+>
+  <RNSVGSvgView
+    bbHeight="100%"
+    bbWidth="100%"
+    focusable={false}
+    height="100%"
+    style={
+      [
+        {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "flex": 0,
+          "height": "100%",
+          "width": "100%",
+        },
+      ]
+    }
+    width="100%"
+  >
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
+      <RNSVGDefs>
+        <RNSVGPattern
+          height="100"
+          matrix={
+            [
+              4,
+              0,
+              0,
+              4,
+              0,
+              0,
+            ]
+          }
+          name="topography"
+          patternContentUnits={1}
+          patternTransform={
+            [
+              4,
+              0,
+              0,
+              4,
+              0,
+              0,
+            ]
+          }
+          patternUnits={1}
+          width="100"
+          x="0%"
+          y="0%"
+        >
+          <RNSVGPath
+            d="M0 25 Q 25 22, 50 25 T 100 25"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+          <RNSVGPath
+            d="M0 50 Q 25 47, 50 50 T 100 50"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+          <RNSVGPath
+            d="M0 75 Q 25 78, 50 75 T 100 75"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+          <RNSVGPath
+            d="M25 0 Q 22 25, 25 50 T 25 100"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+          <RNSVGPath
+            d="M50 0 Q 53 25, 50 50 T 50 100"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+          <RNSVGPath
+            d="M75 0 Q 72 25, 75 50 T 75 100"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4293257195,
+                "type": 0,
+              }
+            }
+            strokeWidth="0.3"
+          />
+        </RNSVGPattern>
+      </RNSVGDefs>
+      <RNSVGRect
+        fill={
+          {
+            "brushRef": "topography",
+            "type": 1,
+          }
+        }
+        height="100%"
+        propList={
+          [
+            "fill",
+          ]
+        }
+        width="100%"
+        x={0}
+        y={0}
+      />
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
