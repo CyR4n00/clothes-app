@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { useOutfitStore } from '../src/store';
@@ -38,11 +38,11 @@ export default function AddItemScreen() {
 
   const handleSave = () => {
     if (!name.trim()) {
-      alert('服の名前を入力してください');
+      Alert.alert('服の名前を入力してください');
       return;
     }
     if (!selectedPart) {
-      alert('服の部位を選択してください');
+      Alert.alert('服の部位を選択してください');
       return;
     }
 
