@@ -93,7 +93,12 @@ export default function HomeScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>OUTFIT SWIPER</Text>
           <View style={styles.headerRight}>
-             <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
+             <TouchableOpacity
+               style={styles.iconButton}
+               onPress={() => router.push('/macro-settings')}
+               accessibilityRole="button"
+               accessibilityLabel="Open settings"
+             >
               <Ionicons name="options-outline" size={24} color="#111827" />
              </TouchableOpacity>
           </View>
@@ -131,7 +136,12 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity
+              style={styles.addTabBtn}
+              onPress={() => setModalVisible(true)}
+              accessibilityRole="button"
+              accessibilityLabel="Add new category"
+            >
               <Ionicons name="add" size={20} color="#111827" />
             </TouchableOpacity>
           </ScrollView>
