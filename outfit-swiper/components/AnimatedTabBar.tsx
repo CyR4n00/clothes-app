@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,9 +10,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, usePathname } from 'expo-router';
+import { SCREEN_WIDTH } from '../src/constants/layout';
 
-const { width } = Dimensions.get('window');
-const TAB_BAR_WIDTH = width - 48; // Align with the 24px left/right margins
+const TAB_BAR_WIDTH = SCREEN_WIDTH - 48; // Align with the 24px left/right margins
 const TAB_WIDTH = TAB_BAR_WIDTH / 3;
 
 const TABS = [

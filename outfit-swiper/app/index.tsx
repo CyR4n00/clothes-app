@@ -1,11 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, ScrollView, SafeAreaView, TextInput, Modal } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { GridBackground } from '../components/GridBackground';
-
-const { width } = Dimensions.get('window');
+import { SCREEN_WIDTH } from '../src/constants/layout';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -221,7 +220,7 @@ const styles = StyleSheet.create({
   addButtonText: { color: '#111827', fontWeight: '900', fontSize: 16 },
 
   row: { justifyContent: 'space-between', marginBottom: 15 },
-  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 10, borderWidth: 2, borderColor: '#F3F4F6' },
+  itemCard: { width: (SCREEN_WIDTH - 48 - 15) / 2, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 10, borderWidth: 2, borderColor: '#F3F4F6' },
   itemCardSelected: { borderColor: '#111827', backgroundColor: '#F9FAFB' },
   itemImage: { width: '100%', height: 120, borderRadius: 8, resizeMode: 'cover' },
   placeholderImage: { width: '100%', height: 120, borderRadius: 8, backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#E5E7EB' },
