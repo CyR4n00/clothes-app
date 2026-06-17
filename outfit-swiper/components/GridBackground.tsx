@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Svg, { Defs, Pattern, Path, Rect } from 'react-native-svg';
 
-export const GridBackground = () => {
+export const GridBackground = memo(() => {
   return (
     <View style={[StyleSheet.absoluteFillObject, { backgroundColor: '#FFFFFF' }]} pointerEvents="none">
       <Svg height="100%" width="100%" style={StyleSheet.absoluteFillObject}>
@@ -58,4 +58,6 @@ export const GridBackground = () => {
       </Svg>
     </View>
   );
-};
+});
+
+GridBackground.displayName = 'GridBackground';

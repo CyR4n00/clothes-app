@@ -1,0 +1,3 @@
+## 2026-06-17 - [Strict Boundaries and Linting Setup in React Native Projects]
+**Learning:** When strict boundaries exist against modifying `package.json`, do not run commands like `expo lint` that auto-install configurations to satisfy linting locally. If a project does not have an ESLint config already, simply skip running it or rely purely on TypeScript checking (`tsc`) rather than forcing a linter setup that pollutes the repo.
+**Action:** Always check `package.json` changes using `git status` or `git diff` before submitting to ensure no unexpected packages or files (like eslint configs) were added.
