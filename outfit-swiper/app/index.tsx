@@ -93,7 +93,7 @@ export default function HomeScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>OUTFIT SWIPER</Text>
           <View style={styles.headerRight}>
-             <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
+             <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')} accessibilityRole="button" accessibilityLabel="設定">
               <Ionicons name="options-outline" size={24} color="#111827" />
              </TouchableOpacity>
           </View>
@@ -131,7 +131,7 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)} accessibilityRole="button" accessibilityLabel="カテゴリーを追加">
               <Ionicons name="add" size={20} color="#111827" />
             </TouchableOpacity>
           </ScrollView>
@@ -173,12 +173,17 @@ export default function HomeScreen() {
                 placeholderTextColor="#9CA3AF"
                 value={newCollectionName}
                 onChangeText={setNewCollectionName}
+                autoFocus
               />
               <View style={styles.modalActions}>
                 <TouchableOpacity style={styles.modalCancel} onPress={() => setModalVisible(false)}>
                   <Text style={styles.modalCancelText}>CANCEL</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalSave} onPress={handleCreateCollection}>
+                <TouchableOpacity
+                  style={[styles.modalSave, !newCollectionName.trim() && { opacity: 0.5 }]}
+                  onPress={handleCreateCollection}
+                  disabled={!newCollectionName.trim()}
+                >
                   <Text style={styles.modalSaveText}>CREATE</Text>
                 </TouchableOpacity>
               </View>
