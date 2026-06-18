@@ -1,11 +1,57 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
+
+
+const ClothingItemCard = memo(({
+  item,
+  activeTabId,
+  isSelectedInCurrentCollection,
+  onToggle
+}: {
+  item: any;
+  activeTabId: string;
+  isSelectedInCurrentCollection: boolean;
+  onToggle: (itemId: string) => void;
+}) => (
+  <TouchableOpacity
+    style={[styles.itemCard, activeTabId !== 'all' && isSelectedInCurrentCollection && styles.itemCardSelected]}
+    onPress={() => activeTabId !== 'all' ? onToggle(item.id) : null}
+  >
+    {item.imageUrl ? (
+      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+    ) : (
+      <View style={styles.placeholderImage}>
+        <Ionicons name="shirt-outline" size={40} color="#111827" />
+      </View>
+    )}
+
+    {activeTabId !== 'all' && isSelectedInCurrentCollection && (
+      <View style={styles.checkBadge}>
+        <Ionicons name="checkmark" size={16} color="#FFFFFF" />
+      </View>
+    )}
+
+    <View style={styles.itemInfo}>
+      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+      <Text style={styles.itemPart}>{item.part}</Text>
+      <View style={styles.tagsContainer}>
+        {item.tags?.map((tag: string, index: number) => (
+          <View key={index} style={styles.tagBadge}>
+            <Text style={styles.tagText}>#{tag}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  </TouchableOpacity>
+));
+
+ClothingItemCard.displayName = 'ClothingItemCard';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -33,7 +79,7 @@ export default function HomeScreen() {
     setModalVisible(false);
   };
 
-  const toggleItemInCollection = (itemId: string) => {
+  const toggleItemInCollection = useCallback((itemId: string) => {
     if (activeTabId === 'all') return;
     const col = collections.find(c => c.id === activeTabId);
     if (!col) return;
@@ -43,9 +89,9 @@ export default function HomeScreen() {
     } else {
       assignItemToCollection(itemId, activeTabId);
     }
-  };
+  }, [activeTabId, collections, removeItemFromCollection, assignItemToCollection]);
 
-  const renderClothingItem = ({ item }: { item: any }) => {
+const renderClothingItem = useCallback(({ item }: { item: any }) => {
     let isSelectedInCurrentCollection = false;
     if (activeTabId !== 'all') {
       const col = collections.find(c => c.id === activeTabId);
@@ -53,38 +99,14 @@ export default function HomeScreen() {
     }
 
     return (
-      <TouchableOpacity
-        style={[styles.itemCard, activeTabId !== 'all' && isSelectedInCurrentCollection && styles.itemCardSelected]}
-        onPress={() => activeTabId !== 'all' ? toggleItemInCollection(item.id) : null}
-      >
-        {item.imageUrl ? (
-          <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
-        ) : (
-          <View style={styles.placeholderImage}>
-            <Ionicons name="shirt-outline" size={40} color="#111827" />
-          </View>
-        )}
-
-        {activeTabId !== 'all' && isSelectedInCurrentCollection && (
-          <View style={styles.checkBadge}>
-            <Ionicons name="checkmark" size={16} color="#FFFFFF" />
-          </View>
-        )}
-
-        <View style={styles.itemInfo}>
-          <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-          <Text style={styles.itemPart}>{item.part}</Text>
-          <View style={styles.tagsContainer}>
-            {item.tags?.map((tag: string, index: number) => (
-              <View key={index} style={styles.tagBadge}>
-                <Text style={styles.tagText}>#{tag}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-      </TouchableOpacity>
+      <ClothingItemCard
+        item={item}
+        activeTabId={activeTabId}
+        isSelectedInCurrentCollection={isSelectedInCurrentCollection}
+        onToggle={toggleItemInCollection}
+      />
     );
-  };
+  }, [activeTabId, collections, toggleItemInCollection]);
 
   return (
     <View style={styles.container}>
