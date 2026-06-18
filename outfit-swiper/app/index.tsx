@@ -194,7 +194,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 20, paddingBottom: 10 },
-  title: { fontSize: 24, fontFamily: 'ZenDots', color: '#111827' },
+  title: { fontSize: 24, fontWeight: '900', color: '#111827' },
   headerRight: { flexDirection: 'row', alignItems: 'center' },
   iconButton: { padding: 8, backgroundColor: '#FFFFFF', borderRadius: 12, borderWidth: 2, borderColor: '#111827' },
 

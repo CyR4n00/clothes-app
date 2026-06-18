@@ -18,7 +18,7 @@ const TAB_WIDTH = TAB_BAR_WIDTH / 3;
 const TABS = [
   { route: '/', icon: 'shirt-outline', activeColor: '#E0E0E0' },
   { route: '/swipe', icon: 'layers-outline', activeColor: '#E0E0E0' },
-  { route: '/macro-settings', icon: 'options-outline', activeColor: '#E0E0E0' },
+  { route: '/explore', icon: 'earth-outline', activeColor: '#E0E0E0' },
 ];
 
 export const AnimatedTabBar = () => {

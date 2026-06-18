@@ -2,43 +2,58 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useOutfitStore } from '../src/store';
+import { Part } from '../src/types';
 import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
 
-const dummyCommunityOutfits = [
-  { id: '1', user: 'StreetWearFan', likes: 120, tags: ['#Street', '#Casual'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+1' },
-  { id: '2', user: 'MinimalistGuru', likes: 85, tags: ['#Monochrome'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+2' },
-  { id: '3', user: 'TechWearBoy', likes: 210, tags: ['#Techwear', '#Dark'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Outfit+3' },
+// 類似の服のモックデータ
+const dummySimilarClothes = [
+  { id: 'sim1', name: 'オーバーサイズデニムJKT', part: 'アウター' as Part, user: 'StreetWearFan', tags: ['春', 'ストリート'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Denim+Jacket' },
+  { id: 'sim2', name: 'ワイド黒スラックス', part: 'パンツ' as Part, user: 'MinimalistGuru', tags: ['モード', '着回し'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Black+Slacks' },
+  { id: 'sim3', name: 'ロゴ白Tシャツ', part: 'トップス' as Part, user: 'CasualBoy', tags: ['夏', 'カジュアル'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=White+Tee' },
+  { id: 'sim4', name: 'レザーローファー', part: 'シューズ' as Part, user: 'CityBoy', tags: ['フォーマル', 'デート'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Loafers' },
 ];
 
 export default function ExploreScreen() {
   const router = useRouter();
+  const addClothingItem = useOutfitStore(state => state.addClothingItem);
+
+  const handleAddToCloset = (item: any) => {
+    addClothingItem({
+      name: item.name,
+      part: item.part,
+      imageUrl: item.imageUrl,
+      tags: item.tags
+    });
+    alert(`${item.name}をクローゼットに追加しました！`);
+  };
 
   const renderOutfit = ({ item }: { item: any }) => (
     <View style={styles.card}>
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
+
       <View style={styles.overlay}>
-        <Text style={styles.username}>@{item.user}</Text>
-        <View style={styles.statsRow}>
-          <Ionicons name="heart" size={16} color="#111827" />
-          <Text style={styles.likes}>{item.likes}</Text>
+        <View>
+          <Text style={styles.itemName}>{item.name}</Text>
+          <Text style={styles.username}>found by @{item.user}</Text>
         </View>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => handleAddToCloset(item)}
+        >
+          <Ionicons name="add" size={24} color="#FFFFFF" />
+          <Text style={styles.addButtonText}>ADD TO CLOSET</Text>
+        </TouchableOpacity>
       </View>
+
       <View style={styles.tagsContainer}>
         {item.tags.map((tag: string) => (
           <View key={tag} style={styles.tagBadge}>
-            <Text style={styles.tagText}>{tag}</Text>
+            <Text style={styles.tagText}>#{tag}</Text>
           </View>
         ))}
-      </View>
-
-      <View style={styles.paywallOverlay}>
-        <Ionicons name="lock-closed" size={32} color="#111827" style={{ marginBottom: 10 }} />
-        <Text style={styles.paywallText}>PREMIUM ONLY</Text>
-        <TouchableOpacity style={styles.unlockButton} onPress={() => router.push('/paywall')}>
-          <Text style={styles.unlockButtonText}>UNLOCK</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,7 +67,7 @@ export default function ExploreScreen() {
         </View>
 
         <FlatList
-          data={dummyCommunityOutfits}
+          data={dummySimilarClothes}
           keyExtractor={item => item.id}
           renderItem={renderOutfit}
           contentContainerStyle={styles.listContainer}
@@ -114,5 +129,9 @@ const styles = StyleSheet.create({
   },
   paywallText: { color: '#111827', fontWeight: '900', fontSize: 18, marginBottom: 20, letterSpacing: 2 },
   unlockButton: { backgroundColor: '#111827', paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15 },
-  unlockButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 16 }
+  unlockButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 16 },
+
+  itemName: { color: '#111827', fontWeight: '900', fontSize: 18, marginBottom: 4 },
+  addButton: { backgroundColor: '#111827', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15, paddingVertical: 8, borderRadius: 12, gap: 5 },
+  addButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 12 }
 });
