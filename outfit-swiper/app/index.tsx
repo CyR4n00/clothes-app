@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
@@ -33,7 +33,7 @@ export default function HomeScreen() {
     setModalVisible(false);
   };
 
-  const toggleItemInCollection = (itemId: string) => {
+  const toggleItemInCollection = useCallback((itemId: string) => {
     if (activeTabId === 'all') return;
     const col = collections.find(c => c.id === activeTabId);
     if (!col) return;
@@ -43,14 +43,17 @@ export default function HomeScreen() {
     } else {
       assignItemToCollection(itemId, activeTabId);
     }
-  };
+  }, [activeTabId, collections, removeItemFromCollection, assignItemToCollection]);
 
-  const renderClothingItem = ({ item }: { item: any }) => {
-    let isSelectedInCurrentCollection = false;
-    if (activeTabId !== 'all') {
-      const col = collections.find(c => c.id === activeTabId);
-      isSelectedInCurrentCollection = col?.itemIds.includes(item.id) || false;
-    }
+  // Pre-compute the selected item IDs for O(1) lookup during FlatList render
+  const activeCollectionItemIds = useMemo(() => {
+    if (activeTabId === 'all') return new Set<string>();
+    const col = collections.find(c => c.id === activeTabId);
+    return new Set(col?.itemIds || []);
+  }, [activeTabId, collections]);
+
+  const renderClothingItem = useCallback(({ item }: { item: any }) => {
+    const isSelectedInCurrentCollection = activeTabId !== 'all' && activeCollectionItemIds.has(item.id);
 
     return (
       <TouchableOpacity
@@ -84,7 +87,7 @@ export default function HomeScreen() {
         </View>
       </TouchableOpacity>
     );
-  };
+  }, [activeTabId, activeCollectionItemIds, toggleItemInCollection]);
 
   return (
     <View style={styles.container}>
