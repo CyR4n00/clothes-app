@@ -28,7 +28,12 @@ export default function MacroSettingsScreen() {
       <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={styles.backButton}
+            accessibilityRole="button"
+            accessibilityLabel="戻る"
+          >
             <Ionicons name="arrow-back" size={24} color="#111827" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>MACRO SEQUENCE</Text>
@@ -55,10 +60,24 @@ export default function MacroSettingsScreen() {
 
                 <View style={styles.macroRight}>
                   <View style={styles.arrowContainer}>
-                    <TouchableOpacity onPress={() => moveUp(index)} disabled={index === 0} style={styles.arrowBtn}>
+                    <TouchableOpacity
+                      onPress={() => moveUp(index)}
+                      disabled={index === 0}
+                      style={styles.arrowBtn}
+                      accessibilityRole="button"
+                      accessibilityLabel="上に移動"
+                      accessibilityState={{ disabled: index === 0 }}
+                    >
                       <Ionicons name="chevron-up" size={24} color={index === 0 ? "#D1D5DB" : "#111827"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => moveDown(index)} disabled={index === macroOrder.length - 1} style={styles.arrowBtn}>
+                    <TouchableOpacity
+                      onPress={() => moveDown(index)}
+                      disabled={index === macroOrder.length - 1}
+                      style={styles.arrowBtn}
+                      accessibilityRole="button"
+                      accessibilityLabel="下に移動"
+                      accessibilityState={{ disabled: index === macroOrder.length - 1 }}
+                    >
                       <Ionicons name="chevron-down" size={24} color={index === macroOrder.length - 1 ? "#D1D5DB" : "#111827"} />
                     </TouchableOpacity>
                   </View>
