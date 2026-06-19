@@ -29,7 +29,7 @@ export default function FinalConfirmationScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.scrollArea}>
           <Text style={styles.title}>FINAL OUTFIT</Text>
-          <Text style={styles.subtitle}>// THE LOOK //.</Text>
+          <Text style={styles.subtitle}>{`// THE LOOK //.`}</Text>
 
           <View style={styles.collageContainer}>
             {selectedItems.length === 0 ? (
