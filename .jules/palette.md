@@ -1,0 +1,3 @@
+## 2026-06-20 - Adding Accessibility Labels in Expo/React Native Web
+**Learning:** In Expo/React Native, translating generic HTML ARIA labels (`aria-label`) into accessible components involves using properties like `accessibilityRole="button"`, `accessibilityLabel="Japanese Label"`, and `accessibilityState={{ selected: boolean }}` directly on standard React Native `TouchableOpacity` components.
+**Action:** Always check interactive touchable components in Expo projects to ensure they are properly mapped to accessible roles (like `button` or `tab`) and use these React Native specific props rather than standard HTML aria attributes. Keep localized contexts (e.g., Japanese labels) in mind.
