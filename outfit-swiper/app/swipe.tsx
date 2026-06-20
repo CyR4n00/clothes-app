@@ -27,17 +27,13 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
-      if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
-      } else {
-        const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
-      }
+      let itemsForPart = clothes.filter(c => c.part === currentPart);
 
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
+      if (selectedCollectionId !== 'all') {
+        const col = collections.find(c => c.id === selectedCollectionId);
+        const itemIdsSet = new Set(col?.itemIds || []);
+        itemsForPart = itemsForPart.filter(c => itemIdsSet.has(c.id));
+      }
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
@@ -125,6 +121,8 @@ export default function SwipeScreen() {
 
     return currentCards.map((item, index) => {
       if (index < cardIndex) return null;
+      if (index > cardIndex + 2) return null; // Performance: only render top 3 cards to avoid off-screen rendering
+
       if (index === cardIndex) {
         return (
           <Animated.View
