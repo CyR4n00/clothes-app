@@ -1,0 +1,3 @@
+## 2024-06-21 - [Icon Button Accessibility]
+**Learning:** Icon-only buttons in this React Native Expo app frequently lack accessibility roles and labels by default, making them completely opaque to screen readers. Furthermore, the application specifically requires that accessibility descriptions and labels strictly adhere to Japanese localization rules.
+**Action:** Always include `accessibilityRole="button"` and `accessibilityLabel="[Japanese description]"` on `TouchableOpacity` or `Pressable` components that only contain an icon, ensuring the UI remains accessible to Japanese screen reader users.
