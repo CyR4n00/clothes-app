@@ -215,7 +215,12 @@ export default function SwipeScreen() {
         {!collectionModalVisible && (
           <>
             <View style={styles.header}>
-              <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+              <TouchableOpacity
+                onPress={() => router.back()}
+                style={styles.closeButton}
+                accessibilityRole="button"
+                accessibilityLabel="Close"
+              >
                 <Ionicons name="close" size={24} color="#111827" />
               </TouchableOpacity>
               <View style={styles.headerCenter}>

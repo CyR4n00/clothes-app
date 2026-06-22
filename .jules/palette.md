@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility Labels Localization
+**Learning:** Even though the application uses Japanese for much of the UI, core accessibility labels and ARIA equivalents on icon-only buttons need to remain in the primary application language (English) unless specifically configured for regional accessibility tools. Hardcoding Japanese labels like "設定" into an application with English text ("ADD ITEM", etc.) degrades the experience for standard screen reader users.
+**Action:** When adding accessibility attributes to UI elements like icon-only buttons, use standard English UI terminology (e.g., "Settings", "Back", "Close") to ensure broad accessibility compatibility, avoiding forced/hallucinated localizations.
