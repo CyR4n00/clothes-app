@@ -1,0 +1,4 @@
+## 2024-05-18 - [Fix hardcoded secrets in Supabase config]
+**Vulnerability:** Hardcoded placeholder keys in `supabase.ts`.
+**Learning:** Found mock placeholder strings for Supabase client configuration. This introduces a risk where developers might replace the strings with their actual keys and accidentally commit them. Replaced the static strings with `process.env.EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY`, explicitly providing an empty string fallback `""` instead of dummy strings as mandated by Sentinel best practices, to force noisy failures and prevent mock credentials in code.
+**Prevention:** Created a `.env.example` file that tracks required `EXPO_PUBLIC_` environment variables so developers understand the requirements securely without committing the actual secrets.
