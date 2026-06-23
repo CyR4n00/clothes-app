@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing Accessibility Labels on Icon-Only Buttons
+**Learning:** This application heavily utilizes a minimalist design with many icon-only buttons (using `TouchableOpacity` and `Ionicons`). Since the app's UI is localized in Japanese, it's critical to include `accessibilityRole="button"` and `accessibilityLabel` with descriptive Japanese text (e.g., "戻る" for back, "設定" for settings) to ensure screen reader users understand the button's function.
+**Action:** Always check for `accessibilityLabel` on icon-only `TouchableOpacity` or `Pressable` components and ensure the text is localized to Japanese to match the app's requirements.

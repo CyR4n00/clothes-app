@@ -63,7 +63,12 @@ export default function AddItemScreen() {
       <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={styles.backButton}
+            accessibilityRole="button"
+            accessibilityLabel="戻る"
+          >
             <Ionicons name="arrow-back" size={24} color="#111827" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>ADD ITEM</Text>
@@ -71,7 +76,12 @@ export default function AddItemScreen() {
         </View>
 
         <ScrollView style={styles.formContainer}>
-          <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+          <TouchableOpacity
+            style={styles.imagePicker}
+            onPress={pickImage}
+            accessibilityRole="button"
+            accessibilityLabel="写真をアップロード"
+          >
             {imageUri ? (
               <Image source={{ uri: imageUri }} style={styles.image} />
             ) : (
@@ -83,13 +93,15 @@ export default function AddItemScreen() {
           </TouchableOpacity>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>ITEM NAME <Text style={styles.required}>*</Text></Text>
+            <Text style={styles.label} nativeID="itemNameLabel">ITEM NAME <Text style={styles.required}>*</Text></Text>
             <TextInput
               style={styles.input}
               placeholder="例: 黒のダウンジャケット"
               placeholderTextColor="#9CA3AF"
               value={name}
               onChangeText={setName}
+              accessibilityLabel="服の名前"
+              accessibilityLabelledBy="itemNameLabel"
             />
           </View>
 
@@ -111,13 +123,15 @@ export default function AddItemScreen() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>TAGS (comma separated)</Text>
+            <Text style={styles.label} nativeID="tagsLabel">TAGS (comma separated)</Text>
             <TextInput
               style={styles.input}
               placeholder="例: 防寒, お気に入り"
               placeholderTextColor="#9CA3AF"
               value={tagsInput}
               onChangeText={setTagsInput}
+              accessibilityLabel="タグ"
+              accessibilityLabelledBy="tagsLabel"
             />
           </View>
 
