@@ -1,0 +1,1 @@
+- Integrated expo-secure-store for Supabase authentication to mitigate insecure storage vulnerabilities, using Platform.OS === 'web' conditionals to safely fallback to AsyncStorage on unsupported web platforms.
