@@ -7,7 +7,7 @@ import { AnimatedTabBar } from '../components/AnimatedTabBar';
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <GridBackground />
+      <View style={StyleSheet.absoluteFillObject} pointerEvents="none"><GridBackground /></View>
       <Stack
         screenOptions={{
           contentStyle: { backgroundColor: 'transparent' },

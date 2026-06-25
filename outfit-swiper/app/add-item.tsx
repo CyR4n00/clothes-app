@@ -60,7 +60,7 @@ export default function AddItemScreen() {
 
   return (
     <View style={styles.container}>
-      <GridBackground />
+      <View style={StyleSheet.absoluteFillObject} pointerEvents="none"><GridBackground /></View>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
