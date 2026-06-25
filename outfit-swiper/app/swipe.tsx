@@ -27,17 +27,18 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
+      let itemsForPart = [];
       if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
+        // Performance optimization: Avoid filtering by ID entirely when 'all' is selected
+        itemsForPart = clothes.filter(c => c.part === currentPart);
       } else {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        // Performance optimization: Use a Set for O(1) lookups instead of O(N) array includes
+        const collectionItemIdsSet = new Set(col ? col.itemIds : []);
+        itemsForPart = clothes.filter(c =>
+          c.part === currentPart && collectionItemIdsSet.has(c.id)
+        );
       }
-
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
@@ -124,7 +125,10 @@ export default function SwipeScreen() {
     }
 
     return currentCards.map((item, index) => {
-      if (index < cardIndex) return null;
+      // Performance optimization: Avoid rendering cards deep in the deck
+      // Limits memory usage when datasets are large.
+      if (index < cardIndex || index > cardIndex + 2) return null;
+
       if (index === cardIndex) {
         return (
           <Animated.View
