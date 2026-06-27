@@ -1,0 +1,4 @@
+## 2024-06-27 - [CRITICAL] Prevent Hardcoded Secrets in Expo Apps
+**Vulnerability:** Supabase URL and Anon Key were hardcoded as placeholder strings (`'https://your-project.supabase.co'` and `'your-anon-key'`).
+**Learning:** Developers might replace these placeholders with real secrets during local development and accidentally commit them. In Expo, public client-side configurations should be exposed using `EXPO_PUBLIC_` environment variables.
+**Prevention:** Always use `process.env.EXPO_PUBLIC_*` for configuration keys. Provide safe fallbacks like empty strings (`''`) to prevent runtime crashes if the environment variables are missing during CI or local testing, without exposing sensitive values.
