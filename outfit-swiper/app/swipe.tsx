@@ -125,6 +125,9 @@ export default function SwipeScreen() {
 
     return currentCards.map((item, index) => {
       if (index < cardIndex) return null;
+      // BOLT OPTIMIZATION: Limit rendered items to prevent massive memory and layout overhead
+      // Only render the active card and the next 2 cards in the stack.
+      if (index > cardIndex + 2) return null;
       if (index === cardIndex) {
         return (
           <Animated.View
