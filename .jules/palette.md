@@ -1,0 +1,3 @@
+## 2026-06-29 - App-Specific Custom Header Buttons Missing Accessibility Labels
+**Learning:** The application uses custom top-nav headers and modal headers implemented with `TouchableOpacity` and `Ionicons` (e.g., options, close, back, add). These custom icon-only buttons often lack essential `accessibilityRole="button"` and `accessibilityLabel` attributes, which should be strictly localized to Japanese according to project requirements.
+**Action:** When implementing or modifying custom headers or floating action buttons that use icons without text, explicitly add Japanese accessibility labels (e.g., "設定", "閉じる", "戻る") to ensure the interactive elements are screen-reader friendly.
