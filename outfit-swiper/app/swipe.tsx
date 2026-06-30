@@ -35,8 +35,11 @@ export default function SwipeScreen() {
         if (col) collectionItemIds = col.itemIds;
       }
 
+      // Performance: Pre-compute set for O(1) lookup during array filter
+      const collectionItemIdsSet = new Set(collectionItemIds);
+
       const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
+        c.part === currentPart && collectionItemIdsSet.has(c.id)
       );
 
       setCurrentCards(itemsForPart);
@@ -125,6 +128,7 @@ export default function SwipeScreen() {
 
     return currentCards.map((item, index) => {
       if (index < cardIndex) return null;
+      if (index > cardIndex + 2) return null; // Performance: limit rendered cards in stack
       if (index === cardIndex) {
         return (
           <Animated.View
