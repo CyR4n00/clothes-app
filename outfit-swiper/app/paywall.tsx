@@ -43,7 +43,7 @@ export default function PaywallScreen() {
     <View style={styles.container}>
       <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="閉じる">
           <Ionicons name="close" size={28} color="#111827" />
         </TouchableOpacity>
 
