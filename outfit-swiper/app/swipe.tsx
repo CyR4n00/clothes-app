@@ -34,9 +34,11 @@ export default function SwipeScreen() {
         const col = collections.find(c => c.id === selectedCollectionId);
         if (col) collectionItemIds = col.itemIds;
       }
+      // ⚡ Bolt: Convert array to Set for O(1) lookups instead of O(N) array checks
+      const collectionItemIdsSet = new Set(collectionItemIds);
 
       const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
+        c.part === currentPart && collectionItemIdsSet.has(c.id)
       );
 
       setCurrentCards(itemsForPart);
@@ -124,7 +126,11 @@ export default function SwipeScreen() {
     }
 
     return currentCards.map((item, index) => {
+      // ⚡ Bolt: Limit rendered cards to the top 3 visible items.
+      // This acts as a lightweight virtualization to prevent severe memory and layout overhead
+      // from mapping and rendering the entire dataset in a stacked view hierarchy.
       if (index < cardIndex) return null;
+      if (index > cardIndex + 2) return null;
       if (index === cardIndex) {
         return (
           <Animated.View
