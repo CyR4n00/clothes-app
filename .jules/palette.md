@@ -1,0 +1,3 @@
+## 2026-07-02 - Adding accessibility labels to Expo icons
+**Learning:** React Native `TouchableOpacity` components wrapping `Ionicons` from `@expo/vector-icons` require explicit `accessibilityRole="button"` and `accessibilityLabel` properties for screen readers to interpret them correctly. Additionally, when implementing a custom tab bar with animated indicators in React Native, each tab button should use `accessibilityRole="tab"` and explicitly manage its state with `accessibilityState={{ selected: isActive }}`.
+**Action:** Always provide localized `accessibilityLabel`s and appropriate `accessibilityRole`s on icon-only buttons and custom navigational elements to ensure full accessibility support in React Native apps.
