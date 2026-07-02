@@ -10,6 +10,7 @@ const { width } = Dimensions.get('window');
 export default function HomeScreen() {
   const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
+  const isPremium = useOutfitStore((state) => state.isPremium);
   const collections = useOutfitStore((state) => state.collections);
   const addCollection = useOutfitStore((state) => state.addCollection);
   const assignItemToCollection = useOutfitStore((state) => state.assignItemToCollection);
