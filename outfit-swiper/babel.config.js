@@ -5,7 +5,7 @@ module.exports = function (api) {
     plugins: [
       '@babel/plugin-proposal-export-namespace-from',
       'react-native-reanimated/plugin',
-      './babel-plugin-replace-import-meta.js'
+      'babel-plugin-transform-import-meta'
     ],
   };
 };
