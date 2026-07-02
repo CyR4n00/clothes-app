@@ -1,0 +1,4 @@
+## 2025-07-02 - Environment variables for Supabase keys
+**Vulnerability:** Hardcoded credentials pattern discovered in `src/lib/supabase.ts` where placeholders were used for Supabase URL and Anon Key. While these were placeholders, this setup encourages developers to directly paste real secrets into the code instead of using environment variables.
+**Learning:** React Native / Expo projects often use placeholder strings instead of setting up environment variables from the start, making it easy to accidentally leak secrets in version control when going to production.
+**Prevention:** Replaced placeholders with `process.env.EXPO_PUBLIC_SUPABASE_URL || ''` and `process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || ''` to enforce reading from the environment. Also created `.env.example` to document the necessary keys for new setups.
