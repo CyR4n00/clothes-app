@@ -1,0 +1,3 @@
+## 2024-07-03 - Added Accessibility Labels to Icon-Only Buttons
+**Learning:** Screen reader users rely heavily on accessibility labels. While the UI visually represents actions with icons (like a back arrow or close "X"), screen readers will just read "button" without a label. Adding `accessibilityRole="button"` and localized `accessibilityLabel` attributes is essential for usability. Even when automated checks suggest English, adhering strictly to the project localization requirement (Japanese) is crucial for the target audience.
+**Action:** Always verify that icon-only buttons (`TouchableOpacity` wrapping an icon) have descriptive `accessibilityLabel` attributes, adhering to project localization rules.
