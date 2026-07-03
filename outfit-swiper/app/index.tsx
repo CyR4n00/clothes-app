@@ -176,6 +176,7 @@ export default function HomeScreen() {
                 placeholderTextColor="#9CA3AF"
                 value={newCollectionName}
                 onChangeText={setNewCollectionName}
+                maxLength={30}
               />
               <View style={styles.modalActions}>
                 <TouchableOpacity style={styles.modalCancel} onPress={() => setModalVisible(false)}>

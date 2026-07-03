@@ -90,6 +90,7 @@ export default function AddItemScreen() {
               placeholderTextColor="#9CA3AF"
               value={name}
               onChangeText={setName}
+              maxLength={50}
             />
           </View>
 
@@ -118,6 +119,7 @@ export default function AddItemScreen() {
               placeholderTextColor="#9CA3AF"
               value={tagsInput}
               onChangeText={setTagsInput}
+              maxLength={100}
             />
           </View>
 
