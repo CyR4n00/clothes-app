@@ -27,16 +27,16 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
+      let collectionItemIds = new Set<string>();
       if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
+        collectionItemIds = new Set(clothes.map(c => c.id));
       } else {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        if (col) collectionItemIds = new Set(col.itemIds);
       }
 
       const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
+        c.part === currentPart && collectionItemIds.has(c.id)
       );
 
       setCurrentCards(itemsForPart);
@@ -125,6 +125,7 @@ export default function SwipeScreen() {
 
     return currentCards.map((item, index) => {
       if (index < cardIndex) return null;
+      if (index > cardIndex + 2) return null;
       if (index === cardIndex) {
         return (
           <Animated.View
