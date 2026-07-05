@@ -124,7 +124,8 @@ export default function SwipeScreen() {
     }
 
     return currentCards.map((item, index) => {
-      if (index < cardIndex) return null;
+      // ⚡ Bolt: Limit rendered cards to prevent rendering entire deck
+      if (index < cardIndex || index > cardIndex + 2) return null;
       if (index === cardIndex) {
         return (
           <Animated.View
