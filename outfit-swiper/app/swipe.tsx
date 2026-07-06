@@ -27,17 +27,17 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
+      // ⚡ Bolt: Optimize filtering using O(1) Set lookup
+      let itemsForPart: ClothingItem[] = [];
       if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
+        itemsForPart = clothes.filter(c => c.part === currentPart);
       } else {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        const collectionItemIds = new Set(col ? col.itemIds : []);
+        itemsForPart = clothes.filter(c =>
+          c.part === currentPart && collectionItemIds.has(c.id)
+        );
       }
-
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
@@ -124,7 +124,7 @@ export default function SwipeScreen() {
     }
 
     return currentCards.map((item, index) => {
-      if (index < cardIndex) return null;
+      if (index < cardIndex || index > cardIndex + 2) return null; // ⚡ Bolt: Only render top 3 cards
       if (index === cardIndex) {
         return (
           <Animated.View
