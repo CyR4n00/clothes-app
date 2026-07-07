@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { useOutfitStore } from '../src/store';
 import { GridBackground } from '../components/GridBackground';
 
@@ -10,6 +10,7 @@ const { width } = Dimensions.get('window');
 export default function HomeScreen() {
   const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
+  const isPremium = useOutfitStore((state) => state.isPremium);
   const collections = useOutfitStore((state) => state.collections);
   const addCollection = useOutfitStore((state) => state.addCollection);
   const assignItemToCollection = useOutfitStore((state) => state.assignItemToCollection);
@@ -28,6 +29,14 @@ export default function HomeScreen() {
 
   const handleCreateCollection = () => {
     if (!newCollectionName.trim()) return;
+
+    // Check limit
+    if (!isPremium && collections.length >= 5) { // 4 defaults + 1 custom
+      setModalVisible(false);
+      router.push('/paywall');
+      return;
+    }
+
     addCollection(newCollectionName.trim());
     setNewCollectionName('');
     setModalVisible(false);
@@ -91,28 +100,32 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <GridBackground />
+      <View style={StyleSheet.absoluteFillObject} pointerEvents="none"><GridBackground /></View>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <Text style={styles.title}>OUTFIT SWIPER</Text>
           <View style={styles.headerRight}>
-             <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/macro-settings')}>
-              <Ionicons name="options-outline" size={24} color="#111827" />
-             </TouchableOpacity>
+             <Link href="/macro-settings" asChild>
+               <TouchableOpacity style={styles.iconButton}>
+                <Ionicons name="options-outline" size={24} color="#111827" />
+               </TouchableOpacity>
+             </Link>
           </View>
         </View>
 
         <View style={styles.heroSection}>
-          <TouchableOpacity style={styles.swipeHeroButton} onPress={() => router.push('/swipe')}>
-            <View style={styles.heroContent}>
-              <Ionicons name="layers" size={28} color="#FFFFFF" style={styles.heroIcon} />
-              <View>
-                <Text style={styles.swipeHeroText}>SWIPE TO DECIDE</Text>
-                <Text style={styles.swipeHeroSub}>今日のセットアップを決める</Text>
+          <Link href="/swipe" asChild>
+            <TouchableOpacity style={styles.swipeHeroButton}>
+              <View style={styles.heroContent}>
+                <Ionicons name="layers" size={28} color="#FFFFFF" style={styles.heroIcon} />
+                <View>
+                  <Text style={styles.swipeHeroText}>SWIPE TO DECIDE</Text>
+                  <Text style={styles.swipeHeroSub}>今日のセットアップを決める</Text>
+                </View>
               </View>
-            </View>
-            <Ionicons name="arrow-forward" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
+              <Ionicons name="arrow-forward" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+          </Link>
         </View>
 
         <View style={styles.tabsWrapper}>
@@ -134,7 +147,13 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.addTabBtn} onPress={() => {
+                if (!isPremium && collections.length >= 5) {
+                    router.push('/paywall');
+                } else {
+                    setModalVisible(true);
+                }
+            }}>
               <Ionicons name="add" size={20} color="#111827" />
             </TouchableOpacity>
           </ScrollView>
@@ -149,9 +168,11 @@ export default function HomeScreen() {
 
         <View style={styles.listContainer}>
           {activeTabId === 'all' && (
-            <TouchableOpacity style={styles.addButton} onPress={() => router.push('/add-item')}>
-              <Text style={styles.addButtonText}>+ NEW ITEM</Text>
-            </TouchableOpacity>
+            <Link href="/add-item" asChild>
+              <TouchableOpacity style={styles.addButton}>
+                <Text style={styles.addButtonText}>+ NEW ITEM</Text>
+              </TouchableOpacity>
+            </Link>
           )}
 
           <FlatList
@@ -224,7 +245,7 @@ const styles = StyleSheet.create({
   addButtonText: { color: '#111827', fontWeight: '900', fontSize: 16 },
 
   row: { justifyContent: 'space-between', marginBottom: 15 },
-  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 10, borderWidth: 2, borderColor: '#F3F4F6' },
+  itemCard: { width: (width - 48 - 15) / 2, backgroundColor: '#FFFFFF', borderRadius: 16, padding: 10, borderWidth: 2, borderColor: '#F3F4F6', zIndex: 1 },
   itemCardSelected: { borderColor: '#111827', backgroundColor: '#F9FAFB' },
   itemImage: { width: '100%', height: 120, borderRadius: 8, resizeMode: 'cover' },
   placeholderImage: { width: '100%', height: 120, borderRadius: 8, backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#E5E7EB' },

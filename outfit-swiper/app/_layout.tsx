@@ -7,7 +7,7 @@ import { AnimatedTabBar } from '../components/AnimatedTabBar';
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <GridBackground />
+      <View style={StyleSheet.absoluteFillObject} pointerEvents="none"><GridBackground /></View>
       <Stack
         screenOptions={{
           contentStyle: { backgroundColor: 'transparent' },
@@ -28,6 +28,7 @@ export default function Layout() {
         <Stack.Screen name="explore" options={{ title: 'みんなのコーデ' }} />
         <Stack.Screen name="final-confirmation" options={{ title: '最終確認' }} />
         <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="calendar" options={{ title: '履歴' }} />
       </Stack>
       <AnimatedTabBar />
     </GestureHandlerRootView>

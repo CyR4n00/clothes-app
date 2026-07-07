@@ -9,7 +9,7 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter, usePathname } from 'expo-router';
+import { useRouter, usePathname, Link } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 const TAB_BAR_WIDTH = width - 48; // Align with the 24px left/right margins
@@ -62,21 +62,21 @@ export const AnimatedTabBar = () => {
         {TABS.map((tab, index) => {
           const isActive = pathname === tab.route;
           return (
-            <TouchableOpacity
-              key={tab.route}
-              style={styles.tabButton}
-              onPress={() => router.push(tab.route as any)}
-            >
-              <Ionicons
-                name={tab.icon as any}
-                size={24}
-                color={isActive ? '#111827' : '#888888'} // Black icon when active (on white circle)
-                style={[
-                   styles.icon,
-                   isActive && styles.activeIcon
-                ]}
-              />
-            </TouchableOpacity>
+            <Link key={tab.route} href={tab.route as any} asChild>
+              <TouchableOpacity
+                style={styles.tabButton}
+              >
+                <Ionicons
+                  name={tab.icon as any}
+                  size={24}
+                  color={isActive ? '#111827' : '#888888'} // Black icon when active (on white circle)
+                  style={[
+                     styles.icon,
+                     isActive && styles.activeIcon
+                  ]}
+                />
+              </TouchableOpacity>
+            </Link>
           );
         })}
       </View>
