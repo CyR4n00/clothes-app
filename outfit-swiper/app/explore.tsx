@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,7 +20,8 @@ export default function ExploreScreen() {
   const router = useRouter();
   const addClothingItem = useOutfitStore(state => state.addClothingItem);
 
-  const handleAddToCloset = (item: any) => {
+  // ⚡ Bolt: Optimize handle callback by memoizing it
+  const handleAddToCloset = useCallback((item: any) => {
     addClothingItem({
       name: item.name,
       part: item.part,
@@ -28,9 +29,10 @@ export default function ExploreScreen() {
       tags: item.tags
     });
     alert(`${item.name}をクローゼットに追加しました！`);
-  };
+  }, [addClothingItem]);
 
-  const renderOutfit = ({ item }: { item: any }) => (
+  // ⚡ Bolt: Optimize FlatList rendering by wrapping renderItem in useCallback to prevent unnecessary recreation on every render.
+  const renderOutfit = useCallback(({ item }: { item: any }) => (
     <View style={styles.card}>
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
 
@@ -56,7 +58,7 @@ export default function ExploreScreen() {
         ))}
       </View>
     </View>
-  );
+  ), [handleAddToCloset]);
 
   return (
     <View style={styles.container}>
