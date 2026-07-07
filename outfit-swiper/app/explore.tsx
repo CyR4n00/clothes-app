@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useOutfitStore } from '../src/store';
@@ -27,7 +27,7 @@ export default function ExploreScreen() {
       imageUrl: item.imageUrl,
       tags: item.tags
     });
-    alert(`${item.name}をクローゼットに追加しました！`);
+    Alert.alert('通知', `${item.name}をクローゼットに追加しました！`);
   };
 
   const renderOutfit = ({ item }: { item: any }) => (
