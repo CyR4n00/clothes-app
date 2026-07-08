@@ -10,7 +10,6 @@ const { width } = Dimensions.get('window');
 export default function HomeScreen() {
   const router = useRouter();
   const clothes = useOutfitStore((state) => state.clothes);
-  const isPremium = useOutfitStore((state) => state.isPremium);
   const collections = useOutfitStore((state) => state.collections);
   const addCollection = useOutfitStore((state) => state.addCollection);
   const assignItemToCollection = useOutfitStore((state) => state.assignItemToCollection);
@@ -29,14 +28,6 @@ export default function HomeScreen() {
 
   const handleCreateCollection = () => {
     if (!newCollectionName.trim()) return;
-
-    // Check limit
-    if (!isPremium && collections.length >= 5) { // 4 defaults + 1 custom
-      setModalVisible(false);
-      router.push('/paywall');
-      return;
-    }
-
     addCollection(newCollectionName.trim());
     setNewCollectionName('');
     setModalVisible(false);
@@ -144,13 +135,7 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity style={styles.addTabBtn} onPress={() => {
-                if (!isPremium && collections.length >= 5) {
-                    router.push('/paywall');
-                } else {
-                    setModalVisible(true);
-                }
-            }}>
+            <TouchableOpacity style={styles.addTabBtn} onPress={() => setModalVisible(true)}>
               <Ionicons name="add" size={20} color="#111827" />
             </TouchableOpacity>
           </ScrollView>

@@ -14,12 +14,7 @@ export default function SwipeScreen() {
   const { clothes, collections, macroOrder, currentOutfit, setOutfitItem } = useOutfitStore();
 
   const [collectionModalVisible, setCollectionModalVisible] = useState(true);
-  const [tagModalVisible, setTagModalVisible] = useState(false);
   const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
-  const [availableTags, setAvailableTags] = useState<string[]>([]);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-
-  const isPremium = useOutfitStore((state) => state.isPremium);
 
   const [currentMacroIndex, setCurrentMacroIndex] = useState(0);
   const [currentCards, setCurrentCards] = useState<ClothingItem[]>([]);
@@ -27,7 +22,7 @@ export default function SwipeScreen() {
   const position = useRef(new Animated.ValueXY()).current;
 
   useEffect(() => {
-    if (collectionModalVisible || tagModalVisible || !selectedCollectionId) return;
+    if (collectionModalVisible || !selectedCollectionId) return;
 
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
@@ -40,39 +35,16 @@ export default function SwipeScreen() {
         if (col) collectionItemIds = col.itemIds;
       }
 
-      let itemsForPart = clothes.filter(c =>
+      const itemsForPart = clothes.filter(c =>
         c.part === currentPart && collectionItemIds.includes(c.id)
       );
-
-      if (selectedTag) {
-          itemsForPart = itemsForPart.filter(c => c.tags && c.tags.includes(selectedTag));
-      }
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
     } else {
       router.replace('/final-confirmation');
     }
-  }, [currentMacroIndex, macroOrder, collections, clothes, router, collectionModalVisible, tagModalVisible, selectedCollectionId, selectedTag]);
-
-  const handleCollectionSelect = (id: string) => {
-      setSelectedCollectionId(id);
-      setCollectionModalVisible(false);
-
-      // Collect tags from items in the selected collection
-      let itemIds = id === 'all' ? clothes.map(c => c.id) : (collections.find(c => c.id === id)?.itemIds || []);
-      let tags = new Set<string>();
-      clothes.forEach(c => {
-          if (itemIds.includes(c.id) && c.tags) {
-              c.tags.forEach(t => tags.add(t));
-          }
-      });
-
-      if (tags.size > 0 && isPremium) {
-          setAvailableTags(Array.from(tags));
-          setTagModalVisible(true);
-      }
-  };
+  }, [currentMacroIndex, macroOrder, collections, clothes, router, collectionModalVisible, selectedCollectionId]);
 
   const currentPartName = macroOrder[currentMacroIndex];
 
@@ -219,7 +191,7 @@ export default function SwipeScreen() {
               <ScrollView style={{ maxHeight: 300 }}>
                 <TouchableOpacity
                   style={styles.modalColBtn}
-                  onPress={() => handleCollectionSelect('all')}
+                  onPress={() => { setSelectedCollectionId('all'); setCollectionModalVisible(false); }}
                 >
                   <Text style={styles.modalColText}>ALL CLOTHES</Text>
                 </TouchableOpacity>
@@ -227,7 +199,7 @@ export default function SwipeScreen() {
                   <TouchableOpacity
                     key={col.id}
                     style={styles.modalColBtn}
-                    onPress={() => handleCollectionSelect(col.id)}
+                    onPress={() => { setSelectedCollectionId(col.id); setCollectionModalVisible(false); }}
                   >
                     <Text style={styles.modalColText}>{col.name}</Text>
                   </TouchableOpacity>
@@ -240,35 +212,7 @@ export default function SwipeScreen() {
           </View>
         </Modal>
 
-        <Modal visible={tagModalVisible} transparent={true} animationType="fade">
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>FILTER BY TAG (OPTIONAL)</Text>
-              <ScrollView style={{ maxHeight: 300 }}>
-                <TouchableOpacity
-                  style={styles.modalColBtn}
-                  onPress={() => { setSelectedTag(null); setTagModalVisible(false); }}
-                >
-                  <Text style={styles.modalColText}>NO FILTER</Text>
-                </TouchableOpacity>
-                {availableTags.map(tag => (
-                  <TouchableOpacity
-                    key={tag}
-                    style={styles.modalColBtn}
-                    onPress={() => { setSelectedTag(tag); setTagModalVisible(false); }}
-                  >
-                    <Text style={styles.modalColText}>#{tag}</Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-              <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setTagModalVisible(false)}>
-                <Text style={styles.modalCancelText}>SKIP</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-
-        {!collectionModalVisible && !tagModalVisible && (
+        {!collectionModalVisible && (
           <>
             <View style={styles.header}>
               <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>

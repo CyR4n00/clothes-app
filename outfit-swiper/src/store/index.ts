@@ -9,8 +9,6 @@ interface OutfitState {
   collections: Collection[];
   macroOrder: Part[];
   currentOutfit: Outfit;
-  isPremium: boolean;
-  history: Record<string, Outfit>;
 
   // Actions
   addClothingItem: (item: Omit<ClothingItem, 'id'>) => void;
@@ -28,8 +26,6 @@ interface OutfitState {
 
   addMockData: () => void;
   clearAll: () => void;
-  setPremium: (status: boolean) => void;
-  saveOutfitToHistory: (date: string, outfit: Outfit) => void;
 }
 
 const defaultCollections: Collection[] = [
@@ -46,8 +42,6 @@ export const useOutfitStore = create<OutfitState>()(
       collections: defaultCollections,
       macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー'],
       currentOutfit: {},
-      isPremium: false,
-      history: {},
 
       addClothingItem: (item) =>
         set((state) => ({
@@ -124,8 +118,6 @@ export const useOutfitStore = create<OutfitState>()(
         });
       },
 
-      setPremium: (status) => set({ isPremium: status }),
-      saveOutfitToHistory: (date, outfit) => set((state) => ({ history: { ...state.history, [date]: outfit } })),
       clearAll: () => set({
         clothes: [],
         currentOutfit: {},
