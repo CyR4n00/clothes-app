@@ -63,7 +63,12 @@ export default function AddItemScreen() {
       <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={styles.backButton}
+            accessibilityRole="button"
+            accessibilityLabel="戻る"
+          >
             <Ionicons name="arrow-back" size={24} color="#111827" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>ADD ITEM</Text>
