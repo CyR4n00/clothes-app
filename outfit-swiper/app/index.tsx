@@ -173,6 +173,7 @@ export default function HomeScreen() {
               <TextInput
                 style={styles.modalInput}
                 placeholder="例: デート用, 宴会用"
+                maxLength={30}
                 placeholderTextColor="#9CA3AF"
                 value={newCollectionName}
                 onChangeText={setNewCollectionName}
