@@ -87,6 +87,7 @@ export default function AddItemScreen() {
             <TextInput
               style={styles.input}
               placeholder="例: 黒のダウンジャケット"
+              maxLength={50}
               placeholderTextColor="#9CA3AF"
               value={name}
               onChangeText={setName}
@@ -115,6 +116,7 @@ export default function AddItemScreen() {
             <TextInput
               style={styles.input}
               placeholder="例: 防寒, お気に入り"
+              maxLength={100}
               placeholderTextColor="#9CA3AF"
               value={tagsInput}
               onChangeText={setTagsInput}
