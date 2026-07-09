@@ -35,8 +35,11 @@ export default function SwipeScreen() {
         if (col) collectionItemIds = col.itemIds;
       }
 
+      // Optimization: Use Set for O(1) lookups instead of O(N) array.includes inside filter
+      const collectionItemIdsSet = new Set(collectionItemIds);
+
       const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
+        c.part === currentPart && collectionItemIdsSet.has(c.id)
       );
 
       setCurrentCards(itemsForPart);
