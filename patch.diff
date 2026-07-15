@@ -1,0 +1,36 @@
+--- ./outfit-swiper/app/explore.tsx
++++ ./outfit-swiper/app/explore.tsx
+@@ -7,6 +7,16 @@
+
+ const { width } = Dimensions.get('window');
+
++type ExploreItem = {
++  id: string;
++  name: string;
++  part: Part;
++  user: string;
++  tags: string[];
++  imageUrl: string;
++};
++
++
+ // 類似の服のモックデータ
+ const dummySimilarClothes = [
+   { id: 'sim1', name: 'オーバーサイズデニムJKT', part: 'アウター' as Part, user: 'StreetWearFan', tags: ['春', 'ストリート'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Denim+Jacket' },
+@@ -19,7 +29,7 @@
+   const router = useRouter();
+   const addClothingItem = useOutfitStore(state => state.addClothingItem);
+
+-  const handleAddToCloset = (item: any) => {
++  const handleAddToCloset = (item: ExploreItem) => {
+     addClothingItem({
+       name: item.name,
+       part: item.part,
+@@ -30,7 +40,7 @@
+     Alert.alert('通知', `${item.name}をクローゼットに追加しました！`);
+   };
+
+-  const renderOutfit = ({ item }: { item: any }) => (
++  const renderOutfit = ({ item }: { item: ExploreItem }) => (
+     <View style={styles.card}>
+       <Image source={{ uri: item.imageUrl }} style={styles.image} />
