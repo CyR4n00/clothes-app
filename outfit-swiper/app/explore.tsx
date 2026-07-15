@@ -8,26 +8,19 @@ import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
 
-// 類似の服のモックデータ
+// みんなのコーデのモックデータ (全体イメージ)
 const dummySimilarClothes = [
-  { id: 'sim1', name: 'オーバーサイズデニムJKT', part: 'アウター' as Part, user: 'StreetWearFan', tags: ['春', 'ストリート'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Denim+Jacket' },
-  { id: 'sim2', name: 'ワイド黒スラックス', part: 'パンツ' as Part, user: 'MinimalistGuru', tags: ['モード', '着回し'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Black+Slacks' },
-  { id: 'sim3', name: 'ロゴ白Tシャツ', part: 'トップス' as Part, user: 'CasualBoy', tags: ['夏', 'カジュアル'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=White+Tee' },
-  { id: 'sim4', name: 'レザーローファー', part: 'シューズ' as Part, user: 'CityBoy', tags: ['フォーマル', 'デート'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Loafers' },
+  { id: 'sim1', name: '春のストリートコーデ', user: 'StreetWearFan', tags: ['春', 'ストリート', 'デニム'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Street+Style' },
+  { id: 'sim2', name: 'モノトーンモード', user: 'MinimalistGuru', tags: ['モード', 'モノトーン', '着回し'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Monochrome' },
+  { id: 'sim3', name: '夏のシンプルカジュアル', user: 'CasualBoy', tags: ['夏', 'カジュアル', 'Tシャツ'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Casual' },
+  { id: 'sim4', name: '大人デートスタイル', user: 'CityBoy', tags: ['フォーマル', 'デート', '革靴'], imageUrl: 'https://via.placeholder.com/400x500/F3F4F6/111827?text=Date+Night' },
 ];
 
 export default function ExploreScreen() {
   const router = useRouter();
-  const addClothingItem = useOutfitStore(state => state.addClothingItem);
 
-  const handleAddToCloset = (item: any) => {
-    addClothingItem({
-      name: item.name,
-      part: item.part,
-      imageUrl: item.imageUrl,
-      tags: item.tags
-    });
-    Alert.alert('通知', `${item.name}をクローゼットに追加しました！`);
+  const handleLike = (item: any) => {
+    Alert.alert('通知', 'いいねしました！');
   };
 
   const renderOutfit = ({ item }: { item: any }) => (
@@ -40,11 +33,10 @@ export default function ExploreScreen() {
           <Text style={styles.username}>found by @{item.user}</Text>
         </View>
         <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => handleAddToCloset(item)}
+          style={styles.likeButton}
+          onPress={() => handleLike(item)}
         >
-          <Ionicons name="add" size={24} color="#FFFFFF" />
-          <Text style={styles.addButtonText}>ADD TO CLOSET</Text>
+          <Ionicons name="heart-outline" size={28} color="#111827" />
         </TouchableOpacity>
       </View>
 
@@ -132,6 +124,5 @@ const styles = StyleSheet.create({
   unlockButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 16 },
 
   itemName: { color: '#111827', fontWeight: '900', fontSize: 18, marginBottom: 4 },
-  addButton: { backgroundColor: '#111827', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15, paddingVertical: 8, borderRadius: 12, gap: 5 },
-  addButtonText: { color: '#FFFFFF', fontWeight: '900', fontSize: 12 }
+  likeButton: { backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center', padding: 8, borderRadius: 20 },
 });

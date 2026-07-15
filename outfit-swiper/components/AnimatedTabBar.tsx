@@ -46,7 +46,7 @@ export const AnimatedTabBar = () => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} pointerEvents="box-none">
       <View style={styles.tabBar}>
 
         {/* Animated Background Cutout / Indicator */}
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 999,
   },
   tabBar: {
     width: TAB_BAR_WIDTH,
