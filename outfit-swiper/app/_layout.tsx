@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { GridBackground } from '../components/GridBackground';
-import { View, StyleSheet } from 'react-native';
 import { AnimatedTabBar } from '../components/AnimatedTabBar';
 
 export default function Layout() {
