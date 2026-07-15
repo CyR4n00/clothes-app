@@ -3,7 +3,6 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, SafeAreaView, Dimensions, ScrollView, Modal, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useOutfitStore } from '../src/store';
-import { GridBackground } from '../components/GridBackground';
 
 const { width } = Dimensions.get('window');
 
@@ -91,7 +90,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <GridBackground />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <Text style={styles.title}>OUTFIT SWIPER</Text>
