@@ -104,17 +104,14 @@ export const useOutfitStore = create<OutfitState>()(
           { id: '3', name: '黒のスラックス', part: 'パンツ', tags: ['仕事用'] },
         ];
         set((state) => {
-          if (state.clothes.length === 0) {
-            return {
-              clothes: mockClothes,
-              collections: state.collections.map(c =>
-                c.id === 'col-winter' ? { ...c, itemIds: ['1', '3'] } :
-                c.id === 'col-summer' ? { ...c, itemIds: ['2'] } : c
-              ),
-              macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー']
-            };
-          }
-          return state;
+          return {
+            clothes: mockClothes,
+            collections: state.collections.map(c =>
+              c.id === 'col-winter' ? { ...c, itemIds: ['1', '3'] } :
+              c.id === 'col-summer' ? { ...c, itemIds: ['2'] } : c
+            ),
+            macroOrder: ['アウター', 'トップス', 'パンツ', 'シューズ', 'アクセサリー']
+          };
         });
       },
 
