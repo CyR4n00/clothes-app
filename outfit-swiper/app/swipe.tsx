@@ -27,16 +27,16 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
-      if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
-      } else {
+      // ⚡ Bolt: Replace O(N) array includes with O(1) Set lookup inside filter loop
+      let collectionItemIdsSet: Set<string> | null = null;
+      if (selectedCollectionId !== 'all') {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        if (col) collectionItemIdsSet = new Set(col.itemIds);
+        else collectionItemIdsSet = new Set();
       }
 
       const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
+        c.part === currentPart && (selectedCollectionId === 'all' || (collectionItemIdsSet && collectionItemIdsSet.has(c.id)))
       );
 
       setCurrentCards(itemsForPart);
