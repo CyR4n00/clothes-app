@@ -13,17 +13,12 @@ export default function HomeScreen() {
   const addCollection = useOutfitStore((state) => state.addCollection);
   const assignItemToCollection = useOutfitStore((state) => state.assignItemToCollection);
   const removeItemFromCollection = useOutfitStore((state) => state.removeItemFromCollection);
-  const addMockData = useOutfitStore((state) => state.addMockData);
 
   const [activeTabId, setActiveTabId] = useState('all'); // 'all' or collection id
   const [modalVisible, setModalVisible] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState('');
 
-  useEffect(() => {
-    if (clothes.length === 0) {
-      addMockData();
-    }
-  }, [clothes, addMockData]);
+
 
   const handleCreateCollection = () => {
     if (!newCollectionName.trim()) return;
