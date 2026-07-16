@@ -9,7 +9,8 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter, usePathname } from 'expo-router';
+import { useRouter, usePathname, Link } from 'expo-router';
+import { Platform } from 'react-native';
 
 const { width } = Dimensions.get('window');
 const TAB_BAR_WIDTH = width - 48; // Align with the 24px left/right margins
@@ -61,12 +62,8 @@ export const AnimatedTabBar = () => {
 
         {TABS.map((tab, index) => {
           const isActive = pathname === tab.route;
-          return (
-            <TouchableOpacity
-              key={tab.route}
-              style={styles.tabButton}
-              onPress={() => router.push(tab.route as any)}
-            >
+
+          const content = (
               <Ionicons
                 name={tab.icon as any}
                 size={24}
@@ -76,6 +73,33 @@ export const AnimatedTabBar = () => {
                    isActive && styles.activeIcon
                 ]}
               />
+          );
+
+          if (Platform.OS === 'web') {
+             return (
+               <Link href={tab.route as any} asChild key={tab.route}>
+                 <TouchableOpacity
+                   style={styles.tabButton}
+                   accessibilityRole="tab"
+                   accessibilityLabel={`${tab.route} tab`}
+                   accessibilityState={{ selected: isActive }}
+                 >
+                   {content}
+                 </TouchableOpacity>
+               </Link>
+             )
+          }
+
+          return (
+            <TouchableOpacity
+              key={tab.route}
+              style={styles.tabButton}
+              onPress={() => router.push(tab.route as any)}
+              accessibilityRole="tab"
+              accessibilityLabel={`${tab.route} tab`}
+              accessibilityState={{ selected: isActive }}
+            >
+              {content}
             </TouchableOpacity>
           );
         })}
@@ -91,6 +115,8 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 9999, // Ensure it sits on top for touch events
+    elevation: 9999,
   },
   tabBar: {
     width: TAB_BAR_WIDTH,

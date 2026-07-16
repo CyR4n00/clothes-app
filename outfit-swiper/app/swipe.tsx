@@ -236,6 +236,35 @@ export default function SwipeScreen() {
             <View style={styles.deckContainer}>
               {renderCards()}
             </View>
+
+            {cardIndex < currentCards.length && (
+              <View style={styles.actionButtonsContainer}>
+                <TouchableOpacity
+                  style={[styles.actionButton, styles.nopeButton]}
+                  onPress={() => forceSwipe('left')}
+                  accessibilityRole="button"
+                  accessibilityLabel="NOPE"
+                >
+                  <Ionicons name="close" size={32} color="#EF4444" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.actionButton, styles.holdButton]}
+                  onPress={() => forceSwipe('up')}
+                  accessibilityRole="button"
+                  accessibilityLabel="HOLD"
+                >
+                  <Ionicons name="arrow-up" size={32} color="#F59E0B" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.actionButton, styles.likeButton]}
+                  onPress={() => forceSwipe('right')}
+                  accessibilityRole="button"
+                  accessibilityLabel="LIKE"
+                >
+                  <Ionicons name="heart" size={32} color="#10B981" />
+                </TouchableOpacity>
+              </View>
+            )}
           </>
         )}
       </SafeAreaView>
@@ -278,5 +307,39 @@ const styles = StyleSheet.create({
   noMoreCards: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
   noMoreText: { fontSize: 18, color: '#111827', marginBottom: 20, textAlign: 'center', fontWeight: '900' },
   skipButton: { backgroundColor: '#111827', padding: 15, borderRadius: 15 },
-  skipButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 }
+  skipButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 },
+
+  actionButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    paddingVertical: 20,
+    marginBottom: 20
+  },
+  actionButton: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  nopeButton: {
+    borderColor: '#EF4444',
+  },
+  holdButton: {
+    borderColor: '#F59E0B',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  likeButton: {
+    borderColor: '#10B981',
+  }
 });

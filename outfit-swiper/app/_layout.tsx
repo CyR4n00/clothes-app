@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { GridBackground } from '../components/GridBackground';
 import { AnimatedTabBar } from '../components/AnimatedTabBar';
@@ -7,7 +8,8 @@ export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GridBackground />
-      <Stack
+      <View style={{ flex: 1, zIndex: 1 }}>
+        <Stack
         screenOptions={{
           contentStyle: { backgroundColor: 'transparent' },
           headerStyle: { backgroundColor: 'transparent' },
@@ -28,6 +30,7 @@ export default function Layout() {
         <Stack.Screen name="final-confirmation" options={{ title: '最終確認' }} />
         <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
       </Stack>
+      </View>
       <AnimatedTabBar />
     </GestureHandlerRootView>
   );
