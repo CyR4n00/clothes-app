@@ -16,9 +16,9 @@ const TAB_BAR_WIDTH = width - 48; // Align with the 24px left/right margins
 const TAB_WIDTH = TAB_BAR_WIDTH / 3;
 
 const TABS = [
-  { route: '/', icon: 'shirt-outline', activeColor: '#E0E0E0' },
-  { route: '/swipe', icon: 'layers-outline', activeColor: '#E0E0E0' },
-  { route: '/explore', icon: 'earth-outline', activeColor: '#E0E0E0' },
+  { route: "/", icon: "shirt-outline", activeColor: "#E0E0E0", label: "クローゼット" },
+  { route: "/swipe", icon: "layers-outline", activeColor: "#E0E0E0", label: "今日の服を選ぶ" },
+  { route: "/explore", icon: "earth-outline", activeColor: "#E0E0E0", label: "みんなのコーデ" },
 ];
 
 export const AnimatedTabBar = () => {
@@ -63,6 +63,9 @@ export const AnimatedTabBar = () => {
           const isActive = pathname === tab.route;
           return (
             <TouchableOpacity
+              accessibilityRole="tab"
+              accessibilityState={{ selected: isActive }}
+              accessibilityLabel={tab.label}
               key={tab.route}
               style={styles.tabButton}
               onPress={() => router.push(tab.route as any)}
