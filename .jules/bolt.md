@@ -1,3 +1,6 @@
 ## 2026-06-18 - Optimize FlatList Rendering by reducing O(n) array lookup in render function
 **Learning:** Found a nested array check `.includes` happening during rendering inside a `FlatList` which is \(O(N)\) check resulting in an \(O(N*N)\) operation over the dataset, combined with a `.find` query per item.
 **Action:** Use `useMemo` to compute a Set of active items for an \(O(1)\) check during rendering, and combine with `useCallback` on render functions, to prevent unnecessary re-renders of the lists when unrelated state updates.
+## 2024-07-18 - Optimize nested array loops with Sets during renders
+**Learning:** Found an anti-pattern in `swipe.tsx` where an entire list of objects was being mapped into an array of strings (`clothes.map(c => c.id)`) just to satisfy an `.includes()` check for a generic "all items" state inside a `.filter` block, creating a nested O(N^2) operation during a critical UI derivation hook.
+**Action:** When filtering subsets of lists against ID collections, use a pre-computed `Set` for O(1) lookups (`Set.has()`). Further, if a condition acts as a "select all" wildcard, handle it as an early return `true` instead of forcing the data into an array to be checked against.
