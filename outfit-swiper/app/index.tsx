@@ -118,6 +118,9 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={[styles.tab, activeTabId === 'all' && styles.activeTab]}
               onPress={() => setActiveTabId('all')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: activeTabId === 'all' }}
+              accessibilityLabel="すべて"
             >
               <Text style={[styles.tabText, activeTabId === 'all' && styles.activeTabText]}>ALL</Text>
             </TouchableOpacity>
@@ -127,6 +130,9 @@ export default function HomeScreen() {
                 key={col.id}
                 style={[styles.tab, activeTabId === col.id && styles.activeTab]}
                 onPress={() => setActiveTabId(col.id)}
+                accessibilityRole="tab"
+                accessibilityState={{ selected: activeTabId === col.id }}
+                accessibilityLabel={col.name}
               >
                 <Text style={[styles.tabText, activeTabId === col.id && styles.activeTabText]}>{col.name}</Text>
               </TouchableOpacity>
