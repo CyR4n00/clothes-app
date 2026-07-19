@@ -27,17 +27,17 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
-      if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
-      } else {
+      // ⚡ Bolt: Optimize dataset filtering in swipe screen by avoiding array mapping and nested O(N) array includes
+      let itemsForPart = clothes.filter(c => c.part === currentPart);
+      if (selectedCollectionId !== 'all') {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        if (col) {
+          const collectionSet = new Set(col.itemIds);
+          itemsForPart = itemsForPart.filter(c => collectionSet.has(c.id));
+        } else {
+          itemsForPart = [];
+        }
       }
-
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
