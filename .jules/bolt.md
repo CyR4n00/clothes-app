@@ -1,3 +1,6 @@
 ## 2026-06-18 - Optimize FlatList Rendering by reducing O(n) array lookup in render function
 **Learning:** Found a nested array check `.includes` happening during rendering inside a `FlatList` which is \(O(N)\) check resulting in an \(O(N*N)\) operation over the dataset, combined with a `.find` query per item.
 **Action:** Use `useMemo` to compute a Set of active items for an \(O(1)\) check during rendering, and combine with `useCallback` on render functions, to prevent unnecessary re-renders of the lists when unrelated state updates.
+## 2024-07-24 - [Optimize O(N^2) Array Operations inside useEffect]
+**Learning:** [In `app/swipe.tsx`, the `useEffect` previously used `clothes.map` to gather all IDs into an array and then `clothes.filter` with `collectionItemIds.includes(c.id)`. This created an unnecessary O(N^2) operation, blocking the main thread during render loops. Furthermore, mapping IDs for the 'all' condition is entirely redundant since all items are valid by default.]
+**Action:** [To prevent UI stutters, replace `.includes()` with an O(1) `Set.has()` lookup and skip the redundant 'select all' array generation with early conditional checks. Always verify if a condition is a wildcard that can be skipped before doing O(N) mapping.]
