@@ -27,17 +27,18 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
+      let itemsForPart: ClothingItem[] = [];
+
       if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
+        itemsForPart = clothes.filter(c => c.part === currentPart);
       } else {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
-      }
+        const collectionItemIds = new Set(col?.itemIds || []);
 
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
+        itemsForPart = clothes.filter(c =>
+          c.part === currentPart && collectionItemIds.has(c.id)
+        );
+      }
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
