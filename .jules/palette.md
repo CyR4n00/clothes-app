@@ -1,0 +1,3 @@
+## 2024-07-12 - Accessible Animated Tab Bars in React Native
+**Learning:** Custom implementations of tab bars in React Native (e.g., using `Animated.View` and custom mapping of buttons instead of native `BottomTabBar`) lack built-in accessibility defaults for screen readers. Icon-only tab buttons will be completely silent or read out unhelpful descriptions if unconfigured. Furthermore, state tracking for the screen reader must be manually linked.
+**Action:** Always manually add `accessibilityRole="tab"`, localized `accessibilityLabel`, and `accessibilityState={{ selected: isActive }}` to the custom tab buttons so screen readers can interpret their function and state correctly.
