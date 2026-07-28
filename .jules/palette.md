@@ -1,0 +1,3 @@
+## 2026-07-10 - Custom Tab Navigation Accessibility
+**Learning:** Custom tab implementations in React Native (e.g. mapping `TouchableOpacity` elements) often lack native screen reader defaults. By default, they just read out the text with a "button" role (or none), which is confusing when the context is a tab bar.
+**Action:** Always manually supply `accessibilityRole="tab"`, a proper localized `accessibilityLabel` (e.g. overriding generic labels or variable names), and `accessibilityState={{ selected: isActive }}` to ensure custom tabs behave like native tab navigators for assistive technologies.
