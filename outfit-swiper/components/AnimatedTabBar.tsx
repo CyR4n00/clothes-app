@@ -61,11 +61,21 @@ export const AnimatedTabBar = () => {
 
         {TABS.map((tab, index) => {
           const isActive = pathname === tab.route;
+          const getTabLabel = (route: string) => {
+            if (route === '/') return 'クロゼット';
+            if (route === '/swipe') return 'スワイプ';
+            if (route === '/explore') return '探す';
+            return 'タブ';
+          };
+
           return (
             <TouchableOpacity
               key={tab.route}
               style={styles.tabButton}
               onPress={() => router.push(tab.route as any)}
+              accessibilityRole="tab"
+              accessibilityLabel={getTabLabel(tab.route)}
+              accessibilityState={{ selected: isActive }}
             >
               <Ionicons
                 name={tab.icon as any}
