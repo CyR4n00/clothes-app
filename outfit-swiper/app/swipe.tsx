@@ -27,17 +27,19 @@ export default function SwipeScreen() {
     if (currentMacroIndex < macroOrder.length) {
       const currentPart = macroOrder[currentMacroIndex];
 
-      let collectionItemIds: string[] = [];
-      if (selectedCollectionId === 'all') {
-        collectionItemIds = clothes.map(c => c.id);
-      } else {
+      // Optimization: Avoid redundant array map and O(N) .includes lookup by using Set for O(1) lookup,
+      // and bypassing completely for the 'all' wildcard to prevent blocking the JS thread.
+      let collectionItemIdsSet: Set<string> | null = null;
+      if (selectedCollectionId !== 'all') {
         const col = collections.find(c => c.id === selectedCollectionId);
-        if (col) collectionItemIds = col.itemIds;
+        collectionItemIdsSet = new Set(col ? col.itemIds : []);
       }
 
-      const itemsForPart = clothes.filter(c =>
-        c.part === currentPart && collectionItemIds.includes(c.id)
-      );
+      const itemsForPart = clothes.filter(c => {
+        if (c.part !== currentPart) return false;
+        if (selectedCollectionId === 'all') return true;
+        return collectionItemIdsSet?.has(c.id) ?? false;
+      });
 
       setCurrentCards(itemsForPart);
       setCardIndex(0);
